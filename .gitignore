@@ -2,6 +2,7 @@ Binaries/
 DerivedDataCache/
 Intermediate/
 Saved/
+Code/Content/Resources/
 
 *.sdf
 *.opensdf
