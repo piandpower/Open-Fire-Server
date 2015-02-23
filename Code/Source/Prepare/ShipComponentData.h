@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Engine/DataTable.h"
-#include "ShipComponentDataTable.generated.h"
+#include "ShipComponentData.generated.h"
 
 USTRUCT(BlueprintType)
-struct FShipComponentDataTable : public FTableRowBase
+struct FShipComponentData : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 

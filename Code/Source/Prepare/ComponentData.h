@@ -1,28 +1,31 @@
 #pragma once
 
 #include "Engine/DataTable.h"
-#include "ShipDataTable.generated.h"
+#include "ComponentData.generated.h"
 
 USTRUCT(BlueprintType)
-struct FShipDataTable : public FTableRowBase
+struct FComponentData : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipData)
-	int32 health;
+	FString type;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipData)
-	int32 free_mass;
+	FString weapon_type;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipData)
-	float move_speed;
+	int32 mass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipData)
-	float acceleration;
+	int32 damage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipData)
-	float rotate_speed;
+	float fire_delay;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipData)
-	float strafe_speed;
+	float range;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipData)
+	float bullet_speed;
 };
