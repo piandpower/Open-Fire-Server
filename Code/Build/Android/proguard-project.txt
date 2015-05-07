@@ -79,3 +79,7 @@
 -keep class epicgames.ue4.GooglePlayStoreHelper.** {
 	public *;
 }
+
+-keep class * extends android.media.MediaPlayer {
+    public *;
+}
