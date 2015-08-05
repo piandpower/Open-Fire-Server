@@ -31,6 +31,11 @@ void AAirplane::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FVector NewLocation = GetActorLocation();
+	float DeltaHeight = (FMath::Sin(RunningTime + DeltaTime) - FMath::Sin(RunningTime));
+	NewLocation.Z += DeltaHeight * 100.0f;
+	RunningTime += DeltaTime;
+	SetActorLocation(NewLocation);
 }
 
 // Called to bind functionality to input

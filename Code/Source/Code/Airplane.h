@@ -11,6 +11,8 @@ class CODE_API AAirplane : public APawn
 	GENERATED_BODY()
 
 public:
+	float RunningTime = 0.0f;
+
 	// Sets default values for this pawn's properties
 	AAirplane();
 
