@@ -2,11 +2,9 @@ Binaries/
 DerivedDataCache/
 Intermediate/
 Saved/
-Code/Content/Resources/
 
 Build/
 !Build/**/*.ico
-
 
 *.sdf
 *.opensdf
