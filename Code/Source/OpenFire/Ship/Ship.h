@@ -3,16 +3,16 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
-#include "ShipPart.generated.h"
+#include "Ship.generated.h"
 
 UCLASS()
-class OPENFIRE_API AShipPart : public AActor
+class OPENFIRE_API AShip : public AActor
 {
     GENERATED_BODY()
 
 public:
     // Sets default values for this actor's properties
-    AShipPart();
+    AShip();
 
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
