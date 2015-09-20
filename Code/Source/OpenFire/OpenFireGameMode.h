@@ -6,14 +6,12 @@
 #include "OpenFireGameMode.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class OPENFIRE_API AOpenFireGameMode : public AGameMode
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+    GENERATED_BODY()
+
+    virtual void StartPlay() override;
 };
