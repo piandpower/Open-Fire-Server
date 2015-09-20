@@ -5,6 +5,8 @@
 #include "GameFramework/Actor.h"
 #include "Ship.generated.h"
 
+class AShipPart;
+
 UCLASS()
 class OPENFIRE_API AShip : public AActor
 {
@@ -20,6 +22,12 @@ public:
     // Called every frame
     virtual void Tick(float DeltaSeconds) override;
 
+    void AttachPart(AShipPart* pAShipPart, FRotator rotation, FVector location);
+
+private:
+    TArray<AShipPart*> ShipParts;
+
+public:
     float Hp        = 0.0f;
     float Force     = 0.0f;
     float Torque    = 0.0f;
