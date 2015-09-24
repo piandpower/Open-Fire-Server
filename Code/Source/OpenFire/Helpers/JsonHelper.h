@@ -8,9 +8,9 @@
 class OPENFIRE_API JsonHelper
 {
 public:
-    static TSharedPtr<FJsonObject> GetJsonObject(const FString& FilePath);
+    static TSharedPtr<FJsonObject> LoadJsonObject(const FString& FilePath);
 
-    static FVector GetVector(FJsonObject Object);
+    static FVector GetVector(const TSharedPtr<FJsonObject>& JsonObject);
 
-    static FRotator GetRotator(FJsonObject Object);
+    static FRotator GetRotator(const TSharedPtr<FJsonObject>& JsonObject);
 };

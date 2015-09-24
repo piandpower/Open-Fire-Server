@@ -3,7 +3,7 @@
 #include "OpenFire.h"
 #include "JsonHelper.h"
 
-TSharedPtr<FJsonObject> JsonHelper::GetJsonObject(const FString& FilePath)
+TSharedPtr<FJsonObject> JsonHelper::LoadJsonObject(const FString& FilePath)
 {
     FString FullFilePath = FPaths::GameContentDir() + FilePath;
 
@@ -18,20 +18,20 @@ TSharedPtr<FJsonObject> JsonHelper::GetJsonObject(const FString& FilePath)
     return JsonObject;
 }
 
-FVector JsonHelper::GetVector(FJsonObject Object)
+FVector JsonHelper::GetVector(const TSharedPtr<FJsonObject>& JsonObject)
 {
     double X, Y, Z;
-    check(Object.TryGetNumberField("X", X));
-    check(Object.TryGetNumberField("Y", Y));
-    check(Object.TryGetNumberField("Z", Z));
+    check(JsonObject->TryGetNumberField("X", X));
+    check(JsonObject->TryGetNumberField("Y", Y));
+    check(JsonObject->TryGetNumberField("Z", Z));
     return FVector(static_cast<float>(X), static_cast<float>(Y), static_cast<float>(Z));
 }
 
-FRotator JsonHelper::GetRotator(FJsonObject Object)
+FRotator JsonHelper::GetRotator(const TSharedPtr<FJsonObject>& JsonObject)
 {
     double Pitch, Yaw, Roll;
-    check(Object.TryGetNumberField("Y", Pitch));
-    check(Object.TryGetNumberField("Z", Yaw));
-    check(Object.TryGetNumberField("X", Roll));
+    check(JsonObject->TryGetNumberField("Pitch", Pitch));
+    check(JsonObject->TryGetNumberField("Yaw", Yaw));
+    check(JsonObject->TryGetNumberField("Roll", Roll));
     return FRotator(static_cast<float>(Pitch), static_cast<float>(Yaw), static_cast<float>(Roll));
 }
