@@ -4,6 +4,12 @@
 #include "OpenFireGameMode.h"
 #include "Helpers/JsonHelper.h"
 #include "Helpers/ShipHelper.h"
+#include "OpenFirePawn.h"
+
+AOpenFireGameMode::AOpenFireGameMode()
+{
+    DefaultPawnClass = AOpenFirePawn::StaticClass();
+}
 
 void AOpenFireGameMode::StartPlay()
 {

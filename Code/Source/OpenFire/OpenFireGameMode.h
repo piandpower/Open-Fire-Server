@@ -13,5 +13,7 @@ class OPENFIRE_API AOpenFireGameMode : public AGameMode
 {
     GENERATED_BODY()
 
+    AOpenFireGameMode();
+
     virtual void StartPlay() override;
 };
