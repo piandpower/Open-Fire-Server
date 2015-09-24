@@ -11,13 +11,16 @@ AShip::AShip()
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
 
+    UArrowComponent* pArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("UArrowComponent"));
+    pArrow->AttachTo(RootComponent);
+
     UStaticMeshComponent* pUStaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UStaticMeshComponent"));
-    pUStaticMeshComponent->AttachTo(RootComponent);
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Engine/BasicShapes/Cube"));
-    if (SphereVisualAsset.Succeeded())
+    pUStaticMeshComponent->AttachTo(pArrow);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> VisualAsset(TEXT("/Engine/BasicShapes/Cube"));
+    if (VisualAsset.Succeeded())
     {
-        pUStaticMeshComponent->SetStaticMesh(SphereVisualAsset.Object);
-        pUStaticMeshComponent->SetRelativeScale3D(FVector(3.0f, 3.0f, 1.0f));
+        pUStaticMeshComponent->SetStaticMesh(VisualAsset.Object);
+        pUStaticMeshComponent->SetRelativeScale3D(FVector(1.0f, 1.0f, 0.1f));
     }
 }
 
