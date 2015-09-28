@@ -15,6 +15,8 @@ AOpenFireGameMode::AOpenFireGameMode()
 
 void AOpenFireGameMode::StartPlay()
 {
+    Super::StartPlay();
+
     TSharedPtr<FJsonObject> defaultDataJsonObject = JsonHelper::LoadJsonObject("Datas/DefaultData.json");
 
     const TSharedPtr<FJsonObject>& ShipsJsonObject = defaultDataJsonObject->GetObjectField("Ships");
