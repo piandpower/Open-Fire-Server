@@ -12,12 +12,11 @@ class OPENFIRE_API UTouchMove : public UActorComponent
     GENERATED_BODY()
 
 public:
-    // Sets default values for this component's properties
     UTouchMove();
 
-    // Called when the game starts
     virtual void BeginPlay() override;
 
-    // Called every frame
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+    void InputTouch(uint32 Handle, ETouchType::Type Type, const FVector2D& TouchLocation, FDateTime DeviceTimestamp, uint32 TouchpadIndex);
 };

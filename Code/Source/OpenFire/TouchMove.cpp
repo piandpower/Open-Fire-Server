@@ -3,8 +3,6 @@
 #include "OpenFire.h"
 #include "TouchMove.h"
 
-
-// Sets default values for this component's properties
 UTouchMove::UTouchMove()
 {
     // Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
@@ -13,18 +11,38 @@ UTouchMove::UTouchMove()
     PrimaryComponentTick.bCanEverTick = true;
 }
 
-
-// Called when the game starts
 void UTouchMove::BeginPlay()
 {
     Super::BeginPlay();
+
+    GetOwner();
 }
 
-
-// Called every frame
 void UTouchMove::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+}
 
-    UE_LOG(LogTemp, Warning, TEXT("TouchMove working!!"));
+void UTouchMove::InputTouch(uint32 Handle, ETouchType::Type Type, const FVector2D& TouchLocation, FDateTime DeviceTimestamp, uint32 TouchpadIndex)
+{
+    switch (Type)
+    {
+        case ETouchType::Began:
+            UE_LOG(LogTemp, Warning, TEXT("TouchMove Began: %d"), TouchpadIndex);
+            break;
+        case ETouchType::Moved:
+            UE_LOG(LogTemp, Warning, TEXT("TouchMove Moved"));
+            break;
+        case ETouchType::Stationary:
+            UE_LOG(LogTemp, Warning, TEXT("TouchMove Stationary"));
+            break;
+        case ETouchType::Ended:
+            UE_LOG(LogTemp, Warning, TEXT("TouchMove Ended"));
+            break;
+        case ETouchType::NumTypes:
+            UE_LOG(LogTemp, Warning, TEXT("TouchMove NumTypes"));
+            break;
+        default:
+            break;
+    }
 }
