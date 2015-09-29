@@ -2,8 +2,6 @@
 
 #include "OpenFire.h"
 #include "OpenFirePawn.h"
-#include "TouchMove.h"
-
 
 // Sets default values
 AOpenFirePawn::AOpenFirePawn()
@@ -16,9 +14,6 @@ AOpenFirePawn::AOpenFirePawn()
 void AOpenFirePawn::BeginPlay()
 {
     Super::BeginPlay();
-
-    UTouchMove* pTouchMove = NewObject<UTouchMove>(this);
-    pTouchMove->RegisterComponent();
 }
 
 // Called every frame
