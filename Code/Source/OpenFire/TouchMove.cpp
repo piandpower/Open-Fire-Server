@@ -14,8 +14,6 @@ UTouchMove::UTouchMove()
 void UTouchMove::BeginPlay()
 {
     Super::BeginPlay();
-
-    GetOwner();
 }
 
 void UTouchMove::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -23,26 +21,34 @@ void UTouchMove::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UTouchMove::InputTouch(uint32 Handle, ETouchType::Type Type, const FVector2D& TouchLocation, FDateTime DeviceTimestamp, uint32 TouchpadIndex)
+void UTouchMove::InputTouch(AActor* pTargetActor, uint32 Handle, ETouchType::Type Type, const FVector2D& TouchLocation, FDateTime DeviceTimestamp, uint32 TouchpadIndex)
 {
-    switch (Type)
+    if (TouchpadIndex == 0)
     {
-        case ETouchType::Began:
-            UE_LOG(LogTemp, Warning, TEXT("TouchMove Began: %d"), TouchpadIndex);
-            break;
-        case ETouchType::Moved:
-            UE_LOG(LogTemp, Warning, TEXT("TouchMove Moved"));
-            break;
-        case ETouchType::Stationary:
-            UE_LOG(LogTemp, Warning, TEXT("TouchMove Stationary"));
-            break;
-        case ETouchType::Ended:
-            UE_LOG(LogTemp, Warning, TEXT("TouchMove Ended"));
-            break;
-        case ETouchType::NumTypes:
-            UE_LOG(LogTemp, Warning, TEXT("TouchMove NumTypes"));
-            break;
-        default:
-            break;
+        switch (Type)
+        {
+            case ETouchType::Began:
+                UE_LOG(LogTemp, Warning, TEXT("TouchMove Began"));
+                TargetStartLocation = pTargetActor->GetActorLocation();
+                TouchStartLocation = TouchLocation;
+                break;
+
+            case ETouchType::Moved:
+            {
+                auto CurrentLocation = TouchLocation - TouchStartLocation;
+                auto TargetCurrentLocatopn = TargetStartLocation;
+                TargetCurrentLocatopn.X += CurrentLocation.Y;
+                TargetCurrentLocatopn.Y -= CurrentLocation.X;
+                pTargetActor->SetActorLocation(TargetCurrentLocatopn);
+                UE_LOG(LogTemp, Warning, TEXT("TouchMove Moved %f, %f"), CurrentLocation.X, CurrentLocation.Y);
+            }   break;
+
+            case ETouchType::Ended:
+                UE_LOG(LogTemp, Warning, TEXT("TouchMove Ended"));
+                break;
+
+            default:
+                break;
+        }
     }
 }

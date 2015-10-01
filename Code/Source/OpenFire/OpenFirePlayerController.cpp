@@ -21,7 +21,7 @@ bool AOpenFirePlayerController::InputTouch(uint32 Handle, ETouchType::Type Type,
 {
     bool bResult = Super::InputTouch(Handle, Type, TouchLocation, DeviceTimestamp, TouchpadIndex);
 
-    pTouchMove->InputTouch(Handle, Type, TouchLocation, DeviceTimestamp, TouchpadIndex);
+    pTouchMove->InputTouch(GetControlledPawn(), Handle, Type, TouchLocation, DeviceTimestamp, TouchpadIndex);
 
     return bResult;
 }
