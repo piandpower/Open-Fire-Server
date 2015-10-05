@@ -6,6 +6,7 @@
 #include "Ship.generated.h"
 
 class AShipPart;
+class UShipMount;
 
 UCLASS()
 class OPENFIRE_API AShip : public AActor
@@ -27,7 +28,6 @@ public:
 private:
     TArray<AShipPart*> ShipParts;
 
-public:
     float Hp        = 0.0f;
     float Force     = 0.0f;
     float Torque    = 0.0f;

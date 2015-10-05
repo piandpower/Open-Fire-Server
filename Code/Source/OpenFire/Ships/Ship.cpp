@@ -13,15 +13,6 @@ AShip::AShip()
 
     UArrowComponent* pArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("UArrowComponent"));
     pArrow->AttachTo(RootComponent);
-
-    UStaticMeshComponent* pUStaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UStaticMeshComponent"));
-    pUStaticMeshComponent->AttachTo(pArrow);
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> VisualAsset(TEXT("/Engine/BasicShapes/Cube"));
-    if (VisualAsset.Succeeded())
-    {
-        pUStaticMeshComponent->SetStaticMesh(VisualAsset.Object);
-        pUStaticMeshComponent->SetRelativeScale3D(FVector(1.0f, 1.0f, 0.1f));
-    }
 }
 
 // Called when the game starts or when spawned
