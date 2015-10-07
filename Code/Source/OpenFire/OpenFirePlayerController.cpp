@@ -2,7 +2,7 @@
 
 #include "OpenFire.h"
 #include "OpenFirePlayerController.h"
-#include "TouchMove.h"
+#include "Utils/TouchMove.h"
 
 void AOpenFirePlayerController::BeginPlay()
 {
