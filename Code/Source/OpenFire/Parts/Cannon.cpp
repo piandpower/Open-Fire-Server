@@ -6,17 +6,20 @@
 
 void ACannon::Tick(float DeltaSeconds)
 {
-    Super::Tick(DeltaSeconds);
+	Super::Tick(DeltaSeconds);
 
-    ReloadTime += DeltaSeconds;
-    if (ReloadTime >= FireDelay)
-    {
-        ReloadTime -= FireDelay;
-        Fire();
-    }
+	ReloadTime += DeltaSeconds;
+	if (ReloadTime >= FireDelay)
+	{
+		ReloadTime -= FireDelay;
+		Fire();
+	}
 }
 
 void ACannon::Fire()
 {
-    ABullet* pBullet = GetWorld()->SpawnActor<ABullet>(GetActorLocation(), GetActorRotation());
+	FRotator ActorRotation = GetActorRotation();
+
+	ABullet* Bullet = GetWorld()->SpawnActor<ABullet>(GetActorLocation() + (ActorRotation.Vector() * 100.0f), ActorRotation);
+	Bullet->AddImpulse(InitialVelocity);
 }

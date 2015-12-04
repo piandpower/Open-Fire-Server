@@ -11,15 +11,18 @@
 UCLASS()
 class OPENFIRE_API ACannon : public AShipPart
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 
 public:
-    virtual void Tick(float DeltaSeconds) override;
+	virtual void Tick(float DeltaSeconds) override;
 
 private:
-    void Fire();
+	void Fire();
 
 private:
-    float FireDelay = 5.0f;
-    float ReloadTime = 0.0f;
+	UPROPERTY(EditAnywhere)
+	FVector InitialVelocity = FVector(300000.f, 0.0f, 50000.0f);
+
+	float FireDelay = 2.0f;
+	float ReloadTime = 0.0f;
 };

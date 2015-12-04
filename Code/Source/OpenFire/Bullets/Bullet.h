@@ -19,4 +19,9 @@ public:
 
     // Called every frame
     virtual void Tick(float DeltaSeconds) override;
+
+    void AddImpulse(const FVector& Impulse);
+
+private:
+    USphereComponent* pUSphereComponent = nullptr;
 };
