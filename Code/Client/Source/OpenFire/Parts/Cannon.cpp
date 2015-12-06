@@ -3,6 +3,12 @@
 #include "OpenFire.h"
 #include "Cannon.h"
 #include "Bullets/Bullet.h"
+#include "Parts/CannonAIController.h"
+
+ACannon::ACannon()
+{
+	AIControllerClass = ACannonAIController::StaticClass();
+}
 
 void ACannon::Tick(float DeltaSeconds)
 {

@@ -6,7 +6,7 @@
 #include "ShipPart.generated.h"
 
 UCLASS()
-class OPENFIRE_API AShipPart : public AActor
+class OPENFIRE_API AShipPart : public APawn
 {
     GENERATED_BODY()
 

@@ -14,6 +14,8 @@ class OPENFIRE_API ACannon : public AShipPart
 	GENERATED_BODY()
 
 public:
+	ACannon();
+
 	virtual void Tick(float DeltaSeconds) override;
 
 private:
