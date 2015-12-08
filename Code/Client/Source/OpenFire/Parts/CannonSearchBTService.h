@@ -2,17 +2,16 @@
 
 #pragma once
 
-#include "BehaviorTree/BehaviorTree.h"
-#include "CannonBehaviorTree.generated.h"
+#include "BehaviorTree/BTService.h"
+#include "CannonSearchBTService.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class OPENFIRE_API UCannonBehaviorTree : public UBehaviorTree
+class OPENFIRE_API UCannonSearchBTService : public UBTService
 {
 	GENERATED_BODY()
-	
 	
 	
 	

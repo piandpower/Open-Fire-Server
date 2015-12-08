@@ -5,23 +5,31 @@
 #include "GameFramework/Actor.h"
 #include "ShipPart.generated.h"
 
+enum class EIFF;
+
 UCLASS()
 class OPENFIRE_API AShipPart : public APawn
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 
 public:
-    // Sets default values for this actor's properties
-    AShipPart();
+	// Sets default values for this actor's properties
+	AShipPart();
 
-    // Called when the game starts or when spawned
-    virtual void BeginPlay() override;
+private:
+	void InitializeDefaults();
 
-    // Called every frame
-    virtual void Tick(float DeltaSeconds) override;
+public:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
-    float Hp        = 0.0f;
-    float Force     = 0.0f;
-    float Torque    = 0.0f;
-    float Mass      = 0.0f;
+	// Called every frame
+	virtual void Tick(float DeltaSeconds) override;
+
+public:
+	float Hp;
+	float Force;
+	float Torque;
+	float Mass;
+	EIFF IFF;
 };

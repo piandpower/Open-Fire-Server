@@ -12,8 +12,6 @@ UCLASS()
 class OPENFIRE_API ACannonAIController : public AAIController
 {
 	GENERATED_BODY()
-	
-	
-	
-	
+
+	virtual void BeginPlay() override;
 };

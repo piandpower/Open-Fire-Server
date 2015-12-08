@@ -1,7 +1,8 @@
 #pragma once
 
-enum class IFF
+enum class EIFF
 {
+	Undefined,
 	Friend,
 	Foe
 };
