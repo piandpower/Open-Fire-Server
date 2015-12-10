@@ -13,6 +13,7 @@ class OPENFIRE_API UCannonSearchBTService : public UBTService
 {
 	GENERATED_BODY()
 	
-	
-	
+	virtual void OnSearchStart(FBehaviorTreeSearchData& SearchData) override;
+
+	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 };
