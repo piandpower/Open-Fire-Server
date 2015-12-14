@@ -32,4 +32,7 @@ public:
 	float Torque;
 	float Mass;
 	EIFF IFF;
+
+protected:
+	UStaticMeshComponent* Body = nullptr;
 };

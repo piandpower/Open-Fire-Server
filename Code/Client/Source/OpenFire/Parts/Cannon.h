@@ -14,12 +14,16 @@ class OPENFIRE_API ACannon : public AShipPart
 	GENERATED_BODY()
 
 public:
+	ACannon();
+
 	virtual void Tick(float DeltaSeconds) override;
 
 private:
 	void Fire();
 
 private:
+	UStaticMeshComponent* Barrel = nullptr;
+
 	UPROPERTY(EditAnywhere)
 	FVector InitialVelocity = FVector(300000.f, 0.0f, 50000.0f);
 

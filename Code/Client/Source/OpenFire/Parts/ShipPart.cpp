@@ -13,12 +13,12 @@ AShipPart::AShipPart()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	UStaticMeshComponent* StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UStaticMeshComponent"));
-	StaticMeshComponent->AttachTo(this->RootComponent);
+	Body = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body"));
+	this->RootComponent = Body;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> VisualAsset(TEXT("/Engine/BasicShapes/Sphere"));
 	if (VisualAsset.Succeeded())
 	{
-		StaticMeshComponent->SetStaticMesh(VisualAsset.Object);
+		Body->SetStaticMesh(VisualAsset.Object);
 	}
 }
 
