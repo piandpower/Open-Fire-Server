@@ -6,27 +6,27 @@
 // Sets default values
 AOpenFirePawn::AOpenFirePawn()
 {
-    // Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-    PrimaryActorTick.bCanEverTick = true;
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 
-    UArrowComponent* pArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("UArrowComponent"));
-    pArrow->AttachTo(RootComponent);
+	UArrowComponent* ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("UArrowComponent"));
+	RootComponent = ArrowComponent;
 }
 
 // Called when the game starts or when spawned
 void AOpenFirePawn::BeginPlay()
 {
-    Super::BeginPlay();
+	Super::BeginPlay();
 }
 
 // Called every frame
 void AOpenFirePawn::Tick(float DeltaTime)
 {
-    Super::Tick(DeltaTime);
+	Super::Tick(DeltaTime);
 }
 
 // Called to bind functionality to input
 void AOpenFirePawn::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
-    Super::SetupPlayerInputComponent(InputComponent);
+	Super::SetupPlayerInputComponent(InputComponent);
 }

@@ -8,20 +8,20 @@
 UCLASS()
 class OPENFIRE_API ABullet : public AActor
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 
 public:
-    // Sets default values for this actor's properties
-    ABullet();
+	// Sets default values for this actor's properties
+	ABullet();
 
-    // Called when the game starts or when spawned
-    virtual void BeginPlay() override;
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
-    // Called every frame
-    virtual void Tick(float DeltaSeconds) override;
+	// Called every frame
+	virtual void Tick(float DeltaSeconds) override;
 
-    void AddImpulse(const FVector& Impulse);
+	void AddImpulse(const FVector& Impulse);
 
 private:
-    USphereComponent* pUSphereComponent = nullptr;
+	USphereComponent* SphereComponent = nullptr;
 };
