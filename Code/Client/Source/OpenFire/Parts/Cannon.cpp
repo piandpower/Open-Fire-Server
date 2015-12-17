@@ -8,13 +8,6 @@ ACannon::ACannon()
 {
 	this->Barrel = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Barrel"));
 	this->Barrel->AttachTo(Body);
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> VisualAsset(TEXT("/Engine/BasicShapes/Cube"));
-	if (VisualAsset.Succeeded())
-	{
-		this->Barrel->SetStaticMesh(VisualAsset.Object);
-		this->Barrel->SetRelativeScale3D(FVector(2.0f, 0.3f, 0.3f));
-		this->Barrel->SetRelativeLocation(FVector(100.0f, 0.0f, 0.0f));
-	}
 }
 
 void ACannon::Tick(float DeltaSeconds)

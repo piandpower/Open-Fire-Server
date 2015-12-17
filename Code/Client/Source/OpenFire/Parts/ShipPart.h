@@ -5,7 +5,13 @@
 #include "GameFramework/Actor.h"
 #include "ShipPart.generated.h"
 
-enum class EIFF;
+UENUM(BlueprintType)
+enum class EIFF: uint8
+{
+	Undefined,
+	Friend,
+	Foe
+};
 
 UCLASS()
 class OPENFIRE_API AShipPart : public APawn
@@ -31,8 +37,11 @@ public:
 	float Force;
 	float Torque;
 	float Mass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipPart)
 	EIFF IFF;
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipPart)
 	UStaticMeshComponent* Body = nullptr;
 };

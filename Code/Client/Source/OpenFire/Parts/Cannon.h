@@ -5,9 +5,6 @@
 #include "Parts/ShipPart.h"
 #include "Cannon.generated.h"
 
-/**
- *
- */
 UCLASS()
 class OPENFIRE_API ACannon : public AShipPart
 {
@@ -21,9 +18,11 @@ public:
 private:
 	void Fire();
 
-private:
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Cannon)
 	UStaticMeshComponent* Barrel = nullptr;
 
+private:
 	UPROPERTY(EditAnywhere)
 	FVector InitialVelocity = FVector(300000.f, 0.0f, 50000.0f);
 

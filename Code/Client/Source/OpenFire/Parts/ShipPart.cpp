@@ -2,8 +2,6 @@
 
 #include "OpenFire.h"
 #include "ShipPart.h"
-#include "Types/IFF.h"
-
 
 // Sets default values
 AShipPart::AShipPart()
@@ -15,11 +13,6 @@ AShipPart::AShipPart()
 
 	Body = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body"));
 	this->RootComponent = Body;
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> VisualAsset(TEXT("/Engine/BasicShapes/Sphere"));
-	if (VisualAsset.Succeeded())
-	{
-		Body->SetStaticMesh(VisualAsset.Object);
-	}
 }
 
 void AShipPart::InitializeDefaults()
