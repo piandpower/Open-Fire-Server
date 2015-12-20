@@ -17,7 +17,10 @@ public:
 	virtual void Possess(APawn* InPawn) override;
 
 	UFUNCTION(BlueprintCallable, Category = CannonAIController)
-	void Search(AActor*& OutActor);
+	TArray<AShipPart*> Search();
+
+	UFUNCTION(BlueprintCallable, Category = CannonAIController)
+	AShipPart* SelectTarget(const TArray<AShipPart*>& Targets);
 
 private:
 	ACannon* OwnerCannon = nullptr;

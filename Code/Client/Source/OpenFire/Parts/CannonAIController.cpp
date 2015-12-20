@@ -12,7 +12,7 @@ void ACannonAIController::Possess(APawn* InPawn)
 	OwnerCannon = Cast<ACannon>(InPawn);
 }
 
-void ACannonAIController::Search(AActor*& OutActor)
+TArray<AShipPart*> ACannonAIController::Search()
 {
 	static FName SphereOverlapComponentsName(TEXT("CannonSphereOverlapComponents"));
 	FCollisionQueryParams Params(SphereOverlapComponentsName, false);
@@ -23,13 +23,23 @@ void ACannonAIController::Search(AActor*& OutActor)
 
 	this->GetWorld()->OverlapMultiByObjectType(Overlaps, OwnerCannon->GetActorLocation(), FQuat::Identity, ObjectParams, FCollisionShape::MakeSphere(1000000.0f), Params);
 
-	for (int32 OverlapIdx = 0; OverlapIdx < Overlaps.Num(); ++OverlapIdx)
+	TArray<AShipPart*> ShipParts;
+	for (const FOverlapResult& OverlapResult : Overlaps)
 	{
-		FOverlapResult const& O = Overlaps[OverlapIdx];
-		if (O.GetActor()->IsA(AShipPart::StaticClass()))
+		if (OverlapResult.GetActor()->IsA(AShipPart::StaticClass()))
 		{
-			OutActor = O.GetActor();
-			break;
+			AShipPart* Target = Cast<AShipPart>(OverlapResult.GetActor());
+			if (OwnerCannon->IFF != Target->IFF)
+			{
+				ShipParts.Add(Target);
+			}
 		}
 	}
+
+	return ShipParts;
+}
+
+AShipPart* ACannonAIController::SelectTarget(const TArray<AShipPart*>& Targets)
+{
+	return Targets[0];
 }
