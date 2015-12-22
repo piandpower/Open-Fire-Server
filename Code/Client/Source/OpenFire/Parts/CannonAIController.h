@@ -22,7 +22,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = CannonAIController)
 	AShipPart* SelectTarget(const TArray<AShipPart*>& Targets);
 
+	UFUNCTION(BlueprintCallable, Category = CannonAIController)
+	void Aim(const FVector& TargetLocation);
+
 private:
 	ACannon* OwnerCannon = nullptr;
-	AShipPart* TargetEnemyPart = nullptr;
 };

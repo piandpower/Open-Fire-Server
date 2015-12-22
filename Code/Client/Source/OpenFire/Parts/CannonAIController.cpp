@@ -43,3 +43,8 @@ AShipPart* ACannonAIController::SelectTarget(const TArray<AShipPart*>& Targets)
 {
 	return Targets[0];
 }
+
+void ACannonAIController::Aim(const FVector& TargetLocation)
+{
+
+}

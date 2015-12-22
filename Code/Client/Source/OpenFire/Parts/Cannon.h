@@ -15,8 +15,13 @@ public:
 
 	virtual void Tick(float DeltaSeconds) override;
 
-private:
+	void SetBarrelTargetPitch(const float& TargetPitch);
+	void SetBodyTargetYaw(const float& TargetYaw);
 	void Fire();
+
+private:
+	void RotateBarrel(float DeltaSeconds);
+	void RotateBody(float DeltaSeconds);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Cannon)
@@ -24,8 +29,14 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-	FVector InitialVelocity = FVector(300000.f, 0.0f, 50000.0f);
+	float BulletSpeed = 300000.f;
 
 	float FireDelay = 2.0f;
 	float ReloadTime = 0.0f;
+
+	float TargetPitch = 45.0f;
+	float PitchSpeed = 2.0f;
+
+	float TargetYaw = 30.0f;
+	float YawSpeed = 5.0f;
 };
