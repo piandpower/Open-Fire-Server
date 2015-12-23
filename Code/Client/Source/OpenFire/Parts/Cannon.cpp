@@ -46,30 +46,30 @@ void ACannon::Fire()
 
 void ACannon::RotateBarrel(float DeltaSeconds)
 {
-	FRotator CurrentRotation = Barrel->RelativeRotation;
-	if (CurrentRotation.Pitch > this->TargetPitch)
+	FRotator Rotation = Barrel->RelativeRotation;
+	if (Rotation.Pitch > this->TargetPitch)
 	{
-		CurrentRotation.Pitch -= (DeltaSeconds * this->PitchSpeed);
+		Rotation.Pitch -= (DeltaSeconds * this->PitchSpeed);
 	}
 	else
 	{
-		CurrentRotation.Pitch += (DeltaSeconds * this->PitchSpeed);
+		Rotation.Pitch += (DeltaSeconds * this->PitchSpeed);
 	}
 
-	Barrel->SetRelativeLocationAndRotation(Barrel->RelativeLocation, CurrentRotation);
+	Barrel->SetRelativeRotation(Rotation);
 }
 
 void ACannon::RotateBody(float DeltaSeconds)
 {
-	FRotator CurrentRotation = Body->RelativeRotation;
-	if (CurrentRotation.Yaw > this->TargetYaw)
+	FRotator Rotation = Body->RelativeRotation;
+	if (Rotation.Yaw > this->TargetYaw)
 	{
-		CurrentRotation.Yaw -= (DeltaSeconds * this->YawSpeed);
+		Rotation.Yaw -= (DeltaSeconds * this->YawSpeed);
 	}
 	else
 	{
-		CurrentRotation.Yaw += (DeltaSeconds * this->YawSpeed);
+		Rotation.Yaw += (DeltaSeconds * this->YawSpeed);
 	}
 
-	Body->SetRelativeLocationAndRotation(Body->RelativeLocation, CurrentRotation);
+	Body->SetRelativeRotation(Rotation);
 }

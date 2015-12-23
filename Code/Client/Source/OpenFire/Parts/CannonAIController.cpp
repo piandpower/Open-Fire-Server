@@ -44,7 +44,10 @@ AShipPart* ACannonAIController::SelectTarget(const TArray<AShipPart*>& Targets)
 	return Targets[0];
 }
 
-void ACannonAIController::Aim(const FVector& TargetLocation)
+void ACannonAIController::Aim(AShipPart* Target)
 {
+	const FRotator LookRotation = (Target->GetActorLocation() - this->OwnerCannon->GetActorLocation()).Rotation();
 
+	this->OwnerCannon->SetBodyTargetYaw(LookRotation.Yaw);
+	this->OwnerCannon->SetBarrelTargetPitch(LookRotation.Pitch);
 }
