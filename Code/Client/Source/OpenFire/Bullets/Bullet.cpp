@@ -10,25 +10,14 @@ ABullet::ABullet()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Proximity Sphere"));
-	RootComponent = SphereComponent;
-	SphereComponent->SetSphereRadius(20.0f);
-	SphereComponent->SetSimulatePhysics(true);
-
-	UStaticMeshComponent* StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UStaticMeshComponent"));
-	StaticMeshComponent->AttachTo(SphereComponent);
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> VisualAsset(TEXT("/Engine/BasicShapes/Sphere"));
-	if (VisualAsset.Succeeded())
-	{
-		StaticMeshComponent->SetStaticMesh(VisualAsset.Object);
-	}
+	this->StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UStaticMeshComponent"));
+	this->RootComponent = this->StaticMeshComponent;
 }
 
 // Called when the game starts or when spawned
 void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 // Called every frame
@@ -37,7 +26,7 @@ void ABullet::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ABullet::AddImpulse(const FVector& Impulse)
+void ABullet::SetVelocity(const FVector& Velocity)
 {
-	SphereComponent->AddImpulse(Impulse);
+	StaticMeshComponent->SetPhysicsLinearVelocity(Velocity);
 }

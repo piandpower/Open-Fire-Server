@@ -7,6 +7,7 @@
 ACannon::ACannon()
 {
 	this->Barrel = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Barrel"));
+
 	this->Barrel->AttachTo(Body);
 }
 
@@ -40,8 +41,9 @@ void ACannon::Fire()
 	FVector ForwardVector = Barrel->GetForwardVector();
 	FRotator Rotation = Barrel->GetComponentRotation();
 
-	ABullet* Bullet = GetWorld()->SpawnActor<ABullet>(GetActorLocation() + (ForwardVector * 100.0f), Rotation);
-	Bullet->AddImpulse(ForwardVector * this->BulletSpeed);
+	ABullet* Bullet = GetWorld()->SpawnActor<ABullet>(BulletClass, GetActorLocation() + (ForwardVector * 100.0f), Rotation);
+
+	Bullet->SetVelocity(ForwardVector * this->BulletSpeed);
 }
 
 void ACannon::RotateBarrel(float DeltaSeconds)
@@ -72,4 +74,9 @@ void ACannon::RotateBody(float DeltaSeconds)
 	}
 
 	Body->SetRelativeRotation(Rotation);
+}
+
+const float& ACannon::GetBulletSpeed()
+{
+	return this->BulletSpeed;
 }

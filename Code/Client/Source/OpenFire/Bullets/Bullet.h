@@ -20,8 +20,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
 
-	void AddImpulse(const FVector& Impulse);
+	void SetVelocity(const FVector& Velocity);
 
-private:
-	USphereComponent* SphereComponent = nullptr;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Bullet)
+	UStaticMeshComponent* StaticMeshComponent = nullptr;
 };

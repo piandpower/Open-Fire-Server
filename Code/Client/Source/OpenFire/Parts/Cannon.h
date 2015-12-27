@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Parts/ShipPart.h"
+#include "Bullets/Bullet.h"
 #include "Cannon.generated.h"
 
 UCLASS()
@@ -27,9 +28,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Cannon)
 	UStaticMeshComponent* Barrel = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (DisplayName = "Bullet Class"), Category = Cannon)
+	TSubclassOf<ABullet> BulletClass;
+
+	const float& GetBulletSpeed();
+
 private:
 	UPROPERTY(EditAnywhere)
-	float BulletSpeed = 300000.f;
+	float BulletSpeed = 3000.f;
 
 	float FireDelay = 2.0f;
 	float ReloadTime = 0.0f;
