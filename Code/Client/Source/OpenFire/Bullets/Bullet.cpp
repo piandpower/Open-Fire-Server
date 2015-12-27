@@ -11,6 +11,12 @@ ABullet::ABullet()
 	PrimaryActorTick.bCanEverTick = true;
 
 	this->StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UStaticMeshComponent"));
+	this->StaticMeshComponent->SetSimulatePhysics(true);
+	this->StaticMeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+
+
+//, CollisionEnabled = QueryOnly, ObjectTypeName = "WorldDynamic", CustomResponses = ((Channel = "WorldStatic", Response = ECR_Overlap), (Channel = "Pawn", Response = ECR_Overlap), (Channel = "Visibility", Response = ECR_Ignore), (Channel = "WorldDynamic", Response = ECR_Overlap), (Channel = "Camera", Response = ECR_Overlap), (Channel = "PhysicsBody", Response = ECR_Overlap), (Channel = "Vehicle", Response = ECR_Overlap), (Channel = "Destructible", Response = ECR_Overlap)), HelpMessage = "WorldDynamic object that is used for trigger. All other channels will be set to default.", bCanModify = False)
+
 	this->RootComponent = this->StaticMeshComponent;
 }
 
