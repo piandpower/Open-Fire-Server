@@ -26,5 +26,11 @@ public:
 	void Aim(AShipPart* Target);
 
 private:
+	void AimYaw(const FVector& TargetVector);
+	void AimPitch(const FVector& TargetVector);
+
+	float GetPitchAngle(const float& Speed, const float& TargetDistance, const float& TargetHeight);
+
+private:
 	ACannon* OwnerCannon = nullptr;
 };

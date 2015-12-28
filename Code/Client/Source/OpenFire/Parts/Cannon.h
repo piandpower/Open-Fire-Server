@@ -35,14 +35,14 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-	float BulletSpeed = 3000.f;
+	float BulletSpeed = 4000.f;
 
 	float FireDelay = 2.0f;
 	float ReloadTime = 0.0f;
 
 	float TargetPitch = 45.0f;
-	float PitchSpeed = 2.0f;
+	float PitchSpeed = 30.0f;
 
 	float TargetYaw = 30.0f;
-	float YawSpeed = 5.0f;
+	float YawSpeed = 20.0f;
 };
