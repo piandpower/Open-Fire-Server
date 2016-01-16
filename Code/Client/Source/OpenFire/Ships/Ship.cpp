@@ -8,35 +8,35 @@
 // Sets default values
 AShip::AShip()
 {
-    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-    PrimaryActorTick.bCanEverTick = true;
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 
-    UArrowComponent* pArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("UArrowComponent"));
-    pArrow->AttachTo(RootComponent);
+	this->Hull = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hull"));
+	this->RootComponent = this->Hull;
 }
 
 // Called when the game starts or when spawned
 void AShip::BeginPlay()
 {
-    Super::BeginPlay();
+	Super::BeginPlay();
 }
 
 // Called every frame
 void AShip::Tick(float DeltaTime)
 {
-    Super::Tick(DeltaTime);
+	Super::Tick(DeltaTime);
 }
 
 void AShip::AttachPart(AShipPart* pAShipPart, FRotator rotation, FVector location)
 {
-    Hp      += pAShipPart->Hp;
-    Force   += pAShipPart->Force;
-    Torque  += pAShipPart->Torque;
-    Mass    += pAShipPart->Mass;
+	Hp += pAShipPart->Hp;
+	Force += pAShipPart->Force;
+	Torque += pAShipPart->Torque;
+	Mass += pAShipPart->Mass;
 
-    ShipParts.Add(pAShipPart);
+	ShipParts.Add(pAShipPart);
 
-    pAShipPart->SetActorRotation(rotation);
-    pAShipPart->SetActorLocation(location);
-    pAShipPart->AttachRootComponentToActor(this);
+	pAShipPart->SetActorRotation(rotation);
+	pAShipPart->SetActorLocation(location);
+	pAShipPart->AttachRootComponentToActor(this);
 }
