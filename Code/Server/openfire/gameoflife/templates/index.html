@@ -6,11 +6,11 @@
     <style>
         #graph-container
         {
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
         }
     </style>
     <div id="graph-container"></div>
@@ -19,7 +19,6 @@
 <script src="static/sigma.js-v1.0.3/sigma.min.js"></script>
 <script>
     var i;
-    var s;
     var N = 10;
     var E = 20;
     var g =
@@ -32,12 +31,11 @@
     {
         g.nodes.push(
         {
-            id: 'n' + i,
+            id: 'Node ' + i,
             label: 'Node ' + i,
             x: Math.random(),
             y: Math.random(),
-            size: Math.random(),
-            color: '#666'
+            size: 5
         });
     }
 
@@ -46,22 +44,21 @@
         g.edges.push(
         {
             id: 'e' + i,
-            source: 'n' + (Math.random() * N | 0),
-            target: 'n' + (Math.random() * N | 0),
-            size: Math.random(),
-            color: '#ccc'
+            source: 'Node ' + (Math.random() * N | 0),
+            target: 'Node ' + (Math.random() * N | 0),
+            size: Math.random()
         });
     }
 
-    s = new sigma(
+    var s = new sigma(
     {
         graph: g,
         container: 'graph-container'
     });
 
-    s.bind('clickNode', function(e)
+    s.bind('clickNode', function(element)
     {
-        console.log(e)
+        console.log(element.data.node.id)
     })
 </script>
 {% endblock %}
