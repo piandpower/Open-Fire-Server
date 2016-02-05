@@ -1,7 +1,17 @@
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+
+engine = create_engine('sqlite:///:memory:', echo=True)
+session_factory = sessionmaker(bind=engine)
+Session = scoped_session(session_factory)
 
 Base = declarative_base()
+
+
+def create_test_database():
+    from models import Base
+    Base.metadata.create_all(bind=engine)
 
 
 class Node(Base):
