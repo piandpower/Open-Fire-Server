@@ -7,7 +7,7 @@ def create_app(test=False):
     app.register_blueprint(gameoflife_bp, url_prefix='/gameoflife')
 
     if test:
-        from models import create_test_database
+        from database import create_test_database
         create_test_database()
 
     return app
