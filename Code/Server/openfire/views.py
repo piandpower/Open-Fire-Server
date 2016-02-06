@@ -1,3 +1,4 @@
+from flask import render_template
 from database import session
 from models import Node
 
@@ -6,7 +7,7 @@ def create_views(app):
     @app.route('/')
     def hello_world():
         session()
-        temp = session.query(Node).all()
+        nodes = session.query(Node).all()
 
         session.remove()
-        return 'Hello World!'
+        return render_template('index.html', nodes=nodes)
