@@ -3,6 +3,3 @@ from views import create_views
 
 app = Flask(__name__)
 create_views(app)
-
-if __name__ == "__main__":
-    app.run()
