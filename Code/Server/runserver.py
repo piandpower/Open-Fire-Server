@@ -1,4 +1,4 @@
 from openfire import app
 
-app.run(debug=True)
+app.run(debug=False)
 
