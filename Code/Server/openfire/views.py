@@ -1,6 +1,6 @@
 from flask import render_template
 from database import session
-from models import Node
+from models import Node, Edge
 
 
 def create_views(app):
@@ -9,6 +9,7 @@ def create_views(app):
     def hello_world():
         session()
         nodes = session.query(Node).all()
+        edges = session.query(Edge).all()
 
         session.remove()
-        return render_template('index.html', nodes=nodes)
+        return render_template('index.html', nodes=nodes, edges=edges)

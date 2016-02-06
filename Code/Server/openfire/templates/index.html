@@ -1,7 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-<h1>Index</h1>
-
 <div id="container">
     <style>
         #graph-container
@@ -28,7 +26,7 @@
     {% for node in nodes %}
         g.nodes.push(
         {
-            id: '{{ node.name }}',
+            id: '{{ node.node_id }}',
             label: '{{ node.name }}',
             x: {{ node.position_x }},
             y: {{ node.position_y }},
@@ -36,16 +34,16 @@
         });
     {% endfor %}
 
-    for (i = 0; i < 5; i++)
-    {
+    {% for edge in edges %}
         g.edges.push(
         {
-            id: 'e' + i,
-            source: 'node' + (Math.random() * 5 | 0),
-            target: 'node' + (Math.random() * 5 | 0),
-            size: Math.random()
+            id: '{{ edge.start_node_id }}-{{ edge.end_node_id }}',
+            source: '{{ edge.start_node_id }}',
+            target: '{{ edge.end_node_id }}',
+            size: 5
         });
-    }
+    {% endfor %}
+
 
     var s = new sigma(
     {

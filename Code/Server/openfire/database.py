@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from models import Base, Node
+from models import Base, Node, Edge
 import random
 
 engine = create_engine('sqlite:///:memory:', echo=True)
@@ -9,7 +9,23 @@ session = scoped_session(session_factory)
 
 Base.metadata.create_all(bind=engine)
 
-for i in range(5):
-    node = Node(name='node'+str(i), position_x=random.randrange(1, 11), position_y=random.randrange(1,11))
-    session.add(node)
-session.commit()
+
+def add_test_data():
+    nodecount = 5
+    for i in range(nodecount):
+        node = Node(i, 'node'+str(i), random.randrange(1, 11), random.randrange(1,11))
+        session.add(node)
+
+    session.add_all(
+        [
+            Edge(0, 1),
+            Edge(0, 3),
+            Edge(0, 4),
+            Edge(1, 2),
+            Edge(2, 3),
+            Edge(3, 4)
+        ])
+
+    session.commit()
+
+add_test_data()
