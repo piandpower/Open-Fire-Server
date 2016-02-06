@@ -1,13 +1,8 @@
 from flask import Flask
-from openfire.gameoflife import gameoflife_bp
+from .database import create_session
+from .views import create_views
 
+app = Flask(__name__)
+create_views(app)
 
-def create_app(test=False):
-    app = Flask(__name__)
-    app.register_blueprint(gameoflife_bp, url_prefix='/gameoflife')
-
-    if test:
-        from database import create_test_database
-        create_test_database()
-
-    return app
+session = create_session()

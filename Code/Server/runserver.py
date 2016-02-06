@@ -1,4 +1,4 @@
-from openfire import create_app
+from openfire import app
 
-app = create_app(test=True)
 app.run(debug=True)
+
