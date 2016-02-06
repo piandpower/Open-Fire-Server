@@ -5,6 +5,7 @@ from models import Node
 
 def create_views(app):
     @app.route('/')
+    @app.route('/world-map')
     def hello_world():
         session()
         nodes = session.query(Node).all()
