@@ -12,4 +12,4 @@ def create_views(app):
         edges = session.query(Edge).all()
 
         session.remove()
-        return render_template('index.html', nodes=nodes, edges=edges)
+        return render_template('world-map.html', nodes=nodes, edges=edges)
