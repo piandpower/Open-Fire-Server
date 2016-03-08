@@ -18,4 +18,5 @@ public:
 
 private:
 	void SpawnStrongPoint(FVector Location);
+	void SpawnStrongPointEdge(FVector Location);
 };

@@ -3,6 +3,7 @@
 #include "OpenFire.h"
 #include "OpenFireGameMode.h"
 #include "StrongPoint/StrongPoint.h"
+#include "StrongPoint/StrongPointEdge.h"
 #include "StrongPoint/StrongPointGraph.h"
 
 void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
@@ -13,14 +14,23 @@ void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options,
 	this->StrongPointGraphInstance->GenerateTestData();
 
 	auto Nodes = StrongPointGraphInstance->GetNodes();
-
-	for (const StrongPointGraph::Node& Node : Nodes)
+	for (const StrongPointGraph::Node* node : StrongPointGraphInstance->GetNodes())
 	{
-		this->SpawnStrongPoint(Node.Location);
+		this->SpawnStrongPoint(node->location);
+	}
+
+	for (const StrongPointGraph::Edge* edge : StrongPointGraphInstance->GetEdges())
+	{
+		this->SpawnStrongPointEdge(this->StrongPointGraphInstance->GetEdgeLocation(edge));
 	}
 }
 
 void AOpenFireGameMode::SpawnStrongPoint(FVector Location)
 {
 	this->GetWorld()->SpawnActor<AStrongPoint>(Location, FRotator::ZeroRotator);
+}
+
+void AOpenFireGameMode::SpawnStrongPointEdge(FVector Location)
+{
+	this->GetWorld()->SpawnActor<AStrongPointEdge>(Location, FRotator::ZeroRotator);
 }

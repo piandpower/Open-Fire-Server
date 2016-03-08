@@ -5,41 +5,46 @@ class OPENFIRE_API StrongPointGraph
 public:
 	struct Node
 	{
-		Node(int32 Id, FVector Location)
+		Node(int32 id, FVector location)
 		{
-			this->Id = Id;
-			this->Location = Location;
+			this->id = id;
+			this->location = location;
 		};
 
-		int32 Id;
-		FVector Location;
+		int32 id;
+		FVector location;
 	};
 
 	struct Edge
 	{
-		Edge(int32 Id, int32 StartNodeId, int32 EndNodeId)
+		Edge(int32 startNodeId, int32 endNodeId)
 		{
-			this->StartNodeId = StartNodeId;
-			this->EndNodeId = EndNodeId;
+			this->startNodeId = startNodeId;
+			this->endNodeId = endNodeId;
 		};
 
-		int32 Id;
-		int32 StartNodeId;
-		int32 EndNodeId;
+		int32 startNodeId;
+		int32 endNodeId;
 	};
 
 private:
-	TArray<Node> Nodes;
-	TArray<Edge> Edges;
+	TArray<Node*> Nodes;
+	TArray<Edge*> Edges;
 
 public:
 	StrongPointGraph();
 	~StrongPointGraph();
 
 	void AddNode(int32 Id, FVector Location);
-	void AddEdge(int32 Id, int32 StartNodeId, int32 EndNodeId);
+	void AddEdge(int32 StartNodeId, int32 EndNodeId);
 
-	const TArray<StrongPointGraph::Node>& GetNodes();
+	const FVector GetEdgeLocation(const StrongPointGraph::Edge* edge) const;
+
+	const TArray<StrongPointGraph::Node*> GetNodes();
+	const TArray<StrongPointGraph::Edge*> GetEdges();
 
 	void GenerateTestData();
+
+private:
+	const Node* GetNodeByID(int32 id) const;
 };
