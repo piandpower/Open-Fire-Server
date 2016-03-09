@@ -9,10 +9,15 @@ UCLASS()
 class OPENFIRE_API AStrongPoint : public AActor
 {
 	GENERATED_BODY()
+
+public:
+	int32 nodeID = -1;
 	
 public:
 	// Sets default values for this actor's properties
 	AStrongPoint();
+
+	void Initialize(int32 nodeID);
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

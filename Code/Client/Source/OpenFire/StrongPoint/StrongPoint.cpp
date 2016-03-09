@@ -1,7 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "OpenFire.h"
 #include "StrongPoint.h"
+#include "WorldGraph/WorldGraph.h"
 
 // Sets default values
 AStrongPoint::AStrongPoint()
@@ -16,6 +15,7 @@ AStrongPoint::AStrongPoint()
 	if (StaticMesh.Succeeded())
 	{
 		StaticMeshComponent->SetStaticMesh(StaticMesh.Object);
+		StaticMeshComponent->SetRelativeScale3D(FVector(1.0f, 1.0f, 0.5f));
 		StaticMeshComponent->SetCollisionProfileName(UCollisionProfile::BlockAll_ProfileName);
 		StaticMeshComponent->OnInputTouchBegin.AddDynamic(this, &AStrongPoint::OnInputTouchBegin);
 	}
@@ -24,6 +24,11 @@ AStrongPoint::AStrongPoint()
 	{
 		StaticMeshComponent->SetMaterial(0, Material.Object);
 	}
+}
+
+void AStrongPoint::Initialize(int32 nodeID)
+{
+	this->nodeID = nodeID;
 }
 
 // Called when the game starts or when spawned
@@ -40,5 +45,5 @@ void AStrongPoint::Tick( float DeltaTime )
 
 void AStrongPoint::OnInputTouchBegin(ETouchIndex::Type fingerIndex, UPrimitiveComponent* touchedComponent)
 {
-	UE_LOG(LogTemp, Warning, TEXT("*** BUTTON MESSAGE"));
+	WorldGraph::Instance()->SpawnBuilding(this->nodeID, this->GetWorld());
 }

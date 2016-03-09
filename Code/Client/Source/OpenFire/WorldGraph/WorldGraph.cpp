@@ -1,5 +1,7 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
+#include "Building/Building.h"
+#include "WorldGraph/ObjectData.h"
 
 WorldGraph* WorldGraph::instance = nullptr;
 
@@ -23,10 +25,10 @@ void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
 	this->Edges.Add(new Edge(StartNodeId, EndNodeId));
 }
 
-const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge) const
+const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge)
 {
-	const Node* startNode = this->GetNodeByID(edge->startNodeId);
-	const Node* endNode = this->GetNodeByID(edge->endNodeId);
+	Node* startNode = this->GetNodeByID(edge->startNodeId);
+	Node* endNode = this->GetNodeByID(edge->endNodeId);
 
 	return (startNode->location + endNode->location) * 0.5f;
 }
@@ -69,9 +71,17 @@ void WorldGraph::GenerateTestData()
 	}
 }
 
-const WorldGraph::Node* WorldGraph::GetNodeByID(int32 id) const
+void WorldGraph::SpawnBuilding(int32 nodeID, UWorld* world)
 {
-	for (const WorldGraph::Node* node : this->Nodes)
+	auto node = this->GetNodeByID(nodeID);
+	node->objectDatas.Add(new ObjectData());
+
+	world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
+}
+
+WorldGraph::Node* WorldGraph::GetNodeByID(int32 id)
+{
+	for (WorldGraph::Node* node : this->Nodes)
 	{
 		if (node->id == id)
 		{

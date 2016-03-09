@@ -17,6 +17,6 @@ public:
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
 
 private:
-	void SpawnStrongPoint(FVector Location);
+	void SpawnStrongPoint(int32 nodeID, FVector Location);
 	void SpawnStrongPointEdge(FVector Location);
 };
