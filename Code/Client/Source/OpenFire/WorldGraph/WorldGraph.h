@@ -1,6 +1,6 @@
 #pragma once
 
-class OPENFIRE_API StrongPointGraph
+class OPENFIRE_API WorldGraph
 {
 public:
 	struct Node
@@ -32,16 +32,16 @@ private:
 	TArray<Edge*> Edges;
 
 public:
-	StrongPointGraph();
-	~StrongPointGraph();
+	WorldGraph();
+	~WorldGraph();
 
 	void AddNode(int32 Id, FVector Location);
 	void AddEdge(int32 StartNodeId, int32 EndNodeId);
 
-	const FVector GetEdgeLocation(const StrongPointGraph::Edge* edge) const;
+	const FVector GetEdgeLocation(const WorldGraph::Edge* edge) const;
 
-	const TArray<StrongPointGraph::Node*> GetNodes();
-	const TArray<StrongPointGraph::Edge*> GetEdges();
+	const TArray<WorldGraph::Node*> GetNodes();
+	const TArray<WorldGraph::Edge*> GetEdges();
 
 	void GenerateTestData();
 

@@ -3,7 +3,7 @@
 #include "GameFramework/GameMode.h"
 #include "OpenFireGameMode.generated.h"
 
-class StrongPointGraph;
+class WorldGraph;
 
 UCLASS()
 class OPENFIRE_API AOpenFireGameMode : public AGameMode
@@ -14,7 +14,7 @@ public:
 	AOpenFireGameMode();
 
 private:
-	StrongPointGraph* StrongPointGraphInstance;
+	WorldGraph* worldGraph;
 
 public:
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;

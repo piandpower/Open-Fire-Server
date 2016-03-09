@@ -5,7 +5,7 @@
 #include "OpenFirePlayerController.h"
 #include "StrongPoint/StrongPoint.h"
 #include "StrongPoint/StrongPointEdge.h"
-#include "StrongPoint/StrongPointGraph.h"
+#include "WorldGraph/WorldGraph.h"
 
 AOpenFireGameMode::AOpenFireGameMode()
 {
@@ -16,18 +16,17 @@ void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options,
 {
 	Super::InitGame(MapName, Options, ErrorMessage);
 
-	this->StrongPointGraphInstance = new StrongPointGraph();
-	this->StrongPointGraphInstance->GenerateTestData();
+	this->worldGraph = new WorldGraph();
+	this->worldGraph->GenerateTestData();
 
-	auto Nodes = StrongPointGraphInstance->GetNodes();
-	for (const StrongPointGraph::Node* node : StrongPointGraphInstance->GetNodes())
+	for (const WorldGraph::Node* node : worldGraph->GetNodes())
 	{
 		this->SpawnStrongPoint(node->location);
 	}
 
-	for (const StrongPointGraph::Edge* edge : StrongPointGraphInstance->GetEdges())
+	for (const WorldGraph::Edge* edge : worldGraph->GetEdges())
 	{
-		this->SpawnStrongPointEdge(this->StrongPointGraphInstance->GetEdgeLocation(edge));
+		this->SpawnStrongPointEdge(this->worldGraph->GetEdgeLocation(edge));
 	}
 }
 

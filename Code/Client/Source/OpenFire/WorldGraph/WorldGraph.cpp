@@ -1,25 +1,25 @@
 #include "OpenFire.h"
-#include "StrongPointGraph.h"
+#include "WorldGraph.h"
 
-StrongPointGraph::StrongPointGraph()
+WorldGraph::WorldGraph()
 {
 }
 
-StrongPointGraph::~StrongPointGraph()
+WorldGraph::~WorldGraph()
 {
 }
 
-void StrongPointGraph::AddNode(int32 Id, FVector Location)
+void WorldGraph::AddNode(int32 Id, FVector Location)
 {
 	this->Nodes.Add(new Node(Id, Location));
 }
 
-void StrongPointGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
+void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
 {
 	this->Edges.Add(new Edge(StartNodeId, EndNodeId));
 }
 
-const FVector StrongPointGraph::GetEdgeLocation(const StrongPointGraph::Edge* edge) const
+const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge) const
 {
 	const Node* startNode = this->GetNodeByID(edge->startNodeId);
 	const Node* endNode = this->GetNodeByID(edge->endNodeId);
@@ -27,17 +27,17 @@ const FVector StrongPointGraph::GetEdgeLocation(const StrongPointGraph::Edge* ed
 	return (startNode->location + endNode->location) * 0.5f;
 }
 
-const TArray<StrongPointGraph::Node*> StrongPointGraph::GetNodes()
+const TArray<WorldGraph::Node*> WorldGraph::GetNodes()
 {
 	return this->Nodes;
 }
 
-const TArray<StrongPointGraph::Edge*> StrongPointGraph::GetEdges()
+const TArray<WorldGraph::Edge*> WorldGraph::GetEdges()
 {
 	return this->Edges;
 }
 
-void StrongPointGraph::GenerateTestData()
+void WorldGraph::GenerateTestData()
 {
 	for (int i = 0; i < 100000; ++i)
 	{
@@ -48,9 +48,9 @@ void StrongPointGraph::GenerateTestData()
 		}
 	}
 
-	for (const StrongPointGraph::Node* NodeStart: this->Nodes)
+	for (const WorldGraph::Node* NodeStart: this->Nodes)
 	{
-		for (const StrongPointGraph::Node* NodeEnd : this->Nodes)
+		for (const WorldGraph::Node* NodeEnd : this->Nodes)
 		{
 			if (NodeStart->id == NodeEnd->id)
 			{
@@ -65,9 +65,9 @@ void StrongPointGraph::GenerateTestData()
 	}
 }
 
-const StrongPointGraph::Node* StrongPointGraph::GetNodeByID(int32 id) const
+const WorldGraph::Node* WorldGraph::GetNodeByID(int32 id) const
 {
-	for (const StrongPointGraph::Node* node : this->Nodes)
+	for (const WorldGraph::Node* node : this->Nodes)
 	{
 		if (node->id == id)
 		{
@@ -78,19 +78,19 @@ const StrongPointGraph::Node* StrongPointGraph::GetNodeByID(int32 id) const
 	return nullptr;
 }
 
-const FVector StrongPointGraph::GetRandomNodeLocation()
+const FVector WorldGraph::GetRandomNodeLocation()
 {
 	return FVector(FMath::FRandRange(0.0f, 10000.0f), FMath::FRandRange(0.0f, 10000.0f), 0.0f);
 }
 
-bool StrongPointGraph::NodeExistOnRange(const FVector& location, float distance)
+bool WorldGraph::NodeExistOnRange(const FVector& location, float distance)
 {
 	float distanceSquared = distance * distance;
 
-	for (const StrongPointGraph::Node* node : this->Nodes)
+	for (const WorldGraph::Node* node : this->Nodes)
 	{
 		float nodeDistanceSquared = FVector::DistSquared(node->location, location);
-		if (nodeDistanceSquared< distanceSquared)
+		if (nodeDistanceSquared < distanceSquared)
 		{
 			return true;
 		}
