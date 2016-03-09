@@ -2,9 +2,15 @@
 
 #include "OpenFire.h"
 #include "OpenFireGameMode.h"
+#include "OpenFirePlayerController.h"
 #include "StrongPoint/StrongPoint.h"
 #include "StrongPoint/StrongPointEdge.h"
 #include "StrongPoint/StrongPointGraph.h"
+
+AOpenFireGameMode::AOpenFireGameMode()
+{
+	this->PlayerControllerClass = AOpenFirePlayerController::StaticClass();
+}
 
 void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {

@@ -10,6 +10,9 @@ class OPENFIRE_API AOpenFireGameMode : public AGameMode
 {
 	GENERATED_BODY()
 
+public:
+	AOpenFireGameMode();
+
 private:
 	StrongPointGraph* StrongPointGraphInstance;
 

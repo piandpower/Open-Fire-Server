@@ -19,4 +19,7 @@ public:
 
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
+
+	UFUNCTION(Category = Default)
+	void OnInputTouchBegin(ETouchIndex::Type fingerIndex, UPrimitiveComponent* touchedComponent);
 };
