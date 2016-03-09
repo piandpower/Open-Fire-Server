@@ -1,12 +1,16 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
 
-WorldGraph::WorldGraph()
-{
-}
+WorldGraph* WorldGraph::instance = nullptr;
 
-WorldGraph::~WorldGraph()
+WorldGraph* WorldGraph::Instance()
 {
+	if (instance == nullptr)
+	{
+		instance = new WorldGraph();
+	}
+
+	return instance;
 }
 
 void WorldGraph::AddNode(int32 Id, FVector Location)

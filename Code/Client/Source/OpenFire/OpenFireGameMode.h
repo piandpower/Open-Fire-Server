@@ -13,9 +13,6 @@ class OPENFIRE_API AOpenFireGameMode : public AGameMode
 public:
 	AOpenFireGameMode();
 
-private:
-	WorldGraph* worldGraph;
-
 public:
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
 

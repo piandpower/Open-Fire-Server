@@ -27,13 +27,20 @@ public:
 		int32 endNodeId;
 	};
 
+public:
+	static WorldGraph* instance;
+
 private:
 	TArray<Node*> Nodes;
 	TArray<Edge*> Edges;
 
+private:
+	WorldGraph() {};
+	WorldGraph(WorldGraph const&) {};
+	WorldGraph& operator= (WorldGraph const&) { return *this; };
+
 public:
-	WorldGraph();
-	~WorldGraph();
+	static WorldGraph* Instance();
 
 	void AddNode(int32 Id, FVector Location);
 	void AddEdge(int32 StartNodeId, int32 EndNodeId);
