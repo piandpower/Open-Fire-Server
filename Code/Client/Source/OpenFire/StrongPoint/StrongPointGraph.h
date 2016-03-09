@@ -47,4 +47,7 @@ public:
 
 private:
 	const Node* GetNodeByID(int32 id) const;
+
+	const FVector GetRandomNodeLocation();
+	bool NodeExistOnRange(const FVector& location, float distance);
 };

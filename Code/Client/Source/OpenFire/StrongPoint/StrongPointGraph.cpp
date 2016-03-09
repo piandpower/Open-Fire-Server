@@ -39,9 +39,13 @@ const TArray<StrongPointGraph::Edge*> StrongPointGraph::GetEdges()
 
 void StrongPointGraph::GenerateTestData()
 {
-	for (int i = 0; i < 100; ++i)
+	for (int i = 0; i < 100000; ++i)
 	{
-		this->AddNode(i, FVector(FMath::FRandRange(0.0f, 10000.0f), FMath::FRandRange(0.0f, 10000.0f), 0.0f));
+		auto location = this->GetRandomNodeLocation();
+		if (this->NodeExistOnRange(location, 700.0f) == false)
+		{
+			this->AddNode(i, location);
+		}
 	}
 
 	for (const StrongPointGraph::Node* NodeStart: this->Nodes)
@@ -53,7 +57,7 @@ void StrongPointGraph::GenerateTestData()
 				continue;
 			}
 
-			if (FVector::DistSquared(NodeStart->location, NodeEnd->location) <= 1000000.0f)
+			if (FVector::DistSquared(NodeStart->location, NodeEnd->location) <= (700.0f * 700.0f * 2.0f))
 			{
 				this->AddEdge(NodeStart->id, NodeEnd->id);
 			}
@@ -72,4 +76,25 @@ const StrongPointGraph::Node* StrongPointGraph::GetNodeByID(int32 id) const
 	}
 
 	return nullptr;
+}
+
+const FVector StrongPointGraph::GetRandomNodeLocation()
+{
+	return FVector(FMath::FRandRange(0.0f, 10000.0f), FMath::FRandRange(0.0f, 10000.0f), 0.0f);
+}
+
+bool StrongPointGraph::NodeExistOnRange(const FVector& location, float distance)
+{
+	float distanceSquared = distance * distance;
+
+	for (const StrongPointGraph::Node* node : this->Nodes)
+	{
+		float nodeDistanceSquared = FVector::DistSquared(node->location, location);
+		if (nodeDistanceSquared< distanceSquared)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
