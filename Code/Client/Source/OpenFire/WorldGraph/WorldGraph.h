@@ -9,11 +9,11 @@ public:
 	{
 		Node(int32 id, FVector location)
 		{
-			this->id = id;
+			this->nodeID = id;
 			this->location = location;
 		};
 
-		int32 id;
+		int32 nodeID;
 		FVector location;
 		TArray<ObjectData*> objectDatas;
 	};
@@ -33,6 +33,8 @@ public:
 private:
 	static WorldGraph* instance;
 
+	UWorld* world = nullptr;
+
 	TArray<Node*> nodes;
 	TArray<Edge*> edges;
 	TArray<ObjectData*> objects;
@@ -44,6 +46,8 @@ private:
 
 public:
 	static WorldGraph* Instance();
+
+	void Initialize(UWorld* world);
 
 	void OnUpdate();
 
@@ -62,7 +66,8 @@ public:
 
 	void GenerateTestData();
 
-	void SpawnBuilding(int32 nodeID, UWorld* world);
+	void SpawnBuilding(int32 nodeID);
+	void SpawnWorker(int32 nodeID);
 
 private:
 	const FVector GetRandomNodeLocation();

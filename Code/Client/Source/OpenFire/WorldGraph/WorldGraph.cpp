@@ -15,6 +15,11 @@ WorldGraph* WorldGraph::Instance()
 	return instance;
 }
 
+void WorldGraph::Initialize(UWorld* world)
+{
+	this->world = world;
+}
+
 void WorldGraph::OnUpdate()
 {
 	for (const WorldGraph::Node* node : this->nodes)
@@ -53,7 +58,7 @@ WorldGraph::Node* WorldGraph::GetNode(int32 nodeID)
 {
 	for (Node* node : this->nodes)
 	{
-		if (node->id == nodeID)
+		if (node->nodeID == nodeID)
 		{
 			return node;
 		}
@@ -109,20 +114,20 @@ void WorldGraph::GenerateTestData()
 	{
 		for (const WorldGraph::Node* NodeEnd : this->nodes)
 		{
-			if (NodeStart->id == NodeEnd->id)
+			if (NodeStart->nodeID == NodeEnd->nodeID)
 			{
 				continue;
 			}
 
 			if (FVector::DistSquared(NodeStart->location, NodeEnd->location) <= (700.0f * 700.0f * 2.0f))
 			{
-				this->AddEdge(NodeStart->id, NodeEnd->id);
+				this->AddEdge(NodeStart->nodeID, NodeEnd->nodeID);
 			}
 		}
 	}
 }
 
-void WorldGraph::SpawnBuilding(int32 nodeID, UWorld* world)
+void WorldGraph::SpawnBuilding(int32 nodeID)
 {
 	const int32 objectID = this->GenerateObjectID();
 	ObjectData* object = new ObjectData(objectID, nodeID);
@@ -131,8 +136,13 @@ void WorldGraph::SpawnBuilding(int32 nodeID, UWorld* world)
 	Node* node = this->GetNode(nodeID);
 	node->objectDatas.Add(object);
 
-	ABuilding* building = world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
+	ABuilding* building = this->world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
 	building->Initialize(objectID);
+}
+
+void WorldGraph::SpawnWorker(int32 nodeID)
+{
+
 }
 
 const FVector WorldGraph::GetRandomNodeLocation()

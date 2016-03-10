@@ -45,5 +45,5 @@ void AStrongPoint::Tick( float DeltaTime )
 
 void AStrongPoint::OnInputTouchBegin(ETouchIndex::Type fingerIndex, UPrimitiveComponent* touchedComponent)
 {
-	WorldGraph::Instance()->SpawnBuilding(this->nodeID, this->GetWorld());
+	WorldGraph::Instance()->SpawnBuilding(this->nodeID);
 }

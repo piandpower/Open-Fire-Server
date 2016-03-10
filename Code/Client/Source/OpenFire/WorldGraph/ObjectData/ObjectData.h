@@ -19,5 +19,5 @@ public:
 	ObjectData(int32 objectID, int32 nodeID);
 	void SetNodeID(int32 nodeID);
 
-	void OnUpdate();
+	virtual void OnUpdate();
 };

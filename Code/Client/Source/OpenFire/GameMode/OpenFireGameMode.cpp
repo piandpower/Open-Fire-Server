@@ -18,11 +18,13 @@ void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options,
 {
 	Super::InitGame(MapName, Options, ErrorMessage);
 
+	WorldGraph::Instance()->Initialize(this->GetWorld());
+
 	WorldGraph::Instance()->GenerateTestData();
 
 	for (const WorldGraph::Node* node : WorldGraph::Instance()->GetNodes())
 	{
-		this->SpawnStrongPoint(node->id, node->location);
+		this->SpawnStrongPoint(node->nodeID, node->location);
 	}
 
 	for (const WorldGraph::Edge* edge : WorldGraph::Instance()->GetEdges())
