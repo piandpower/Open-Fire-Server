@@ -7,6 +7,8 @@
 #include "StrongPoint/StrongPointEdge.h"
 #include "WorldGraph/WorldGraph.h"
 
+const float updateSeconds = 5.0f;
+
 AOpenFireGameMode::AOpenFireGameMode()
 {
 	this->PlayerControllerClass = AOpenFirePlayerController::StaticClass();
@@ -26,6 +28,16 @@ void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options,
 	for (const WorldGraph::Edge* edge : WorldGraph::Instance()->GetEdges())
 	{
 		this->SpawnStrongPointEdge(WorldGraph::Instance()->GetEdgeLocation(edge));
+	}
+}
+
+void AOpenFireGameMode::Tick(float DeltaSeconds)
+{
+	this->accumulatedSeconds += DeltaSeconds;
+	if (this->accumulatedSeconds > updateSeconds)
+	{
+		this->accumulatedSeconds -= updateSeconds;
+		WorldGraph::Instance()->OnUpdate();
 	}
 }
 

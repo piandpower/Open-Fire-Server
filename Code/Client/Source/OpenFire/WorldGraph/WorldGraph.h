@@ -44,6 +44,8 @@ private:
 public:
 	static WorldGraph* Instance();
 
+	void OnUpdate();
+
 	void AddNode(int32 Id, FVector Location);
 	void AddEdge(int32 StartNodeId, int32 EndNodeId);
 

@@ -15,6 +15,17 @@ WorldGraph* WorldGraph::Instance()
 	return instance;
 }
 
+void WorldGraph::OnUpdate()
+{
+	for (const WorldGraph::Node* node : this->Nodes)
+	{
+		for (ObjectData* gameObject : node->objectDatas)
+		{
+			gameObject->OnUpdate();
+		}
+	}
+}
+
 void WorldGraph::AddNode(int32 Id, FVector Location)
 {
 	this->Nodes.Add(new Node(Id, Location));
@@ -54,7 +65,7 @@ void WorldGraph::GenerateTestData()
 		}
 	}
 
-	for (const WorldGraph::Node* NodeStart: this->Nodes)
+	for (const WorldGraph::Node* NodeStart : this->Nodes)
 	{
 		for (const WorldGraph::Node* NodeEnd : this->Nodes)
 		{

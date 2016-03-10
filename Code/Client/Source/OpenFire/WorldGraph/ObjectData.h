@@ -13,4 +13,6 @@ public:
 
 	int32 objectID = -1;
 	Type type = Type::None;
+
+	void OnUpdate();
 };
