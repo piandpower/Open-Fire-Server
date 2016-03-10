@@ -3,8 +3,8 @@
 #include "OpenFire.h"
 #include "OpenFireGameMode.h"
 #include "OpenFirePlayerController.h"
-#include "StrongPoint/StrongPoint.h"
-#include "StrongPoint/StrongPointEdge.h"
+#include "GameObject/StrongPoint/StrongPoint.h"
+#include "GameObject/StrongPoint/StrongPointEdge.h"
 #include "WorldGraph/WorldGraph.h"
 
 const float updateSeconds = 5.0f;

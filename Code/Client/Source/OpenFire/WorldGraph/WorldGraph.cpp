@@ -1,6 +1,6 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
-#include "Building/Building.h"
+#include "GameObject/Building/Building.h"
 #include "WorldGraph/Object.h"
 
 WorldGraph* WorldGraph::instance = nullptr;
