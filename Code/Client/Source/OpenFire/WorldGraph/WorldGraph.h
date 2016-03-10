@@ -33,8 +33,8 @@ public:
 private:
 	static WorldGraph* instance;
 
-	TArray<Node*> Nodes;
-	TArray<Edge*> Edges;
+	TArray<Node*> nodes;
+	TArray<Edge*> edges;
 
 private:
 	WorldGraph() {};

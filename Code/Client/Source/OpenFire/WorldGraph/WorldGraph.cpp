@@ -17,7 +17,7 @@ WorldGraph* WorldGraph::Instance()
 
 void WorldGraph::OnUpdate()
 {
-	for (const WorldGraph::Node* node : this->Nodes)
+	for (const WorldGraph::Node* node : this->nodes)
 	{
 		for (Object* gameObject : node->objectDatas)
 		{
@@ -28,12 +28,12 @@ void WorldGraph::OnUpdate()
 
 void WorldGraph::AddNode(int32 Id, FVector Location)
 {
-	this->Nodes.Add(new Node(Id, Location));
+	this->nodes.Add(new Node(Id, Location));
 }
 
 void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
 {
-	this->Edges.Add(new Edge(StartNodeId, EndNodeId));
+	this->edges.Add(new Edge(StartNodeId, EndNodeId));
 }
 
 const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge)
@@ -46,12 +46,12 @@ const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge)
 
 const TArray<WorldGraph::Node*> WorldGraph::GetNodes()
 {
-	return this->Nodes;
+	return this->nodes;
 }
 
 const TArray<WorldGraph::Edge*> WorldGraph::GetEdges()
 {
-	return this->Edges;
+	return this->edges;
 }
 
 void WorldGraph::GenerateTestData()
@@ -65,9 +65,9 @@ void WorldGraph::GenerateTestData()
 		}
 	}
 
-	for (const WorldGraph::Node* NodeStart : this->Nodes)
+	for (const WorldGraph::Node* NodeStart : this->nodes)
 	{
-		for (const WorldGraph::Node* NodeEnd : this->Nodes)
+		for (const WorldGraph::Node* NodeEnd : this->nodes)
 		{
 			if (NodeStart->id == NodeEnd->id)
 			{
@@ -92,7 +92,7 @@ void WorldGraph::SpawnBuilding(int32 nodeID, UWorld* world)
 
 WorldGraph::Node* WorldGraph::GetNodeByID(int32 id)
 {
-	for (WorldGraph::Node* node : this->Nodes)
+	for (WorldGraph::Node* node : this->nodes)
 	{
 		if (node->id == id)
 		{
@@ -112,7 +112,7 @@ bool WorldGraph::NodeExistOnRange(const FVector& location, float distance)
 {
 	float distanceSquared = distance * distance;
 
-	for (const WorldGraph::Node* node : this->Nodes)
+	for (const WorldGraph::Node* node : this->nodes)
 	{
 		float nodeDistanceSquared = FVector::DistSquared(node->location, location);
 		if (nodeDistanceSquared < distanceSquared)
