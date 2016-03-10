@@ -85,7 +85,7 @@ void WorldGraph::GenerateTestData()
 void WorldGraph::SpawnBuilding(int32 nodeID, UWorld* world)
 {
 	auto node = this->GetNodeByID(nodeID);
-	node->objectDatas.Add(new Object());
+	node->objectDatas.Add(new Object(nodeID));
 
 	world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
 }

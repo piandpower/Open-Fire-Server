@@ -1,6 +1,6 @@
 #pragma once
 
-struct Object;
+class Object;
 
 class OPENFIRE_API WorldGraph
 {
