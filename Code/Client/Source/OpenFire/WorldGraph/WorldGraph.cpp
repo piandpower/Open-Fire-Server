@@ -1,7 +1,7 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
 #include "Building/Building.h"
-#include "WorldGraph/ObjectData.h"
+#include "WorldGraph/Object.h"
 
 WorldGraph* WorldGraph::instance = nullptr;
 
@@ -19,7 +19,7 @@ void WorldGraph::OnUpdate()
 {
 	for (const WorldGraph::Node* node : this->Nodes)
 	{
-		for (ObjectData* gameObject : node->objectDatas)
+		for (Object* gameObject : node->objectDatas)
 		{
 			gameObject->OnUpdate();
 		}
@@ -85,7 +85,7 @@ void WorldGraph::GenerateTestData()
 void WorldGraph::SpawnBuilding(int32 nodeID, UWorld* world)
 {
 	auto node = this->GetNodeByID(nodeID);
-	node->objectDatas.Add(new ObjectData());
+	node->objectDatas.Add(new Object());
 
 	world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
 }

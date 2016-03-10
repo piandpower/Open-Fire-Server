@@ -1,9 +1,9 @@
 // Free to use
 
 #include "OpenFire.h"
-#include "ObjectData.h"
+#include "Object.h"
 
-void ObjectData::OnUpdate()
+void Object::OnUpdate()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Your message"));
 }

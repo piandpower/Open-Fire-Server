@@ -1,6 +1,6 @@
 #pragma once
 
-struct ObjectData;
+struct Object;
 
 class OPENFIRE_API WorldGraph
 {
@@ -15,7 +15,7 @@ public:
 
 		int32 id;
 		FVector location;
-		TArray<ObjectData*> objectDatas;
+		TArray<Object*> objectDatas;
 	};
 
 	struct Edge

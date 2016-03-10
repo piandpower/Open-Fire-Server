@@ -2,7 +2,7 @@
 
 #pragma once
 
-struct OPENFIRE_API ObjectData
+struct OPENFIRE_API Object
 {
 public:
 	enum class Type
