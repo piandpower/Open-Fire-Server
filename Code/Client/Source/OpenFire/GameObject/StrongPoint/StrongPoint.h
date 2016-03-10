@@ -2,15 +2,15 @@
 
 #pragma once
 
-#include "GameFramework/Actor.h"
+#include "GameObject//GameObject.h"
 #include "StrongPoint.generated.h"
 
 UCLASS()
-class OPENFIRE_API AStrongPoint : public AActor
+class OPENFIRE_API AStrongPoint : public AGameObject
 {
 	GENERATED_BODY()
 
-public:
+private:
 	int32 nodeID = -1;
 	
 public:

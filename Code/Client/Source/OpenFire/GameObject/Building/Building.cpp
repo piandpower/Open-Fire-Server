@@ -35,3 +35,8 @@ void ABuilding::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 }
+
+void ABuilding::CheckObjectState()
+{
+	UE_LOG(LogTemp, Warning, TEXT("TEST"));
+}

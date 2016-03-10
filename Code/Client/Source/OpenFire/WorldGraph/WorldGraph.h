@@ -35,6 +35,7 @@ private:
 
 	TArray<Node*> nodes;
 	TArray<Edge*> edges;
+	TArray<Object*> objects;
 
 private:
 	WorldGraph() {};
@@ -48,6 +49,8 @@ public:
 
 	void AddNode(int32 Id, FVector Location);
 	void AddEdge(int32 StartNodeId, int32 EndNodeId);
+
+	Object* GetObject(int32 objectID);
 
 	Node* GetNode(int32 nodeID);
 	TArray<Node*> GetNearbyNodes(int32 nodeID);
@@ -64,4 +67,5 @@ public:
 private:
 	const FVector GetRandomNodeLocation();
 	bool NodeExistOnRange(const FVector& location, float distance);
+	const int32 GenerateObjectID() const;
 };

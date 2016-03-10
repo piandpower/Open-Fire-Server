@@ -36,6 +36,19 @@ void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
 	this->edges.Add(new Edge(StartNodeId, EndNodeId));
 }
 
+Object* WorldGraph::GetObject(int32 objectID)
+{
+	for (Object* object : this->objects)
+	{
+		if (object->objectID == objectID)
+		{
+			return object;
+		}
+	}
+
+	return nullptr;
+}
+
 WorldGraph::Node* WorldGraph::GetNode(int32 nodeID)
 {
 	for (Node* node : this->nodes)
@@ -111,10 +124,15 @@ void WorldGraph::GenerateTestData()
 
 void WorldGraph::SpawnBuilding(int32 nodeID, UWorld* world)
 {
-	auto node = this->GetNode(nodeID);
-	node->objectDatas.Add(new Object(nodeID));
+	const int32 objectID = this->GenerateObjectID();
+	Object* object = new Object(objectID, nodeID);
+	this->objects.Add(object);
 
-	world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
+	Node* node = this->GetNode(nodeID);
+	node->objectDatas.Add(object);
+
+	ABuilding* building = world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
+	building->Initialize(objectID);
 }
 
 const FVector WorldGraph::GetRandomNodeLocation()
@@ -136,4 +154,11 @@ bool WorldGraph::NodeExistOnRange(const FVector& location, float distance)
 	}
 
 	return false;
+}
+
+const int32 WorldGraph::GenerateObjectID() const
+{
+	static int32 id = 0;
+	++id;
+	return id;
 }

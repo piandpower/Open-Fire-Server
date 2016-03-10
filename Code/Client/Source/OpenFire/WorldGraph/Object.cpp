@@ -4,8 +4,9 @@
 #include "Object.h"
 #include "WorldGraph/WorldGraph.h"
 
-Object::Object(int32 nodeID)
+Object::Object(int32 objectID, int32 nodeID)
 {
+	this->objectID = objectID;
 	this->nodeID = nodeID;
 }
 
