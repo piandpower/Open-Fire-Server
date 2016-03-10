@@ -1,21 +1,21 @@
 // Free to use
 
 #include "OpenFire.h"
-#include "Object.h"
+#include "ObjectData.h"
 #include "WorldGraph/WorldGraph.h"
 
-Object::Object(int32 objectID, int32 nodeID)
+ObjectData::ObjectData(int32 objectID, int32 nodeID)
 {
 	this->objectID = objectID;
 	this->nodeID = nodeID;
 }
 
-void Object::SetNodeID(int32 nodeID)
+void ObjectData::SetNodeID(int32 nodeID)
 {
 	this->nodeID = nodeID;
 }
 
-void Object::OnUpdate()
+void ObjectData::OnUpdate()
 {
 	auto node = WorldGraph::Instance()->GetNode(this->nodeID);
 	UE_LOG(LogTemp, Warning, TEXT("nodeID: %d"), node->id);

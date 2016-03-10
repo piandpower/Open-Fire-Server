@@ -1,6 +1,6 @@
 #pragma once
 
-class Object;
+class ObjectData;
 
 class OPENFIRE_API WorldGraph
 {
@@ -15,7 +15,7 @@ public:
 
 		int32 id;
 		FVector location;
-		TArray<Object*> objectDatas;
+		TArray<ObjectData*> objectDatas;
 	};
 
 	struct Edge
@@ -35,7 +35,7 @@ private:
 
 	TArray<Node*> nodes;
 	TArray<Edge*> edges;
-	TArray<Object*> objects;
+	TArray<ObjectData*> objects;
 
 private:
 	WorldGraph() {};
@@ -50,7 +50,7 @@ public:
 	void AddNode(int32 Id, FVector Location);
 	void AddEdge(int32 StartNodeId, int32 EndNodeId);
 
-	Object* GetObject(int32 objectID);
+	ObjectData* GetObject(int32 objectID);
 
 	Node* GetNode(int32 nodeID);
 	TArray<Node*> GetNearbyNodes(int32 nodeID);

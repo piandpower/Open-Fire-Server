@@ -1,7 +1,7 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
 #include "GameObject/Building/Building.h"
-#include "WorldGraph/Object.h"
+#include "WorldGraph/ObjectData.h"
 
 WorldGraph* WorldGraph::instance = nullptr;
 
@@ -19,7 +19,7 @@ void WorldGraph::OnUpdate()
 {
 	for (const WorldGraph::Node* node : this->nodes)
 	{
-		for (Object* gameObject : node->objectDatas)
+		for (ObjectData* gameObject : node->objectDatas)
 		{
 			gameObject->OnUpdate();
 		}
@@ -36,9 +36,9 @@ void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
 	this->edges.Add(new Edge(StartNodeId, EndNodeId));
 }
 
-Object* WorldGraph::GetObject(int32 objectID)
+ObjectData* WorldGraph::GetObject(int32 objectID)
 {
-	for (Object* object : this->objects)
+	for (ObjectData* object : this->objects)
 	{
 		if (object->objectID == objectID)
 		{
@@ -125,7 +125,7 @@ void WorldGraph::GenerateTestData()
 void WorldGraph::SpawnBuilding(int32 nodeID, UWorld* world)
 {
 	const int32 objectID = this->GenerateObjectID();
-	Object* object = new Object(objectID, nodeID);
+	ObjectData* object = new ObjectData(objectID, nodeID);
 	this->objects.Add(object);
 
 	Node* node = this->GetNode(nodeID);

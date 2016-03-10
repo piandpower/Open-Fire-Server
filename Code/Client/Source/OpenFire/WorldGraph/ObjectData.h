@@ -2,7 +2,7 @@
 
 #pragma once
 
-class OPENFIRE_API Object
+class OPENFIRE_API ObjectData
 {
 public:
 	enum class Type
@@ -15,7 +15,8 @@ public:
 	int32 nodeID = -1;
 	Type type = Type::None;
 
-	Object(int32 objectID, int32 nodeID);
+public:
+	ObjectData(int32 objectID, int32 nodeID);
 	void SetNodeID(int32 nodeID);
 
 	void OnUpdate();
