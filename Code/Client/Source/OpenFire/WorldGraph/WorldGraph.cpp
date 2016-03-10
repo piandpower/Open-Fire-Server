@@ -36,10 +36,37 @@ void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
 	this->edges.Add(new Edge(StartNodeId, EndNodeId));
 }
 
+WorldGraph::Node* WorldGraph::GetNode(int32 nodeID)
+{
+	for (Node* node : this->nodes)
+	{
+		if (node->id == nodeID)
+		{
+			return node;
+		}
+	}
+
+	return nullptr;
+}
+
+TArray<WorldGraph::Node*> WorldGraph::GetNearbyNodes(int32 nodeID)
+{
+	TArray<Node*> nearbyNodes;
+	for (Edge* edge : this->edges)
+	{
+		if (edge->startNodeId == nodeID)
+		{
+			nearbyNodes.Add(this->GetNode(edge->endNodeId));
+		}
+	}
+
+	return nearbyNodes;
+}
+
 const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge)
 {
-	Node* startNode = this->GetNodeByID(edge->startNodeId);
-	Node* endNode = this->GetNodeByID(edge->endNodeId);
+	Node* startNode = this->GetNode(edge->startNodeId);
+	Node* endNode = this->GetNode(edge->endNodeId);
 
 	return (startNode->location + endNode->location) * 0.5f;
 }
@@ -84,23 +111,10 @@ void WorldGraph::GenerateTestData()
 
 void WorldGraph::SpawnBuilding(int32 nodeID, UWorld* world)
 {
-	auto node = this->GetNodeByID(nodeID);
+	auto node = this->GetNode(nodeID);
 	node->objectDatas.Add(new Object(nodeID));
 
 	world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
-}
-
-WorldGraph::Node* WorldGraph::GetNodeByID(int32 id)
-{
-	for (WorldGraph::Node* node : this->nodes)
-	{
-		if (node->id == id)
-		{
-			return node;
-		}
-	}
-
-	return nullptr;
 }
 
 const FVector WorldGraph::GetRandomNodeLocation()

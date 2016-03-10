@@ -49,6 +49,9 @@ public:
 	void AddNode(int32 Id, FVector Location);
 	void AddEdge(int32 StartNodeId, int32 EndNodeId);
 
+	Node* GetNode(int32 nodeID);
+	TArray<Node*> GetNearbyNodes(int32 nodeID);
+
 	const FVector GetEdgeLocation(const WorldGraph::Edge* edge);
 
 	const TArray<WorldGraph::Node*> GetNodes();
@@ -59,8 +62,6 @@ public:
 	void SpawnBuilding(int32 nodeID, UWorld* world);
 
 private:
-	Node* GetNodeByID(int32 id);
-
 	const FVector GetRandomNodeLocation();
 	bool NodeExistOnRange(const FVector& location, float distance);
 };
