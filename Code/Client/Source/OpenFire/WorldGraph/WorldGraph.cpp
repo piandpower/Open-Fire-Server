@@ -1,7 +1,9 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
 #include "GameObject/Building/Building.h"
-#include "WorldGraph/ObjectData/ObjectData.h"
+#include "WorldGraph/ObjectData/Building/BuildingData.h"
+#include "GameObject/Unit/Worker.h"
+#include "WorldGraph/ObjectData/Unit/WorkerData.h"
 
 WorldGraph* WorldGraph::instance = nullptr;
 
@@ -130,11 +132,12 @@ void WorldGraph::GenerateTestData()
 void WorldGraph::SpawnBuilding(int32 nodeID)
 {
 	const int32 objectID = this->GenerateObjectID();
-	ObjectData* object = new ObjectData(objectID, nodeID);
-	this->objects.Add(object);
+	BuildingData* buildingData = new BuildingData();
+	buildingData->Initialize(objectID, nodeID);
+	this->objects.Add(buildingData);
 
 	Node* node = this->GetNode(nodeID);
-	node->objectDatas.Add(object);
+	node->objectDatas.Add(buildingData);
 
 	ABuilding* building = this->world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
 	building->Initialize(objectID);
@@ -142,7 +145,16 @@ void WorldGraph::SpawnBuilding(int32 nodeID)
 
 void WorldGraph::SpawnWorker(int32 nodeID)
 {
+	const int32 objectID = this->GenerateObjectID();
+	WorkerData* workerData = new WorkerData();
+	workerData->Initialize(objectID, nodeID);
+	this->objects.Add(workerData);
 
+	Node* node = this->GetNode(nodeID);
+	node->objectDatas.Add(workerData);
+
+	AWorker* building = this->world->SpawnActor<AWorker>(node->location, FRotator::ZeroRotator);
+	building->Initialize(objectID);
 }
 
 const FVector WorldGraph::GetRandomNodeLocation()

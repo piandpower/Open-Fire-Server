@@ -16,7 +16,7 @@ public:
 	Type type = Type::None;
 
 public:
-	ObjectData(int32 objectID, int32 nodeID);
+	void Initialize(int32 objectID, int32 nodeID);
 	void SetNodeID(int32 nodeID);
 
 	virtual void OnUpdate();

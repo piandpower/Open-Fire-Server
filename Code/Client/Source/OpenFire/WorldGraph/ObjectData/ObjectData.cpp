@@ -4,7 +4,7 @@
 #include "ObjectData.h"
 #include "WorldGraph/WorldGraph.h"
 
-ObjectData::ObjectData(int32 objectID, int32 nodeID)
+void ObjectData::Initialize(int32 objectID, int32 nodeID)
 {
 	this->objectID = objectID;
 	this->nodeID = nodeID;
