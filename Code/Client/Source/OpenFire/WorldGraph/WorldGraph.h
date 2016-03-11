@@ -2,6 +2,7 @@
 
 class ObjectData;
 class WorldGraphNode;
+enum class WorldGraphNodeType;
 
 class OPENFIRE_API WorldGraph
 {
@@ -39,7 +40,6 @@ public:
 
 	void OnUpdate();
 
-	void AddNode(int32 Id, FVector Location);
 	void AddEdge(int32 StartNodeId, int32 EndNodeId);
 
 	ObjectData* GetObject(int32 objectID);
@@ -54,6 +54,8 @@ public:
 
 	void GenerateTestData();
 
+	void SpawnNode(int32 id, FVector location, WorldGraphNodeType type);
+
 	void SpawnCastle(int32 nodeID);
 	void SpawnWorker(int32 nodeID);
 
@@ -63,4 +65,5 @@ private:
 	const FVector GetRandomNodeLocation();
 	bool NodeExistOnRange(const FVector& location, float distance);
 	const int32 GenerateObjectID() const;
+	WorldGraphNodeType GetRandomNodeType();
 };

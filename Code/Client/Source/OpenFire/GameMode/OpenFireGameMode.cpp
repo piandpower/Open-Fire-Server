@@ -24,11 +24,6 @@ void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options,
 
 	WorldGraph::Instance()->GenerateTestData();
 
-	for (const WorldGraphNode* node : WorldGraph::Instance()->GetNodes())
-	{
-		this->SpawnStrongPoint(node->nodeID, node->location);
-	}
-
 	for (const WorldGraph::Edge* edge : WorldGraph::Instance()->GetEdges())
 	{
 		this->SpawnStrongPointEdge(WorldGraph::Instance()->GetEdgeLocation(edge));
@@ -50,7 +45,7 @@ void AOpenFireGameMode::Tick(float DeltaSeconds)
 void AOpenFireGameMode::SpawnStrongPoint(int32 nodeID, FVector Location)
 {
 	AStrongPoint* strongPoint = this->GetWorld()->SpawnActor<AStrongPoint>(Location, FRotator::ZeroRotator);
-	strongPoint->Initialize(nodeID);
+	strongPoint->Initialize(nodeID, WorldGraphNodeType::None);
 }
 
 void AOpenFireGameMode::SpawnStrongPointEdge(FVector Location)

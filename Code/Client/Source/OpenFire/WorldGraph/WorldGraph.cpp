@@ -1,6 +1,7 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
 #include "WorldGraph/WorldGraphNode.h"
+#include "GameObject/StrongPoint/StrongPoint.h"
 #include "GameObject/Building/Castle.h"
 #include "WorldGraph/ObjectData/Building/CastleData.h"
 #include "GameObject/Unit/Worker.h"
@@ -29,11 +30,6 @@ void WorldGraph::OnUpdate()
 	{
 		gameObject->OnUpdate();
 	}
-}
-
-void WorldGraph::AddNode(int32 Id, FVector Location)
-{
-	this->nodes.Add(new WorldGraphNode(Id, Location));
 }
 
 void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
@@ -106,7 +102,7 @@ void WorldGraph::GenerateTestData()
 		auto location = this->GetRandomNodeLocation();
 		if (this->NodeExistOnRange(location, 700.0f) == false)
 		{
-			this->AddNode(i, location);
+			this->SpawnNode(i, location, this->GetRandomNodeType());
 		}
 	}
 
@@ -125,6 +121,13 @@ void WorldGraph::GenerateTestData()
 			}
 		}
 	}
+}
+
+void WorldGraph::SpawnNode(int32 id, FVector location, WorldGraphNodeType type)
+{
+	this->nodes.Add(new WorldGraphNode(id, location, type));
+	AStrongPoint* strongPoint = this->world->SpawnActor<AStrongPoint>(location, FRotator::ZeroRotator);
+	strongPoint->Initialize(id, type);
 }
 
 void WorldGraph::SpawnCastle(int32 nodeID)
@@ -193,4 +196,23 @@ const int32 WorldGraph::GenerateObjectID() const
 	static int32 id = 0;
 	++id;
 	return id;
+}
+
+WorldGraphNodeType WorldGraph::GetRandomNodeType()
+{
+	int32 rand = FMath::RandRange(1, 10);
+	if (1 <= rand && rand <= 7)
+	{
+		return WorldGraphNodeType::Grass;
+	}
+	else if (8 <= rand && rand <= 9)
+	{
+		return WorldGraphNodeType::Stone;
+	}
+	else if (rand == 10)
+	{
+		return WorldGraphNodeType::Desert;
+	}
+
+	return WorldGraphNodeType::None;
 }
