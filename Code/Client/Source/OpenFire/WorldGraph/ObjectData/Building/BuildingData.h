@@ -6,5 +6,4 @@
 
 class OPENFIRE_API BuildingData : public ObjectData
 {
-	virtual void OnUpdate() override;
 };

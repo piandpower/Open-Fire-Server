@@ -54,7 +54,7 @@ public:
 
 	void GenerateTestData();
 
-	void SpawnBuilding(int32 nodeID);
+	void SpawnCastle(int32 nodeID);
 	void SpawnWorker(int32 nodeID);
 
 	void MoveObject(int objectID, int32 nodeID);

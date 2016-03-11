@@ -1,8 +1,8 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
 #include "WorldGraph/WorldGraphNode.h"
-#include "GameObject/Building/Building.h"
-#include "WorldGraph/ObjectData/Building/BuildingData.h"
+#include "GameObject/Building/Castle.h"
+#include "WorldGraph/ObjectData/Building/CastleData.h"
 #include "GameObject/Unit/Worker.h"
 #include "WorldGraph/ObjectData/Unit/WorkerData.h"
 
@@ -127,18 +127,18 @@ void WorldGraph::GenerateTestData()
 	}
 }
 
-void WorldGraph::SpawnBuilding(int32 nodeID)
+void WorldGraph::SpawnCastle(int32 nodeID)
 {
 	const int32 objectID = this->GenerateObjectID();
-	BuildingData* buildingData = new BuildingData();
-	buildingData->Initialize(objectID, nodeID);
-	this->objects.Add(buildingData);
+	CastleData* castleData = new CastleData();
+	castleData->Initialize(objectID, nodeID);
+	this->objects.Add(castleData);
 
 	WorldGraphNode* node = this->GetNode(nodeID);
-	node->AddObject(objectID, buildingData);
+	node->AddObject(objectID, castleData);
 
-	ABuilding* building = this->world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
-	building->Initialize(objectID);
+	ACastle* castle = this->world->SpawnActor<ACastle>(node->location, FRotator::ZeroRotator);
+	castle->Initialize(objectID);
 }
 
 void WorldGraph::SpawnWorker(int32 nodeID)

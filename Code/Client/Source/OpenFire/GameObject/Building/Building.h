@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameObject//GameObject.h"
+#include "GameObject/GameObject.h"
 #include "Building.generated.h"
 
 UCLASS()
