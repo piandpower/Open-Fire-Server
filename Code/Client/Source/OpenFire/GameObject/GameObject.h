@@ -11,9 +11,10 @@ class OPENFIRE_API AGameObject : public AActor
 	GENERATED_BODY()
 
 private:
-	int32 objectID = -1;
-
 	float accumulatedSeconds = 0.0f;
+
+protected:
+	int32 objectID = -1;
 
 public:
 	// Sets default values for this actor's properties
@@ -27,5 +28,5 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	virtual void CheckObjectState();
+	virtual void CheckObjectData();
 };

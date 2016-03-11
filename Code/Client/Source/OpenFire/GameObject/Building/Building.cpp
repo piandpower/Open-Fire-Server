@@ -38,5 +38,4 @@ void ABuilding::Tick( float DeltaTime )
 
 void ABuilding::CheckObjectState()
 {
-	UE_LOG(LogTemp, Warning, TEXT("TEST"));
 }

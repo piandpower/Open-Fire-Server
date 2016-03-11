@@ -32,10 +32,10 @@ void AGameObject::Tick(float deltaSeconds)
 	if (this->accumulatedSeconds > updateSeconds)
 	{
 		this->accumulatedSeconds -= updateSeconds;
-		this->CheckObjectState();
+		this->CheckObjectData();
 	}
 }
 
-void AGameObject::CheckObjectState()
+void AGameObject::CheckObjectData()
 {
 }

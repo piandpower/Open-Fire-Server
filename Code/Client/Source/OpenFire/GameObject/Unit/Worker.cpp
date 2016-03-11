@@ -2,6 +2,9 @@
 
 #include "OpenFire.h"
 #include "Worker.h"
+#include "WorldGraph/WorldGraph.h"
+#include "WorldGraph/WorldGraphNode.h"
+#include "WorldGraph/ObjectData/Unit/WorkerData.h"
 
 AWorker::AWorker()
 {
@@ -18,4 +21,25 @@ AWorker::AWorker()
 		StaticMeshComponent->SetWorldScale3D(FVector(1.0f, 1.0f, 2.0f));
 		StaticMeshComponent->SetCollisionProfileName(UCollisionProfile::BlockAll_ProfileName);
 	}
+}
+
+void AWorker::BeginPlay()
+{
+	this->targetLocation = this->GetActorLocation();
+}
+
+void AWorker::Tick(float deltaSeconds)
+{
+	Super::Tick(deltaSeconds);
+
+	auto currentLocation = this->GetActorLocation();
+
+	this->SetActorLocation(FMath::VInterpTo(currentLocation, this->targetLocation, deltaSeconds, 1.0f));
+}
+
+void AWorker::CheckObjectData()
+{
+	ObjectData* objectData = WorldGraph::Instance()->GetObject(this->objectID);
+	WorldGraphNode* node = WorldGraph::Instance()->GetNode(objectData->nodeID);
+	this->targetLocation = node->location;
 }

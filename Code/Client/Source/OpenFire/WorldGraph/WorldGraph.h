@@ -1,23 +1,11 @@
 #pragma once
 
 class ObjectData;
+class WorldGraphNode;
 
 class OPENFIRE_API WorldGraph
 {
 public:
-	struct Node
-	{
-		Node(int32 id, FVector location)
-		{
-			this->nodeID = id;
-			this->location = location;
-		};
-
-		int32 nodeID;
-		FVector location;
-		TArray<ObjectData*> objectDatas;
-	};
-
 	struct Edge
 	{
 		Edge(int32 startNodeId, int32 endNodeId)
@@ -35,7 +23,7 @@ private:
 
 	UWorld* world = nullptr;
 
-	TArray<Node*> nodes;
+	TArray<WorldGraphNode*> nodes;
 	TArray<Edge*> edges;
 	TArray<ObjectData*> objects;
 
@@ -56,18 +44,20 @@ public:
 
 	ObjectData* GetObject(int32 objectID);
 
-	Node* GetNode(int32 nodeID);
-	TArray<Node*> GetNearbyNodes(int32 nodeID);
+	WorldGraphNode* GetNode(int32 nodeID);
+	TArray<WorldGraphNode*> GetNearbyNodes(int32 nodeID);
 
 	const FVector GetEdgeLocation(const WorldGraph::Edge* edge);
 
-	const TArray<WorldGraph::Node*> GetNodes();
+	const TArray<WorldGraphNode*> GetNodes();
 	const TArray<WorldGraph::Edge*> GetEdges();
 
 	void GenerateTestData();
 
 	void SpawnBuilding(int32 nodeID);
 	void SpawnWorker(int32 nodeID);
+
+	void MoveObject(int objectID, int32 nodeID);
 
 private:
 	const FVector GetRandomNodeLocation();

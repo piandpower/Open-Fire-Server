@@ -1,5 +1,6 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
+#include "WorldGraph/WorldGraphNode.h"
 #include "GameObject/Building/Building.h"
 #include "WorldGraph/ObjectData/Building/BuildingData.h"
 #include "GameObject/Unit/Worker.h"
@@ -24,18 +25,15 @@ void WorldGraph::Initialize(UWorld* world)
 
 void WorldGraph::OnUpdate()
 {
-	for (const WorldGraph::Node* node : this->nodes)
+	for (ObjectData* gameObject : this->objects)
 	{
-		for (ObjectData* gameObject : node->objectDatas)
-		{
-			gameObject->OnUpdate();
-		}
+		gameObject->OnUpdate();
 	}
 }
 
 void WorldGraph::AddNode(int32 Id, FVector Location)
 {
-	this->nodes.Add(new Node(Id, Location));
+	this->nodes.Add(new WorldGraphNode(Id, Location));
 }
 
 void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
@@ -56,9 +54,9 @@ ObjectData* WorldGraph::GetObject(int32 objectID)
 	return nullptr;
 }
 
-WorldGraph::Node* WorldGraph::GetNode(int32 nodeID)
+WorldGraphNode* WorldGraph::GetNode(int32 nodeID)
 {
-	for (Node* node : this->nodes)
+	for (WorldGraphNode* node : this->nodes)
 	{
 		if (node->nodeID == nodeID)
 		{
@@ -69,9 +67,9 @@ WorldGraph::Node* WorldGraph::GetNode(int32 nodeID)
 	return nullptr;
 }
 
-TArray<WorldGraph::Node*> WorldGraph::GetNearbyNodes(int32 nodeID)
+TArray<WorldGraphNode*> WorldGraph::GetNearbyNodes(int32 nodeID)
 {
-	TArray<Node*> nearbyNodes;
+	TArray<WorldGraphNode*> nearbyNodes;
 	for (Edge* edge : this->edges)
 	{
 		if (edge->startNodeId == nodeID)
@@ -85,13 +83,13 @@ TArray<WorldGraph::Node*> WorldGraph::GetNearbyNodes(int32 nodeID)
 
 const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge)
 {
-	Node* startNode = this->GetNode(edge->startNodeId);
-	Node* endNode = this->GetNode(edge->endNodeId);
+	WorldGraphNode* startNode = this->GetNode(edge->startNodeId);
+	WorldGraphNode* endNode = this->GetNode(edge->endNodeId);
 
 	return (startNode->location + endNode->location) * 0.5f;
 }
 
-const TArray<WorldGraph::Node*> WorldGraph::GetNodes()
+const TArray<WorldGraphNode*> WorldGraph::GetNodes()
 {
 	return this->nodes;
 }
@@ -112,9 +110,9 @@ void WorldGraph::GenerateTestData()
 		}
 	}
 
-	for (const WorldGraph::Node* NodeStart : this->nodes)
+	for (const WorldGraphNode* NodeStart : this->nodes)
 	{
-		for (const WorldGraph::Node* NodeEnd : this->nodes)
+		for (const WorldGraphNode* NodeEnd : this->nodes)
 		{
 			if (NodeStart->nodeID == NodeEnd->nodeID)
 			{
@@ -136,8 +134,8 @@ void WorldGraph::SpawnBuilding(int32 nodeID)
 	buildingData->Initialize(objectID, nodeID);
 	this->objects.Add(buildingData);
 
-	Node* node = this->GetNode(nodeID);
-	node->objectDatas.Add(buildingData);
+	WorldGraphNode* node = this->GetNode(nodeID);
+	node->AddObject(objectID, buildingData);
 
 	ABuilding* building = this->world->SpawnActor<ABuilding>(node->location, FRotator::ZeroRotator);
 	building->Initialize(objectID);
@@ -150,11 +148,23 @@ void WorldGraph::SpawnWorker(int32 nodeID)
 	workerData->Initialize(objectID, nodeID);
 	this->objects.Add(workerData);
 
-	Node* node = this->GetNode(nodeID);
-	node->objectDatas.Add(workerData);
+	WorldGraphNode* node = this->GetNode(nodeID);
+	node->AddObject(objectID, workerData);
 
-	AWorker* building = this->world->SpawnActor<AWorker>(node->location, FRotator::ZeroRotator);
-	building->Initialize(objectID);
+	AWorker* worker = this->world->SpawnActor<AWorker>(node->location, FRotator::ZeroRotator);
+	worker->Initialize(objectID);
+}
+
+void WorldGraph::MoveObject(int objectID, int32 nodeID)
+{
+	ObjectData* objectData = this->GetObject(objectID);
+	objectData->SetNodeID(nodeID);
+
+	WorldGraphNode* startNode = this->GetNode(objectData->nodeID);
+	startNode->RemoveObject(objectID);
+	
+	WorldGraphNode* endNode = this->GetNode(nodeID);
+	endNode->AddObject(objectID, objectData);
 }
 
 const FVector WorldGraph::GetRandomNodeLocation()
@@ -166,7 +176,7 @@ bool WorldGraph::NodeExistOnRange(const FVector& location, float distance)
 {
 	float distanceSquared = distance * distance;
 
-	for (const WorldGraph::Node* node : this->nodes)
+	for (const WorldGraphNode* node : this->nodes)
 	{
 		float nodeDistanceSquared = FVector::DistSquared(node->location, location);
 		if (nodeDistanceSquared < distanceSquared)

@@ -6,5 +6,6 @@
 
 class OPENFIRE_API WorkerData : public ObjectData
 {
+public:
 	virtual void OnUpdate() override;
 };

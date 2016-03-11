@@ -9,6 +9,15 @@ UCLASS()
 class OPENFIRE_API AWorker : public AGameObject
 {
 	GENERATED_BODY()
+private:
+	FVector targetLocation = FVector::ZeroVector;
 
+public:
 	AWorker();
+
+	virtual void BeginPlay() override;
+
+	virtual void Tick(float deltaSeconds) override;
+
+	virtual void CheckObjectData() override;
 };

@@ -6,6 +6,8 @@
 #include "GameObject/StrongPoint/StrongPoint.h"
 #include "GameObject/StrongPoint/StrongPointEdge.h"
 #include "WorldGraph/WorldGraph.h"
+#include "WorldGraph/WorldGraphNode.h"
+#include "Manager/TimeManager.h"
 
 const float updateSeconds = 5.0f;
 
@@ -22,7 +24,7 @@ void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options,
 
 	WorldGraph::Instance()->GenerateTestData();
 
-	for (const WorldGraph::Node* node : WorldGraph::Instance()->GetNodes())
+	for (const WorldGraphNode* node : WorldGraph::Instance()->GetNodes())
 	{
 		this->SpawnStrongPoint(node->nodeID, node->location);
 	}
@@ -35,11 +37,13 @@ void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options,
 
 void AOpenFireGameMode::Tick(float DeltaSeconds)
 {
-	this->accumulatedSeconds += DeltaSeconds;
-	if (this->accumulatedSeconds > updateSeconds)
+	TimeManager::Instance()->AddSeconds(DeltaSeconds);
+
+	float remainingSeconds = TimeManager::Instance()->GetRemainingSeconds();
+	if (remainingSeconds < 0.0f)
 	{
-		this->accumulatedSeconds -= updateSeconds;
 		WorldGraph::Instance()->OnUpdate();
+		TimeManager::Instance()->RewindSeconds();
 	}
 }
 

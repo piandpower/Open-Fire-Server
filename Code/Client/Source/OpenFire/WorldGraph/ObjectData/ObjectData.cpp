@@ -3,6 +3,7 @@
 #include "OpenFire.h"
 #include "ObjectData.h"
 #include "WorldGraph/WorldGraph.h"
+#include "WorldGraph/WorldGraphNode.h"
 
 void ObjectData::Initialize(int32 objectID, int32 nodeID)
 {
@@ -17,12 +18,4 @@ void ObjectData::SetNodeID(int32 nodeID)
 
 void ObjectData::OnUpdate()
 {
-	auto node = WorldGraph::Instance()->GetNode(this->nodeID);
-	UE_LOG(LogTemp, Warning, TEXT("nodeID: %d"), node->nodeID);
-
-	auto nearbyNodes = WorldGraph::Instance()->GetNearbyNodes(this->nodeID);
-	for (auto node : nearbyNodes)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("nearby nodeID: %d"), node->nodeID);
-	}
 }
