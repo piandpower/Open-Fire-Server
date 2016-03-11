@@ -57,6 +57,8 @@ public:
 	void SpawnNode(int32 id, FVector location, WorldGraphNodeType type);
 
 	void SpawnCastle(int32 nodeID);
+	void SpawnFarm(int32 nodeID);
+
 	void SpawnWorker(int32 nodeID);
 
 	void MoveObject(int objectID, int32 nodeID);

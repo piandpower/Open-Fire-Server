@@ -33,4 +33,6 @@ public:
 	TMap<int32, ObjectData*> GetObjects();
 	void AddObject(int32 objectID, ObjectData* objectData);
 	void RemoveObject(int32 objectID);
+
+	bool HasBuilding();
 };

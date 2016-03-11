@@ -2,6 +2,8 @@
 #include "WorldGraph.h"
 #include "WorldGraph/WorldGraphNode.h"
 #include "GameObject/StrongPoint/StrongPoint.h"
+#include "GameObject/Building/Farm.h"
+#include "WorldGraph/ObjectData/Building/FarmData.h"
 #include "GameObject/Building/Castle.h"
 #include "WorldGraph/ObjectData/Building/CastleData.h"
 #include "GameObject/Unit/Worker.h"
@@ -142,6 +144,20 @@ void WorldGraph::SpawnCastle(int32 nodeID)
 
 	ACastle* castle = this->world->SpawnActor<ACastle>(node->location, FRotator::ZeroRotator);
 	castle->Initialize(objectID);
+}
+
+void WorldGraph::SpawnFarm(int32 nodeID)
+{
+	const int32 objectID = this->GenerateObjectID();
+	FarmData* farmData = new FarmData();
+	farmData->Initialize(objectID, nodeID);
+	this->objects.Add(farmData);
+
+	WorldGraphNode* node = this->GetNode(nodeID);
+	node->AddObject(objectID, farmData);
+
+	AFarm* farm = this->world->SpawnActor<AFarm>(node->location, FRotator::ZeroRotator);
+	farm->Initialize(objectID);
 }
 
 void WorldGraph::SpawnWorker(int32 nodeID)

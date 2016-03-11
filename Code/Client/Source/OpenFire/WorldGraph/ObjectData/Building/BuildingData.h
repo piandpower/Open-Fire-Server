@@ -6,4 +6,6 @@
 
 class OPENFIRE_API BuildingData : public ObjectData
 {
+public:
+	BuildingData();
 };
