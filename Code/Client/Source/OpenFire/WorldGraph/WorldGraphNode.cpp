@@ -21,13 +21,13 @@ void WorldGraphNode::RemoveObject(int32 objectID)
 
 bool WorldGraphNode::HasBuilding()
 {
-	for (const auto& iter : this->objectDataMap)
+	for (auto& iter : this->objectDataMap)
 	{
 		if (iter.Value->type == ObjectDataType::Building)
 		{
-			return false;
+			return true;
 		}
 	}
 
-	return true;
+	return false;
 }
