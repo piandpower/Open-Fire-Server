@@ -8,6 +8,8 @@
 #include "WorldGraph/ObjectData/Building/CastleData.h"
 #include "GameObject/Unit/Worker.h"
 #include "WorldGraph/ObjectData/Unit/WorkerData.h"
+#include "GameObject/Hero/Hero.h"
+#include "WorldGraph/ObjectData/Hero/HeroData.h"
 
 WorldGraph* WorldGraph::instance = nullptr;
 
@@ -99,30 +101,8 @@ const TArray<WorldGraph::Edge*> WorldGraph::GetEdges()
 
 void WorldGraph::GenerateTestData()
 {
-	for (int i = 0; i < 100000; ++i)
-	{
-		auto location = this->GetRandomNodeLocation();
-		if (this->NodeExistOnRange(location, 700.0f) == false)
-		{
-			this->SpawnNode(i, location, this->GetRandomNodeType());
-		}
-	}
-
-	for (const WorldGraphNode* NodeStart : this->nodes)
-	{
-		for (const WorldGraphNode* NodeEnd : this->nodes)
-		{
-			if (NodeStart->nodeID == NodeEnd->nodeID)
-			{
-				continue;
-			}
-
-			if (FVector::DistSquared(NodeStart->location, NodeEnd->location) <= (700.0f * 700.0f * 2.0f))
-			{
-				this->AddEdge(NodeStart->nodeID, NodeEnd->nodeID);
-			}
-		}
-	}
+	this->GenerateTestNodeAndEdges();
+	this->GenerateTestHeroes();
 }
 
 void WorldGraph::SpawnNode(int32 id, FVector location, WorldGraphNodeType type)
@@ -130,6 +110,20 @@ void WorldGraph::SpawnNode(int32 id, FVector location, WorldGraphNodeType type)
 	this->nodes.Add(new WorldGraphNode(id, location, type));
 	AStrongPoint* strongPoint = this->world->SpawnActor<AStrongPoint>(location, FRotator::ZeroRotator);
 	strongPoint->Initialize(id, type);
+}
+
+void WorldGraph::SpawnHero(int32 nodeID)
+{
+	const int32 objectID = this->GenerateObjectID();
+	HeroData* heroData = new HeroData();
+	heroData->Initialize(objectID, nodeID);
+	this->objects.Add(heroData);
+
+	WorldGraphNode* node = this->GetNode(nodeID);
+	node->AddObject(objectID, heroData);
+
+	AHero* hero = this->world->SpawnActor<AHero>(node->location, FRotator::ZeroRotator);
+	hero->Initialize(objectID);
 }
 
 void WorldGraph::SpawnCastle(int32 nodeID)
@@ -181,7 +175,7 @@ void WorldGraph::MoveObject(int objectID, int32 nodeID)
 
 	WorldGraphNode* startNode = this->GetNode(objectData->nodeID);
 	startNode->RemoveObject(objectID);
-	
+
 	WorldGraphNode* endNode = this->GetNode(nodeID);
 	endNode->AddObject(objectID, objectData);
 }
@@ -231,4 +225,47 @@ WorldGraphNodeType WorldGraph::GetRandomNodeType()
 	}
 
 	return WorldGraphNodeType::None;
+}
+
+const int32 WorldGraph::GetRandomNodeID() const
+{
+	const WorldGraphNode* randomNode = this->nodes[FMath::RandRange(0, this->nodes.Num() - 1)];
+	return randomNode->nodeID;
+}
+
+void WorldGraph::GenerateTestNodeAndEdges()
+{
+	for (int i = 0; i < 100000; ++i)
+	{
+		auto location = this->GetRandomNodeLocation();
+		if (this->NodeExistOnRange(location, 700.0f) == false)
+		{
+			this->SpawnNode(i, location, this->GetRandomNodeType());
+		}
+	}
+
+	for (const WorldGraphNode* NodeStart : this->nodes)
+	{
+		for (const WorldGraphNode* NodeEnd : this->nodes)
+		{
+			if (NodeStart->nodeID == NodeEnd->nodeID)
+			{
+				continue;
+			}
+
+			if (FVector::DistSquared(NodeStart->location, NodeEnd->location) <= (700.0f * 700.0f * 2.0f))
+			{
+				this->AddEdge(NodeStart->nodeID, NodeEnd->nodeID);
+			}
+		}
+	}
+}
+
+void WorldGraph::GenerateTestHeroes()
+{
+	for (int i = 0; i < 30; ++i)
+	{
+		const int32 nodeID = this->GetRandomNodeID();
+		this->SpawnHero(nodeID);
+	}
 }

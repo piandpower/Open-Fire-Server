@@ -56,6 +56,8 @@ public:
 
 	void SpawnNode(int32 id, FVector location, WorldGraphNodeType type);
 
+	void SpawnHero(int32 nodeID);
+
 	void SpawnCastle(int32 nodeID);
 	void SpawnFarm(int32 nodeID);
 
@@ -68,4 +70,9 @@ private:
 	bool NodeExistOnRange(const FVector& location, float distance);
 	const int32 GenerateObjectID() const;
 	WorldGraphNodeType GetRandomNodeType();
+
+	const int32 GetRandomNodeID() const;
+
+	void GenerateTestNodeAndEdges();
+	void GenerateTestHeroes();
 };
