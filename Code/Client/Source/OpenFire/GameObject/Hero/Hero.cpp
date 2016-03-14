@@ -8,15 +8,13 @@
 
 AHero::AHero()
 {
-	UStaticMeshComponent* StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
-	this->RootComponent = StaticMeshComponent;
+	USkeletalMeshComponent* skeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("VisualRepresentation"));
+	this->RootComponent = skeletalMeshComponent;
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> StaticMesh(TEXT("/Game/Resource/StaticMesh/Hero"));
-	if (StaticMesh.Succeeded())
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> skeletalMesh(TEXT("/Game/Resource/Hero/SM_Hero"));
+	if (skeletalMesh.Succeeded())
 	{
-		StaticMeshComponent->SetStaticMesh(StaticMesh.Object);
-		StaticMeshComponent->SetWorldScale3D(FVector(1.0f, 1.0f, 2.0f));
-		StaticMeshComponent->SetCollisionProfileName(UCollisionProfile::BlockAll_ProfileName);
+		skeletalMeshComponent->SetSkeletalMesh(skeletalMesh.Object);
 	}
 }
 
