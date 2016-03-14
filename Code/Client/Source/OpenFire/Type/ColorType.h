@@ -1,7 +1,5 @@
 #pragma once
 
-#include "OpenFire.h"
-
 namespace ColorType
 {
 	const FLinearColor Grass = FLinearColor(0.0f, 1.0f, 0.0f);

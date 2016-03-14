@@ -1,5 +1,6 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
+#include "Type/MissionType.h"
 #include "WorldGraph/WorldGraphNode.h"
 #include "GameObject/StrongPoint/StrongPoint.h"
 #include "GameObject/Building/Farm.h"
@@ -112,18 +113,19 @@ void WorldGraph::SpawnNode(int32 id, FVector location, WorldGraphNodeType type)
 	strongPoint->Initialize(id, type);
 }
 
-void WorldGraph::SpawnHero(int32 nodeID)
+void WorldGraph::SpawnHero(int32 nodeID, const MissionValues& missionValues)
 {
 	const int32 objectID = this->GenerateObjectID();
 	HeroData* heroData = new HeroData();
 	heroData->Initialize(objectID, nodeID);
+	heroData->SetMissionValues(missionValues);
 	this->objects.Add(heroData);
 
 	WorldGraphNode* node = this->GetNode(nodeID);
 	node->AddObject(objectID, heroData);
 
 	AHero* hero = this->world->SpawnActor<AHero>(node->location, FRotator::ZeroRotator);
-	hero->Initialize(objectID);
+	hero->Initialize(objectID, heroData->GetMissionColor());
 }
 
 void WorldGraph::SpawnCastle(int32 nodeID)
@@ -266,6 +268,11 @@ void WorldGraph::GenerateTestHeroes()
 	for (int i = 0; i < 30; ++i)
 	{
 		const int32 nodeID = this->GetRandomNodeID();
-		this->SpawnHero(nodeID);
+		this->SpawnHero(nodeID, this->GetRandomMissionValues());
 	}
+}
+
+MissionValues WorldGraph::GetRandomMissionValues()
+{
+	return MissionValues(FMath::RandRange(0, 100), FMath::RandRange(0, 100), FMath::RandRange(0, 100));
 }

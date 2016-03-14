@@ -1,6 +1,7 @@
 #pragma once
 
 class ObjectData;
+class MissionValues;
 class WorldGraphNode;
 enum class WorldGraphNodeType;
 
@@ -56,7 +57,7 @@ public:
 
 	void SpawnNode(int32 id, FVector location, WorldGraphNodeType type);
 
-	void SpawnHero(int32 nodeID);
+	void SpawnHero(int32 nodeID, const MissionValues& missionValues);
 
 	void SpawnCastle(int32 nodeID);
 	void SpawnFarm(int32 nodeID);
@@ -75,4 +76,6 @@ private:
 
 	void GenerateTestNodeAndEdges();
 	void GenerateTestHeroes();
+
+	MissionValues GetRandomMissionValues();
 };

@@ -8,19 +8,27 @@
 
 AHero::AHero()
 {
-	USkeletalMeshComponent* skeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("VisualRepresentation"));
-	this->RootComponent = skeletalMeshComponent;
+	this->skeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("VisualRepresentation"));
+	this->RootComponent = this->skeletalMeshComponent;
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> skeletalMesh(TEXT("/Game/Resource/Hero/SM_Hero"));
 	if (skeletalMesh.Succeeded())
 	{
-		skeletalMeshComponent->SetSkeletalMesh(skeletalMesh.Object);
+		this->skeletalMeshComponent->SetSkeletalMesh(skeletalMesh.Object);
 	}
+}
+
+void AHero::Initialize(int32 objectID, FLinearColor color)
+{
+	this->objectID = objectID;
+	this->color = color;
 }
 
 void AHero::BeginPlay()
 {
 	this->targetLocation = this->GetActorLocation();
+
+	this->SetColor(this->color);
 }
 
 void AHero::Tick(float deltaSeconds)
@@ -37,4 +45,11 @@ void AHero::CheckObjectData()
 	ObjectData* objectData = WorldGraph::Instance()->GetObject(this->objectID);
 	WorldGraphNode* node = WorldGraph::Instance()->GetNode(objectData->nodeID);
 	this->targetLocation = node->location;
+}
+
+void AHero::SetColor(FLinearColor color)
+{
+	UMaterialInstanceDynamic* materialInstanceDynamic = UMaterialInstanceDynamic::Create(this->skeletalMeshComponent->GetMaterial(0), this);
+	materialInstanceDynamic->SetVectorParameterValue("Color", color);
+	this->skeletalMeshComponent->SetMaterial(0, materialInstanceDynamic);
 }

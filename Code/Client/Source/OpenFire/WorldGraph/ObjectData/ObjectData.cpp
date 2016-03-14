@@ -16,6 +16,16 @@ void ObjectData::SetNodeID(int32 nodeID)
 	this->nodeID = nodeID;
 }
 
+void ObjectData::SetMissionValues(const MissionValues& missionValues)
+{
+	this->missionValues = missionValues;
+}
+
+const FLinearColor ObjectData::GetMissionColor() const
+{
+	return this->missionValues.GetColor();
+}
+
 void ObjectData::OnUpdate()
 {
 }
