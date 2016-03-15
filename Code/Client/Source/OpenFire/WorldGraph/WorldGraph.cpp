@@ -205,13 +205,14 @@ void WorldGraph::SpawnGold(int32 nodeID)
 void WorldGraph::MoveObject(int objectID, int32 nodeID)
 {
 	ObjectData* objectData = this->GetObject(objectID);
-	objectData->SetNodeID(nodeID);
 
 	WorldGraphNode* startNode = this->GetNode(objectData->nodeID);
 	startNode->RemoveObject(objectID);
 
 	WorldGraphNode* endNode = this->GetNode(nodeID);
 	endNode->AddObject(objectData);
+
+	objectData->SetNodeID(nodeID);
 }
 
 const FVector WorldGraph::GetRandomNodeLocation()
