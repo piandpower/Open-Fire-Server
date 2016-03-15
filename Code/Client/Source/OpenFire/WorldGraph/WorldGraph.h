@@ -61,6 +61,7 @@ public:
 
 	void SpawnCastle(int32 nodeID);
 	void SpawnFarm(int32 nodeID);
+	void SpawnMine(int32 nodeID);
 
 	void SpawnWorker(int32 nodeID);
 

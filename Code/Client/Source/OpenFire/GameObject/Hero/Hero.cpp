@@ -20,7 +20,8 @@ AHero::AHero()
 
 void AHero::Initialize(int32 objectID, FLinearColor color)
 {
-	this->objectID = objectID;
+	Super::Initialize(objectID);
+
 	this->color = color;
 }
 

@@ -3,6 +3,8 @@
 #include "Type/MissionType.h"
 #include "WorldGraph/WorldGraphNode.h"
 #include "GameObject/StrongPoint/StrongPoint.h"
+#include "GameObject/Building/Mine.h"
+#include "WorldGraph/ObjectData/Building/MineData.h"
 #include "GameObject/Building/Farm.h"
 #include "WorldGraph/ObjectData/Building/FarmData.h"
 #include "GameObject/Building/Castle.h"
@@ -154,6 +156,20 @@ void WorldGraph::SpawnFarm(int32 nodeID)
 
 	AFarm* farm = this->world->SpawnActor<AFarm>(node->location, FRotator::ZeroRotator);
 	farm->Initialize(objectID);
+}
+
+void WorldGraph::SpawnMine(int32 nodeID)
+{
+	const int32 objectID = this->GenerateObjectID();
+	MineData* mineData = new MineData();
+	mineData->Initialize(objectID, nodeID);
+	this->objects.Add(mineData);
+
+	WorldGraphNode* node = this->GetNode(nodeID);
+	node->AddObject(objectID, mineData);
+
+	AMine* mine = this->world->SpawnActor<AMine>(node->location, FRotator::ZeroRotator);
+	mine->Initialize(objectID);
 }
 
 void WorldGraph::SpawnWorker(int32 nodeID)
