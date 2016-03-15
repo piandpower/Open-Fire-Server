@@ -13,6 +13,8 @@
 #include "WorldGraph/ObjectData/Unit/WorkerData.h"
 #include "GameObject/Hero/Hero.h"
 #include "WorldGraph/ObjectData/Hero/HeroData.h"
+#include "GameObject/Resource/Gold.h"
+#include "WorldGraph/ObjectData/Resource/GoldData.h"
 
 WorldGraph* WorldGraph::instance = nullptr;
 
@@ -184,6 +186,20 @@ void WorldGraph::SpawnWorker(int32 nodeID)
 
 	AWorker* worker = this->world->SpawnActor<AWorker>(node->location, FRotator::ZeroRotator);
 	worker->Initialize(objectID);
+}
+
+void WorldGraph::SpawnGold(int32 nodeID)
+{
+	const int32 objectID = this->GenerateObjectID();
+	GoldData* goldData = new GoldData();
+	goldData->Initialize(objectID, nodeID);
+	this->objects.Add(goldData);
+
+	WorldGraphNode* node = this->GetNode(nodeID);
+	node->AddObject(objectID, goldData);
+
+	AGold* gold = this->world->SpawnActor<AGold>(node->location, FRotator::ZeroRotator);
+	gold->Initialize(objectID);
 }
 
 void WorldGraph::MoveObject(int objectID, int32 nodeID)

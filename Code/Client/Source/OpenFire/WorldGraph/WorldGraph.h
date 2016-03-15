@@ -65,6 +65,8 @@ public:
 
 	void SpawnWorker(int32 nodeID);
 
+	void SpawnGold(int32 nodeID);
+
 	void MoveObject(int objectID, int32 nodeID);
 
 private:
