@@ -4,30 +4,66 @@
 #include "WorldGraphNode.h"
 #include "WorldGraph/ObjectData/ObjectData.h"
 
-TMap<int32, ObjectData*> WorldGraphNode::GetObjects()
+const FVector objectLocationOffset = FVector(-200.0f, 0.0f, 0.0f);
+const float objectLocationInterval = 200.0f;
+
+void WorldGraphNode::SetBuilding(BuildingData* buildingData)
 {
-	return this->objectDataMap;
+	this->buildingData = buildingData;
 }
 
-void WorldGraphNode::AddObject(int32 objectID, ObjectData* objectData)
+void WorldGraphNode::RemoveBuilding()
 {
-	this->objectDataMap.Add(objectID, objectData);
+	this->buildingData = nullptr;
+}
+
+void WorldGraphNode::AddObject(ObjectData* objectData)
+{
+	this->objectDatas.Add(objectData);
 }
 
 void WorldGraphNode::RemoveObject(int32 objectID)
 {
-	this->objectDataMap.Remove(objectID);
+	for (ObjectData* objectData : this->objectDatas)
+	{
+		if (objectData->objectID == objectID)
+		{
+			this->objectDatas.Remove(objectData);
+			break;
+		}
+	}
+}
+
+const FVector WorldGraphNode::GetObjectLocation(int32 objectID)
+{
+	for (int32 i = 0; i != this->objectDatas.Num(); ++i)
+	{
+		if (this->objectDatas[i]->objectID == objectID)
+		{
+			return this->CalcObjectLocation(i, this->objectDatas.Num());
+		}
+	}
+
+	return FVector::ZeroVector;
 }
 
 bool WorldGraphNode::HasBuilding()
 {
-	for (auto& iter : this->objectDataMap)
+	if (this->buildingData != nullptr)
 	{
-		if (iter.Value->type == ObjectDataType::Building)
-		{
-			return true;
-		}
+		return true;
 	}
 
 	return false;
+}
+
+const FVector WorldGraphNode::CalcObjectLocation(int32 index, int32 maxNum)
+{
+	FVector objectLocation = this->location + objectLocationOffset;
+
+	float yInterval = (-0.5f * objectLocationInterval * float(maxNum - 1)) + (objectLocationInterval * float(index));
+
+	objectLocation += FVector(0.0f, yInterval, 0.0f);
+
+	return objectLocation;
 }

@@ -41,5 +41,5 @@ void AWorker::CheckObjectData()
 {
 	ObjectData* objectData = WorldGraph::Instance()->GetObject(this->objectID);
 	WorldGraphNode* node = WorldGraph::Instance()->GetNode(objectData->nodeID);
-	this->targetLocation = node->location;
+	this->targetLocation = node->GetObjectLocation(objectID);
 }

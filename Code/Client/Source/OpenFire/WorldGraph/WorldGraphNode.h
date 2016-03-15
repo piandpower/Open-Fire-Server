@@ -3,6 +3,7 @@
 #pragma once
 
 class ObjectData;
+class BuildingData;
 
 enum class WorldGraphNodeType
 {
@@ -20,7 +21,8 @@ public:
 	WorldGraphNodeType type;
 
 private:
-	TMap<int32, ObjectData*> objectDataMap;
+	BuildingData* buildingData = nullptr;
+	TArray<ObjectData*> objectDatas;
 
 public:
 	WorldGraphNode(int32 id, FVector location, WorldGraphNodeType type)
@@ -30,9 +32,16 @@ public:
 		this->type = type;
 	};
 
-	TMap<int32, ObjectData*> GetObjects();
-	void AddObject(int32 objectID, ObjectData* objectData);
+	void SetBuilding(BuildingData* buildingData);
+	void RemoveBuilding();
+
+	void AddObject(ObjectData* objectData);
 	void RemoveObject(int32 objectID);
 
+	const FVector GetObjectLocation(int32 objectID);
+
 	bool HasBuilding();
+
+private:
+	const FVector CalcObjectLocation(int32 index, int32 maxNum);
 };

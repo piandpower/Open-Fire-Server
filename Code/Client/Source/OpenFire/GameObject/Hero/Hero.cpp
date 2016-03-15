@@ -45,7 +45,7 @@ void AHero::CheckObjectData()
 {
 	ObjectData* objectData = WorldGraph::Instance()->GetObject(this->objectID);
 	WorldGraphNode* node = WorldGraph::Instance()->GetNode(objectData->nodeID);
-	this->targetLocation = node->location;
+	this->targetLocation = node->GetObjectLocation(this->objectID);
 }
 
 void AHero::SetColor(FLinearColor color)

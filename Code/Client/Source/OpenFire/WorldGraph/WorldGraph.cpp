@@ -126,9 +126,9 @@ void WorldGraph::SpawnHero(int32 nodeID, const MissionValues& missionValues)
 	this->objects.Add(heroData);
 
 	WorldGraphNode* node = this->GetNode(nodeID);
-	node->AddObject(objectID, heroData);
+	node->AddObject(heroData);
 
-	AHero* hero = this->world->SpawnActor<AHero>(node->location, FRotator::ZeroRotator);
+	AHero* hero = this->world->SpawnActor<AHero>(node->GetObjectLocation(objectID), FRotator::ZeroRotator);
 	hero->Initialize(objectID, heroData->GetMissionColor());
 }
 
@@ -140,7 +140,7 @@ void WorldGraph::SpawnCastle(int32 nodeID)
 	this->objects.Add(castleData);
 
 	WorldGraphNode* node = this->GetNode(nodeID);
-	node->AddObject(objectID, castleData);
+	node->SetBuilding(castleData);
 
 	ACastle* castle = this->world->SpawnActor<ACastle>(node->location, FRotator::ZeroRotator);
 	castle->Initialize(objectID);
@@ -154,7 +154,7 @@ void WorldGraph::SpawnFarm(int32 nodeID)
 	this->objects.Add(farmData);
 
 	WorldGraphNode* node = this->GetNode(nodeID);
-	node->AddObject(objectID, farmData);
+	node->SetBuilding(farmData);
 
 	AFarm* farm = this->world->SpawnActor<AFarm>(node->location, FRotator::ZeroRotator);
 	farm->Initialize(objectID);
@@ -168,7 +168,7 @@ void WorldGraph::SpawnMine(int32 nodeID)
 	this->objects.Add(mineData);
 
 	WorldGraphNode* node = this->GetNode(nodeID);
-	node->AddObject(objectID, mineData);
+	node->SetBuilding(mineData);
 
 	AMine* mine = this->world->SpawnActor<AMine>(node->location, FRotator::ZeroRotator);
 	mine->Initialize(objectID);
@@ -182,9 +182,9 @@ void WorldGraph::SpawnWorker(int32 nodeID)
 	this->objects.Add(workerData);
 
 	WorldGraphNode* node = this->GetNode(nodeID);
-	node->AddObject(objectID, workerData);
+	node->AddObject(workerData);
 
-	AWorker* worker = this->world->SpawnActor<AWorker>(node->location, FRotator::ZeroRotator);
+	AWorker* worker = this->world->SpawnActor<AWorker>(node->GetObjectLocation(objectID), FRotator::ZeroRotator);
 	worker->Initialize(objectID);
 }
 
@@ -196,9 +196,9 @@ void WorldGraph::SpawnGold(int32 nodeID)
 	this->objects.Add(goldData);
 
 	WorldGraphNode* node = this->GetNode(nodeID);
-	node->AddObject(objectID, goldData);
+	node->AddObject(goldData);
 
-	AGold* gold = this->world->SpawnActor<AGold>(node->location, FRotator::ZeroRotator);
+	AGold* gold = this->world->SpawnActor<AGold>(node->GetObjectLocation(objectID), FRotator::ZeroRotator);
 	gold->Initialize(objectID);
 }
 
@@ -211,7 +211,7 @@ void WorldGraph::MoveObject(int objectID, int32 nodeID)
 	startNode->RemoveObject(objectID);
 
 	WorldGraphNode* endNode = this->GetNode(nodeID);
-	endNode->AddObject(objectID, objectData);
+	endNode->AddObject(objectData);
 }
 
 const FVector WorldGraph::GetRandomNodeLocation()
