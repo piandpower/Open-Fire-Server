@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "WorldGraph/ObjectData/ObjectData.h"
+#include "WorldGraph/ObjectData/Resource/ResourceData.h"
 
-class OPENFIRE_API GoldData : public ObjectData
+class OPENFIRE_API GoldData : public ResourceData
 {
 };

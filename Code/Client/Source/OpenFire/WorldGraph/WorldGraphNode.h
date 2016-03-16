@@ -4,6 +4,7 @@
 
 class ObjectData;
 class BuildingData;
+class ResourceData;
 
 enum class WorldGraphNodeType
 {
@@ -23,6 +24,7 @@ public:
 private:
 	BuildingData* buildingData = nullptr;
 	TArray<ObjectData*> objectDatas;
+	TArray<ResourceData*> resourceDatas;
 
 public:
 	WorldGraphNode(int32 id, FVector location, WorldGraphNodeType type)
@@ -38,7 +40,11 @@ public:
 	void AddObject(ObjectData* objectData);
 	void RemoveObject(int32 objectID);
 
+	void AddResource(ResourceData* resourceData);
+	void RemoveResource(int32 objectID);
+
 	const FVector GetObjectLocation(int32 objectID);
+	const FVector GetResourceLocation(int32 objectID);
 
 	bool HasBuilding();
 

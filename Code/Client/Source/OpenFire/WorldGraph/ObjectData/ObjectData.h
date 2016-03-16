@@ -8,7 +8,8 @@ enum class ObjectDataType
 {
 	None,
 	Building,
-	Unit
+	Unit,
+	Resource
 };
 
 class OPENFIRE_API ObjectData

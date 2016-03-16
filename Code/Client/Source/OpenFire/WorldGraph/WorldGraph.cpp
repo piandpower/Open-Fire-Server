@@ -199,9 +199,9 @@ void WorldGraph::SpawnGold(int32 nodeID)
 	this->objects.Add(goldData);
 
 	WorldGraphNode* node = this->GetNode(nodeID);
-	node->AddObject(goldData);
+	node->AddResource(goldData);
 
-	AGold* gold = this->world->SpawnActor<AGold>(node->GetObjectLocation(objectID), FRotator::ZeroRotator);
+	AGold* gold = this->world->SpawnActor<AGold>(node->GetResourceLocation(objectID), FRotator::ZeroRotator);
 	gold->Initialize(objectID);
 }
 
