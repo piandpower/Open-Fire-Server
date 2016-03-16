@@ -31,6 +31,9 @@ WorldGraph* WorldGraph::Instance()
 void WorldGraph::Initialize(UWorld* world)
 {
 	this->world = world;
+	this->nodes.Empty();
+	this->edges.Empty();
+	this->objects.Empty();
 }
 
 void WorldGraph::OnUpdate()
