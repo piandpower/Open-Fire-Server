@@ -220,7 +220,8 @@ void WorldGraph::MoveObject(int objectID, int32 nodeID)
 
 const FVector WorldGraph::GetRandomNodeLocation()
 {
-	return FVector(FMath::FRandRange(0.0f, 10000.0f), FMath::FRandRange(0.0f, 10000.0f), 0.0f);
+	float halfRange = 5000.0f;
+	return FVector(FMath::FRandRange(-halfRange, +halfRange), FMath::FRandRange(-halfRange, halfRange), 0.0f);
 }
 
 bool WorldGraph::NodeExistOnRange(const FVector& location, float distance)
