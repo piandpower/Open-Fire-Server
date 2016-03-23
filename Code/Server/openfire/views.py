@@ -1,6 +1,6 @@
 from flask import render_template
-from database import session
-from models import Node, Edge
+from .database import session
+from .models import Node, Edge
 
 
 def create_views(app):
