@@ -20,8 +20,13 @@ private:
 public:
 	static URestClient* Instance();
 
+	void Get(const FString& url, const FString& data, std::function<void()> endFunction = nullptr);
+	void Post(const FString& url, const FString& data, std::function<void()> endFunction = nullptr);
+	void Put(const FString& url, const FString& data, std::function<void()> endFunction = nullptr);
+	void Delete(const FString& url, const FString& data, std::function<void()> endFunction = nullptr);
+
 private:
-	void Request(const FString& url, const FString& verb, const FString& data, std::function<void()> endFunction = nullptr);
+	void Request(const FString& url, const FString& verb, const FString& data, std::function<void()> endFunction);
 
 	void OnResponseReceived(FHttpRequestPtr request, FHttpResponsePtr response, bool bWasSuccessful);
 };
