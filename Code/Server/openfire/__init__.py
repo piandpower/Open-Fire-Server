@@ -1,5 +1,5 @@
 from flask import Flask
-from .views import create_views
+from .apis import apis
 
 app = Flask(__name__)
-create_views(app)
+app.register_blueprint(apis, url_prefix='/apis')
