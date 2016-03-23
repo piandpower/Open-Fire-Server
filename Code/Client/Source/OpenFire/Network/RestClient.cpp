@@ -3,7 +3,14 @@
 #include "OpenFire.h"
 #include "RestClient.h"
 
-void URestClient::Request(const FString& url, const FString& verb, const FString& data, std::function<void()>)
+URestClient* URestClient::instance = nullptr;
+
+URestClient* URestClient::Instance()
+{
+	return NewObject<URestClient>(URestClient::StaticClass());
+}
+
+void URestClient::Request(const FString& url, const FString& verb, const FString& data, std::function<void()> endFunction)
 {
 	TSharedRef<IHttpRequest> httpRequest = FHttpModule::Get().CreateRequest();
 
@@ -14,9 +21,12 @@ void URestClient::Request(const FString& url, const FString& verb, const FString
 	httpRequest->SetHeader("Content-Type", TEXT("application/json"));
 
 	httpRequest->ProcessRequest();
+
+	this->endFunction = endFunction;
 }
 
-void URestClient::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+void URestClient::OnResponseReceived(FHttpRequestPtr request, FHttpResponsePtr response, bool bWasSuccessful)
 {
-
+	this->endFunction();
+	this->endFunction = nullptr;
 }
