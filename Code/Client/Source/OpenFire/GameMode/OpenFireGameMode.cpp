@@ -8,6 +8,7 @@
 #include "WorldGraph/WorldGraph.h"
 #include "WorldGraph/WorldGraphNode.h"
 #include "Manager/TimeManager.h"
+#include "Manager/GameObjectManager.h"
 
 const float updateSeconds = 5.0f;
 
@@ -19,6 +20,8 @@ AOpenFireGameMode::AOpenFireGameMode()
 void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {
 	Super::InitGame(MapName, Options, ErrorMessage);
+
+	GameObjectManager::Instance()->Initialize(this->GetWorld());
 
 	WorldGraph::Instance()->Initialize(this->GetWorld());
 
@@ -37,8 +40,10 @@ void AOpenFireGameMode::Tick(float DeltaSeconds)
 	float remainingSeconds = TimeManager::Instance()->GetRemainingSeconds();
 	if (remainingSeconds < 0.0f)
 	{
-		WorldGraph::Instance()->OnUpdate();
 		TimeManager::Instance()->RewindSeconds();
+
+		WorldGraph::Instance()->OnUpdate();
+		GameObjectManager::Instance()->OnUpdate();
 	}
 }
 
