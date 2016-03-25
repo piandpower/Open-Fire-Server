@@ -3,7 +3,7 @@
 #include "OpenFire.h"
 #include "Worker.h"
 #include "WorldGraph/WorldGraph.h"
-#include "WorldGraph/WorldGraphNode.h"
+#include "WorldGraph/StrongPointData.h"
 #include "WorldGraph/ObjectData/Unit/WorkerData.h"
 
 AWorker::AWorker()
@@ -40,6 +40,6 @@ void AWorker::Tick(float deltaSeconds)
 void AWorker::CheckObjectData()
 {
 	ObjectData* objectData = WorldGraph::Instance()->GetObject(this->objectID);
-	WorldGraphNode* node = WorldGraph::Instance()->GetNode(objectData->nodeID);
+	StrongPointData* node = WorldGraph::Instance()->GetNode(objectData->nodeID);
 	this->targetLocation = node->GetObjectLocation(objectID);
 }

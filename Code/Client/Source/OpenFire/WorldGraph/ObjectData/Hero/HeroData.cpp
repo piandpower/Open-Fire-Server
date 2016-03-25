@@ -3,7 +3,7 @@
 #include "OpenFire.h"
 #include "HeroData.h"
 #include "WorldGraph/WorldGraph.h"
-#include "WorldGraph/WorldGraphNode.h"
+#include "WorldGraph/StrongPointData.h"
 
 void HeroData::OnUpdate()
 {
@@ -12,10 +12,10 @@ void HeroData::OnUpdate()
 
 void HeroData::MoveToRandomNode()
 {
-	TArray<WorldGraphNode*> nearbyNodes = WorldGraph::Instance()->GetNearbyNodes(this->nodeID);
+	TArray<StrongPointData*> nearbyNodes = WorldGraph::Instance()->GetNearbyNodes(this->nodeID);
 	if (nearbyNodes.Num() > 0)
 	{
-		const WorldGraphNode* randomNode = nearbyNodes[FMath::RandRange(0, nearbyNodes.Num() - 1)];
+		const StrongPointData* randomNode = nearbyNodes[FMath::RandRange(0, nearbyNodes.Num() - 1)];
 
 		WorldGraph::Instance()->MoveObject(this->objectID, randomNode->nodeID);
 	}

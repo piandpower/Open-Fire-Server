@@ -3,11 +3,11 @@
 #include "OpenFire.h"
 #include "WorkerData.h"
 #include "WorldGraph/WorldGraph.h"
-#include "WorldGraph/WorldGraphNode.h"
+#include "WorldGraph/StrongPointData.h"
 
 void WorkerData::OnUpdate()
 {
-	WorldGraphNode* node = WorldGraph::Instance()->GetNode(this->nodeID);
+	StrongPointData* node = WorldGraph::Instance()->GetNode(this->nodeID);
 	if (node->HasBuilding() == false)
 	{
 		WorldGraph::Instance()->SpawnMine(this->nodeID);
@@ -20,8 +20,8 @@ void WorkerData::OnUpdate()
 
 void WorkerData::MoveToRandomNode()
 {
-	TArray<WorldGraphNode*> nearbyNodes = WorldGraph::Instance()->GetNearbyNodes(this->nodeID);
-	const WorldGraphNode* randomNode = nearbyNodes[FMath::RandRange(0, nearbyNodes.Num() - 1)];
+	TArray<StrongPointData*> nearbyNodes = WorldGraph::Instance()->GetNearbyNodes(this->nodeID);
+	const StrongPointData* randomNode = nearbyNodes[FMath::RandRange(0, nearbyNodes.Num() - 1)];
 
 	WorldGraph::Instance()->MoveObject(this->objectID, randomNode->nodeID);
 }

@@ -1,7 +1,7 @@
 #include "OpenFire.h"
 #include "StrongPoint.h"
 #include "WorldGraph/WorldGraph.h"
-#include "WorldGraph/WorldGraphNode.h"
+#include "WorldGraph/StrongPointData.h"
 
 AStrongPoint::AStrongPoint()
 {

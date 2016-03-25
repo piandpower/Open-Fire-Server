@@ -6,7 +6,7 @@ class ObjectData;
 class BuildingData;
 class ResourceData;
 
-class OPENFIRE_API WorldGraphNode
+class OPENFIRE_API StrongPointData
 {
 public:
 	int32 nodeID;
@@ -18,7 +18,7 @@ private:
 	TArray<ResourceData*> resourceDatas;
 
 public:
-	WorldGraphNode(int32 id, FVector location)
+	StrongPointData(int32 id, FVector location)
 	{
 		this->nodeID = id;
 		this->location = location;

@@ -1,7 +1,7 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
 #include "Type/MissionType.h"
-#include "WorldGraph/WorldGraphNode.h"
+#include "WorldGraph/StrongPointData.h"
 #include "GameObject/StrongPoint/StrongPoint.h"
 #include "GameObject/Building/Mine.h"
 #include "WorldGraph/ObjectData/Building/MineData.h"
@@ -62,9 +62,9 @@ ObjectData* WorldGraph::GetObject(int32 objectID)
 	return nullptr;
 }
 
-WorldGraphNode* WorldGraph::GetNode(int32 nodeID)
+StrongPointData* WorldGraph::GetNode(int32 nodeID)
 {
-	for (WorldGraphNode* node : this->nodes)
+	for (StrongPointData* node : this->nodes)
 	{
 		if (node->nodeID == nodeID)
 		{
@@ -75,9 +75,9 @@ WorldGraphNode* WorldGraph::GetNode(int32 nodeID)
 	return nullptr;
 }
 
-TArray<WorldGraphNode*> WorldGraph::GetNearbyNodes(int32 nodeID)
+TArray<StrongPointData*> WorldGraph::GetNearbyNodes(int32 nodeID)
 {
-	TArray<WorldGraphNode*> nearbyNodes;
+	TArray<StrongPointData*> nearbyNodes;
 	for (Edge* edge : this->edges)
 	{
 		if (edge->startNodeId == nodeID)
@@ -91,13 +91,13 @@ TArray<WorldGraphNode*> WorldGraph::GetNearbyNodes(int32 nodeID)
 
 const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge)
 {
-	WorldGraphNode* startNode = this->GetNode(edge->startNodeId);
-	WorldGraphNode* endNode = this->GetNode(edge->endNodeId);
+	StrongPointData* startNode = this->GetNode(edge->startNodeId);
+	StrongPointData* endNode = this->GetNode(edge->endNodeId);
 
 	return (startNode->location + endNode->location) * 0.5f;
 }
 
-const TArray<WorldGraphNode*> WorldGraph::GetNodes()
+const TArray<StrongPointData*> WorldGraph::GetNodes()
 {
 	return this->nodes;
 }
@@ -115,7 +115,7 @@ void WorldGraph::GenerateTestData()
 
 void WorldGraph::SpawnNode(int32 id, FVector location)
 {
-	this->nodes.Add(new WorldGraphNode(id, location));
+	this->nodes.Add(new StrongPointData(id, location));
 	AStrongPoint* strongPoint = this->world->SpawnActor<AStrongPoint>(location, FRotator::ZeroRotator);
 	strongPoint->Initialize(id);
 }
@@ -128,7 +128,7 @@ void WorldGraph::SpawnHero(int32 nodeID, const MissionValues& missionValues)
 	heroData->SetMissionValues(missionValues);
 	this->objects.Add(heroData);
 
-	WorldGraphNode* node = this->GetNode(nodeID);
+	StrongPointData* node = this->GetNode(nodeID);
 	node->AddObject(heroData);
 
 	AHero* hero = this->world->SpawnActor<AHero>(node->GetObjectLocation(objectID), FRotator::ZeroRotator);
@@ -142,7 +142,7 @@ void WorldGraph::SpawnCastle(int32 nodeID)
 	castleData->Initialize(objectID, nodeID);
 	this->objects.Add(castleData);
 
-	WorldGraphNode* node = this->GetNode(nodeID);
+	StrongPointData* node = this->GetNode(nodeID);
 	node->SetBuilding(castleData);
 
 	ACastle* castle = this->world->SpawnActor<ACastle>(node->location, FRotator::ZeroRotator);
@@ -156,7 +156,7 @@ void WorldGraph::SpawnFarm(int32 nodeID)
 	farmData->Initialize(objectID, nodeID);
 	this->objects.Add(farmData);
 
-	WorldGraphNode* node = this->GetNode(nodeID);
+	StrongPointData* node = this->GetNode(nodeID);
 	node->SetBuilding(farmData);
 
 	AFarm* farm = this->world->SpawnActor<AFarm>(node->location, FRotator::ZeroRotator);
@@ -170,7 +170,7 @@ void WorldGraph::SpawnMine(int32 nodeID)
 	mineData->Initialize(objectID, nodeID);
 	this->objects.Add(mineData);
 
-	WorldGraphNode* node = this->GetNode(nodeID);
+	StrongPointData* node = this->GetNode(nodeID);
 	node->SetBuilding(mineData);
 
 	AMine* mine = this->world->SpawnActor<AMine>(node->location, FRotator::ZeroRotator);
@@ -184,7 +184,7 @@ void WorldGraph::SpawnWorker(int32 nodeID)
 	workerData->Initialize(objectID, nodeID);
 	this->objects.Add(workerData);
 
-	WorldGraphNode* node = this->GetNode(nodeID);
+	StrongPointData* node = this->GetNode(nodeID);
 	node->AddObject(workerData);
 
 	AWorker* worker = this->world->SpawnActor<AWorker>(node->GetObjectLocation(objectID), FRotator::ZeroRotator);
@@ -198,7 +198,7 @@ void WorldGraph::SpawnGold(int32 nodeID)
 	goldData->Initialize(objectID, nodeID);
 	this->objects.Add(goldData);
 
-	WorldGraphNode* node = this->GetNode(nodeID);
+	StrongPointData* node = this->GetNode(nodeID);
 	node->AddResource(goldData);
 
 	AGold* gold = this->world->SpawnActor<AGold>(node->GetResourceLocation(objectID), FRotator::ZeroRotator);
@@ -209,10 +209,10 @@ void WorldGraph::MoveObject(int objectID, int32 nodeID)
 {
 	ObjectData* objectData = this->GetObject(objectID);
 
-	WorldGraphNode* startNode = this->GetNode(objectData->nodeID);
+	StrongPointData* startNode = this->GetNode(objectData->nodeID);
 	startNode->RemoveObject(objectID);
 
-	WorldGraphNode* endNode = this->GetNode(nodeID);
+	StrongPointData* endNode = this->GetNode(nodeID);
 	endNode->AddObject(objectData);
 
 	objectData->SetNodeID(nodeID);
@@ -228,7 +228,7 @@ bool WorldGraph::NodeExistOnRange(const FVector& location, float distance)
 {
 	float distanceSquared = distance * distance;
 
-	for (const WorldGraphNode* node : this->nodes)
+	for (const StrongPointData* node : this->nodes)
 	{
 		float nodeDistanceSquared = FVector::DistSquared(node->location, location);
 		if (nodeDistanceSquared < distanceSquared)
@@ -249,7 +249,7 @@ const int32 WorldGraph::GenerateObjectID() const
 
 const int32 WorldGraph::GetRandomNodeID() const
 {
-	const WorldGraphNode* randomNode = this->nodes[FMath::RandRange(0, this->nodes.Num() - 1)];
+	const StrongPointData* randomNode = this->nodes[FMath::RandRange(0, this->nodes.Num() - 1)];
 	return randomNode->nodeID;
 }
 
@@ -264,9 +264,9 @@ void WorldGraph::GenerateTestNodeAndEdges()
 		}
 	}
 
-	for (const WorldGraphNode* NodeStart : this->nodes)
+	for (const StrongPointData* NodeStart : this->nodes)
 	{
-		for (const WorldGraphNode* NodeEnd : this->nodes)
+		for (const StrongPointData* NodeEnd : this->nodes)
 		{
 			if (NodeStart->nodeID == NodeEnd->nodeID)
 			{

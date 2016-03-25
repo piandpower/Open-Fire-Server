@@ -2,7 +2,7 @@
 
 #include "Framework/Singleton.h"
 
-class ANode;
+class AStrongPoint;
 class AGameObject;
 
 class OPENFIRE_API GameObjectManager : public Singleton<GameObjectManager>
@@ -10,7 +10,7 @@ class OPENFIRE_API GameObjectManager : public Singleton<GameObjectManager>
 private:
 	UWorld* world = nullptr;
 
-	TArray<ANode*> nodes;
+	TMap<int32, AStrongPoint*> strongPointMap;
 	TArray<AGameObject*> gameObjects;
 
 public:
@@ -19,5 +19,5 @@ public:
 	void OnUpdate();
 
 private:
-	void SpawnNode(int32 nodeID, FVector location);
+	void SpawnStrongPoint(int32 nodeID, FVector location);
 };

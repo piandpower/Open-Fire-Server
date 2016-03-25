@@ -6,7 +6,7 @@
 #include "GameObject/StrongPoint/StrongPoint.h"
 #include "GameObject/StrongPoint/StrongPointEdge.h"
 #include "WorldGraph/WorldGraph.h"
-#include "WorldGraph/WorldGraphNode.h"
+#include "WorldGraph/StrongPointData.h"
 #include "Manager/TimeManager.h"
 #include "Manager/GameObjectManager.h"
 

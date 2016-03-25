@@ -3,7 +3,7 @@
 #include "OpenFire.h"
 #include "Hero.h"
 #include "WorldGraph/WorldGraph.h"
-#include "WorldGraph/WorldGraphNode.h"
+#include "WorldGraph/StrongPointData.h"
 #include "WorldGraph/ObjectData/ObjectData.h"
 
 AHero::AHero()
@@ -44,7 +44,7 @@ void AHero::Tick(float deltaSeconds)
 void AHero::CheckObjectData()
 {
 	ObjectData* objectData = WorldGraph::Instance()->GetObject(this->objectID);
-	WorldGraphNode* node = WorldGraph::Instance()->GetNode(objectData->nodeID);
+	StrongPointData* node = WorldGraph::Instance()->GetNode(objectData->nodeID);
 	this->targetLocation = node->GetObjectLocation(this->objectID);
 }
 

@@ -2,7 +2,7 @@
 
 class ObjectData;
 class MissionValues;
-class WorldGraphNode;
+class StrongPointData;
 enum class WorldGraphNodeType;
 
 class OPENFIRE_API WorldGraph
@@ -25,7 +25,7 @@ private:
 
 	UWorld* world = nullptr;
 
-	TArray<WorldGraphNode*> nodes;
+	TArray<StrongPointData*> nodes;
 	TArray<Edge*> edges;
 	TArray<ObjectData*> objects;
 
@@ -45,12 +45,12 @@ public:
 
 	ObjectData* GetObject(int32 objectID);
 
-	WorldGraphNode* GetNode(int32 nodeID);
-	TArray<WorldGraphNode*> GetNearbyNodes(int32 nodeID);
+	StrongPointData* GetNode(int32 nodeID);
+	TArray<StrongPointData*> GetNearbyNodes(int32 nodeID);
 
 	const FVector GetEdgeLocation(const WorldGraph::Edge* edge);
 
-	const TArray<WorldGraphNode*> GetNodes();
+	const TArray<StrongPointData*> GetNodes();
 	const TArray<WorldGraph::Edge*> GetEdges();
 
 	void GenerateTestData();

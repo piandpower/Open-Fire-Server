@@ -3,7 +3,7 @@
 #include "OpenFire.h"
 #include "ObjectData.h"
 #include "WorldGraph/WorldGraph.h"
-#include "WorldGraph/WorldGraphNode.h"
+#include "WorldGraph/StrongPointData.h"
 
 void ObjectData::Initialize(int32 objectID, int32 nodeID)
 {
