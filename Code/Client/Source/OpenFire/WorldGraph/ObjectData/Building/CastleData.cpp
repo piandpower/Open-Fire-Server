@@ -6,6 +6,11 @@
 
 const int32 maxWorkerCount = 3;
 
+CastleData::CastleData()
+{
+	this->type = ObjectDataType::Castle;
+}
+
 void CastleData::OnUpdate()
 {
 	if (this->CanSpawnWorker() == true)
@@ -29,5 +34,5 @@ bool CastleData::CanSpawnWorker()
 void CastleData::SpawnWorker()
 {
 	++this->currentWorkerCount;
-	WorldGraph::Instance()->SpawnWorker(this->nodeID);
+	WorldGraph::Instance()->SpawnWorker(this->strongPointID);
 }

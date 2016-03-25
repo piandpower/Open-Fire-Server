@@ -7,8 +7,15 @@
 enum class ObjectDataType
 {
 	None,
-	Building,
+
+	//Building
+	Building,	//DEPRECATED
+	Castle,
+
+	//Unit
 	Unit,
+
+	//Resource
 	Resource
 };
 
@@ -19,13 +26,13 @@ private:
 
 public:
 	int32 objectID = -1;
-	int32 nodeID = -1;
+	int32 strongPointID = -1;
 
 	ObjectDataType type = ObjectDataType::None;
 
 public:
-	void Initialize(int32 objectID, int32 nodeID);
-	void SetNodeID(int32 nodeID);
+	void Initialize(int32 objectID, int32 strongPointID, ObjectDataType type);
+	void SetNodeID(int32 strongPointID);
 
 	void SetMissionValues(const MissionValues& missionValues);
 	const FLinearColor GetMissionColor() const;

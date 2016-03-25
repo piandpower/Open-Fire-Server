@@ -5,15 +5,16 @@
 #include "WorldGraph/WorldGraph.h"
 #include "WorldGraph/StrongPointData.h"
 
-void ObjectData::Initialize(int32 objectID, int32 nodeID)
+void ObjectData::Initialize(int32 objectID, int32 strongPointID, ObjectDataType type)
 {
 	this->objectID = objectID;
-	this->nodeID = nodeID;
+	this->strongPointID = strongPointID;
+	this->type = type;
 }
 
-void ObjectData::SetNodeID(int32 nodeID)
+void ObjectData::SetNodeID(int32 strongPointID)
 {
-	this->nodeID = nodeID;
+	this->strongPointID = strongPointID;
 }
 
 void ObjectData::SetMissionValues(const MissionValues& missionValues)

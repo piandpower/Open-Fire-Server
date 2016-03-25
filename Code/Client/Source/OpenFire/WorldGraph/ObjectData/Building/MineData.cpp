@@ -6,5 +6,5 @@
 
 void MineData::OnUpdate()
 {
-	WorldGraph::Instance()->SpawnGold(this->nodeID);
+	WorldGraph::Instance()->SpawnGold(this->strongPointID);
 }

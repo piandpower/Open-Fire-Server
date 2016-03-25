@@ -5,7 +5,7 @@
 class ObjectData;
 class MissionValues;
 class StrongPointData;
-enum class WorldGraphNodeType;
+enum class ObjectDataType;
 
 class OPENFIRE_API WorldGraph : public Singleton<WorldGraph>
 {
@@ -27,7 +27,7 @@ private:
 
 	TArray<StrongPointData*> strongPointDatas;
 	TArray<Edge*> edges;
-	TArray<ObjectData*> objects;
+	TArray<ObjectData*> objectDatas;
 
 public:
 	void Initialize(UWorld* world);
@@ -45,10 +45,13 @@ public:
 
 	const TArray<StrongPointData*> GetStrongPointDatas();
 	const TArray<WorldGraph::Edge*> GetEdges();
+	const TArray<ObjectData*> GetObjectDatas();
 
 	void GenerateTestData();
 
 	void AddStrongPointData(int32 id, FVector location);
+
+	void AddObject(int32 objectID, int32 strongPointID, ObjectDataType type);
 
 	void SpawnHero(int32 nodeID, const MissionValues& missionValues);
 

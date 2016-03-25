@@ -7,10 +7,10 @@
 
 void WorkerData::OnUpdate()
 {
-	StrongPointData* node = WorldGraph::Instance()->GetNode(this->nodeID);
+	StrongPointData* node = WorldGraph::Instance()->GetNode(this->strongPointID);
 	if (node->HasBuilding() == false)
 	{
-		WorldGraph::Instance()->SpawnMine(this->nodeID);
+		WorldGraph::Instance()->SpawnMine(this->strongPointID);
 	}
 	else
 	{
@@ -20,8 +20,8 @@ void WorkerData::OnUpdate()
 
 void WorkerData::MoveToRandomNode()
 {
-	TArray<StrongPointData*> nearbyNodes = WorldGraph::Instance()->GetNearbyNodes(this->nodeID);
+	TArray<StrongPointData*> nearbyNodes = WorldGraph::Instance()->GetNearbyNodes(this->strongPointID);
 	const StrongPointData* randomNode = nearbyNodes[FMath::RandRange(0, nearbyNodes.Num() - 1)];
 
-	WorldGraph::Instance()->MoveObject(this->objectID, randomNode->nodeID);
+	WorldGraph::Instance()->MoveObject(this->objectID, randomNode->strongPointID);
 }

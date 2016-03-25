@@ -9,7 +9,7 @@ class ResourceData;
 class OPENFIRE_API StrongPointData
 {
 public:
-	int32 nodeID;
+	int32 strongPointID;
 	FVector location;
 
 private:
@@ -20,7 +20,7 @@ private:
 public:
 	StrongPointData(int32 id, FVector location)
 	{
-		this->nodeID = id;
+		this->strongPointID = id;
 		this->location = location;
 	};
 

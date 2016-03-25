@@ -10,6 +10,8 @@ private:
 	int32 currentWorkerCount = 0;
 
 public:
+	CastleData();
+
 	virtual void OnUpdate() override;
 
 private:

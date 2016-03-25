@@ -6,7 +6,6 @@
 #include "StrongPoint.generated.h"
 
 class UStaticMeshComponent;
-enum class WorldGraphNodeType;
 
 UCLASS()
 class OPENFIRE_API AStrongPoint : public AGameObject

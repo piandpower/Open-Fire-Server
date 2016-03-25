@@ -40,6 +40,6 @@ void AWorker::Tick(float deltaSeconds)
 void AWorker::CheckObjectData()
 {
 	ObjectData* objectData = WorldGraph::Instance()->GetObject(this->objectID);
-	StrongPointData* node = WorldGraph::Instance()->GetNode(objectData->nodeID);
+	StrongPointData* node = WorldGraph::Instance()->GetNode(objectData->strongPointID);
 	this->targetLocation = node->GetObjectLocation(objectID);
 }
