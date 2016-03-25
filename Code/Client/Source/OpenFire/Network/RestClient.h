@@ -15,18 +15,18 @@ class OPENFIRE_API URestClient: public UObject
 private:
 	static URestClient* instance;
 
-	std::function<void()> endFunction = nullptr;
+	std::function<void(const FString&)> endFunction = nullptr;
 
 public:
 	static URestClient* Instance();
 
-	void Get(const FString& url, const FString& data, std::function<void()> endFunction = nullptr);
-	void Post(const FString& url, const FString& data, std::function<void()> endFunction = nullptr);
-	void Put(const FString& url, const FString& data, std::function<void()> endFunction = nullptr);
-	void Delete(const FString& url, const FString& data, std::function<void()> endFunction = nullptr);
+	void Get(const FString& url, const FString& data, std::function<void(const FString&)> endFunction = nullptr);
+	void Post(const FString& url, const FString& data, std::function<void(const FString&)> endFunction = nullptr);
+	void Put(const FString& url, const FString& data, std::function<void(const FString&)> endFunction = nullptr);
+	void Delete(const FString& url, const FString& data, std::function<void(const FString&)> endFunction = nullptr);
 
 private:
-	void Request(const FString& url, const FString& verb, const FString& data, std::function<void()> endFunction);
+	void Request(const FString& url, const FString& verb, const FString& data, std::function<void(const FString&)> endFunction);
 
 	void OnResponseReceived(FHttpRequestPtr request, FHttpResponsePtr response, bool bWasSuccessful);
 };

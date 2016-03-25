@@ -25,8 +25,8 @@ void WorldGraph::Initialize(UWorld* world)
 
 void WorldGraph::OnUpdate()
 {
-	URestClient::Instance()->Get("http://localhost:5000/apis/strongpoints", "", []() {
-		UE_LOG(LogTemp, Warning, TEXT("Your message"));
+	URestClient::Instance()->Get("http://localhost:5000/apis/strongpoints", "", [](const FString& string) {
+		UE_LOG(LogTemp, Warning, TEXT("Your message %s"), *string);
 	});
 	// TODO: update by server
 }
