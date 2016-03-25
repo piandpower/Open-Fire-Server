@@ -47,12 +47,6 @@ void AOpenFireGameMode::Tick(float DeltaSeconds)
 	}
 }
 
-void AOpenFireGameMode::SpawnStrongPoint(int32 nodeID, FVector Location)
-{
-	AStrongPoint* strongPoint = this->GetWorld()->SpawnActor<AStrongPoint>(Location, FRotator::ZeroRotator);
-	strongPoint->Initialize(nodeID);
-}
-
 void AOpenFireGameMode::SpawnStrongPointEdge(FVector Location)
 {
 	this->GetWorld()->SpawnActor<AStrongPointEdge>(Location, FRotator::ZeroRotator);

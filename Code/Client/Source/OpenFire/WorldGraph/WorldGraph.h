@@ -1,11 +1,13 @@
 #pragma once
 
+#include "Framework/Singleton.h"
+
 class ObjectData;
 class MissionValues;
 class StrongPointData;
 enum class WorldGraphNodeType;
 
-class OPENFIRE_API WorldGraph
+class OPENFIRE_API WorldGraph : public Singleton<WorldGraph>
 {
 public:
 	struct Edge
@@ -21,22 +23,13 @@ public:
 	};
 
 private:
-	static WorldGraph* instance;
-
 	UWorld* world = nullptr;
 
-	TArray<StrongPointData*> nodes;
+	TArray<StrongPointData*> strongPointDatas;
 	TArray<Edge*> edges;
 	TArray<ObjectData*> objects;
 
-private:
-	WorldGraph() {};
-	WorldGraph(WorldGraph const&) {};
-	WorldGraph& operator= (WorldGraph const&) { return *this; };
-
 public:
-	static WorldGraph* Instance();
-
 	void Initialize(UWorld* world);
 
 	void OnUpdate();
@@ -50,12 +43,12 @@ public:
 
 	const FVector GetEdgeLocation(const WorldGraph::Edge* edge);
 
-	const TArray<StrongPointData*> GetNodes();
+	const TArray<StrongPointData*> GetStrongPointDatas();
 	const TArray<WorldGraph::Edge*> GetEdges();
 
 	void GenerateTestData();
 
-	void SpawnNode(int32 id, FVector location);
+	void AddStrongPointData(int32 id, FVector location);
 
 	void SpawnHero(int32 nodeID, const MissionValues& missionValues);
 

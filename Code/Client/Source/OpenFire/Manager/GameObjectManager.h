@@ -20,4 +20,6 @@ public:
 
 private:
 	void SpawnStrongPoint(int32 nodeID, FVector location);
+
+	void UpdateStrongPoints();
 };

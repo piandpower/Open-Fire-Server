@@ -22,6 +22,5 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 private:
-	void SpawnStrongPoint(int32 nodeID, FVector Location);
 	void SpawnStrongPointEdge(FVector Location);
 };
