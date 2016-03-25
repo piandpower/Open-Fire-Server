@@ -1,6 +1,7 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
 #include "Network/RestClient.h"
+#include "Network/DTO/StrongPointDTO.h"
 #include "Type/MissionType.h"
 #include "GameObject/Building/Mine.h"
 #include "WorldGraph/ObjectData/Building/MineData.h"
@@ -26,7 +27,8 @@ void WorldGraph::Initialize(UWorld* world)
 void WorldGraph::OnUpdate()
 {
 	URestClient::Instance()->Get("http://localhost:5000/apis/strongpoints", "", [](const FString& string) {
-		UE_LOG(LogTemp, Warning, TEXT("Your message %s"), *string);
+		StrongPointDTO strongPointDTO = StrongPointDTO(string);
+		//UE_LOG(LogTemp, Warning, TEXT("Your message %s"), *string);
 	});
 	// TODO: update by server
 }
