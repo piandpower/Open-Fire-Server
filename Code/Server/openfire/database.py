@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from .models import Base, Node, Edge
+from .models import Base, StrongPoint, Edge
 import random
 
 engine = create_engine('sqlite:///:memory:', echo=True)
@@ -13,7 +13,7 @@ Base.metadata.create_all(bind=engine)
 def add_test_data():
     nodecount = 5
     for i in range(nodecount):
-        node = Node(i, 'node'+str(i), random.randrange(1, 11), random.randrange(1,11))
+        node = StrongPoint(i, 'node' + str(i), random.randrange(1, 11), random.randrange(1, 11))
         session.add(node)
 
     session.add_all(

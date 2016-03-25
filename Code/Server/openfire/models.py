@@ -5,16 +5,16 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
-class Node(Base):
-    __tablename__ = 'node'
+class StrongPoint(Base):
+    __tablename__ = 'strongpoint'
 
-    node_id = Column(Integer, primary_key=True)
+    strongpoint_id = Column(Integer, primary_key=True)
     name = Column(String)
     position_x = Column(Float)
     position_y = Column(Float)
 
-    def __init__(self, node_id, name, position_x, position_y):
-        self.node_id = node_id
+    def __init__(self, strongpoint_id, name, position_x, position_y):
+        self.strongpoint_id = strongpoint_id
         self.name = name
         self.position_x = position_x
         self.position_y = position_y
@@ -23,9 +23,9 @@ class Node(Base):
 class Edge(Base):
     __tablename__ = 'edge'
 
-    start_node_id = Column(Integer, ForeignKey('node.node_id'), primary_key=True)
-    end_node_id = Column(Integer, ForeignKey('node.node_id'), primary_key=True)
+    start_strongpoint_id = Column(Integer, ForeignKey('strongpoint.strongpoint_id'), primary_key=True)
+    end_strongpoint_id = Column(Integer, ForeignKey('strongpoint.strongpoint_id'), primary_key=True)
 
-    def __init__(self, start_node_id, end_node_id):
-        self.start_node_id = start_node_id
-        self.end_node_id = end_node_id
+    def __init__(self, start_strongpoint_id, end_strongpoint_id):
+        self.start_strongpoint_id = start_strongpoint_id
+        self.end_strongpoint_id = end_strongpoint_id

@@ -1,9 +1,9 @@
 from flask import Blueprint
-from .node_view import NodeView
+from .strongpoint_view import StrongPointView
 from ..database import session
 
 apis = Blueprint('apis', __name__)
-apis.add_url_rule('/nodes', view_func=NodeView.as_view('nodes'))
+apis.add_url_rule('/strongpoints', view_func=StrongPointView.as_view('strongpoints'))
 
 
 @apis.after_request
