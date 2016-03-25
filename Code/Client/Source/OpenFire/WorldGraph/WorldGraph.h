@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Framework/Singleton.h"
+#include "WorldGraph/StrongPointData.h"
 
 class ObjectData;
 class MissionValues;
-class StrongPointData;
 enum class ObjectDataType;
 
 class OPENFIRE_API WorldGraph : public Singleton<WorldGraph>
@@ -25,7 +25,7 @@ public:
 private:
 	UWorld* world = nullptr;
 
-	TArray<StrongPointData*> strongPointDatas;
+	TArray<StrongPointData> strongPointDatas;
 	TArray<Edge*> edges;
 	TArray<ObjectData*> objectDatas;
 
@@ -43,11 +43,9 @@ public:
 
 	const FVector GetEdgeLocation(const WorldGraph::Edge* edge);
 
-	const TArray<StrongPointData*> GetStrongPointDatas();
+	const TArray<StrongPointData>& GetStrongPointDatas();
 	const TArray<WorldGraph::Edge*> GetEdges();
 	const TArray<ObjectData*> GetObjectDatas();
-
-	void GenerateTestData();
 
 	void AddStrongPointData(int32 id, FVector location);
 
@@ -71,9 +69,6 @@ private:
 	const int32 GenerateObjectID() const;
 
 	const int32 GetRandomNodeID() const;
-
-	void GenerateTestNodeAndEdges();
-	void GenerateTestHeroes();
 
 	MissionValues GetRandomMissionValues();
 };

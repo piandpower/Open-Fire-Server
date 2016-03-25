@@ -25,8 +25,6 @@ void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options,
 
 	WorldGraph::Instance()->Initialize(this->GetWorld());
 
-	WorldGraph::Instance()->GenerateTestData();
-
 	for (const WorldGraph::Edge* edge : WorldGraph::Instance()->GetEdges())
 	{
 		this->SpawnStrongPointEdge(WorldGraph::Instance()->GetEdgeLocation(edge));

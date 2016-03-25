@@ -1,7 +1,7 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
+#include "Network/RestClient.h"
 #include "Type/MissionType.h"
-#include "WorldGraph/StrongPointData.h"
 #include "GameObject/Building/Mine.h"
 #include "WorldGraph/ObjectData/Building/MineData.h"
 #include "GameObject/Building/Farm.h"
@@ -25,10 +25,10 @@ void WorldGraph::Initialize(UWorld* world)
 
 void WorldGraph::OnUpdate()
 {
-	for (ObjectData* gameObject : this->objectDatas)
-	{
-		gameObject->OnUpdate();
-	}
+	URestClient::Instance()->Get("http://localhost:5000/apis/strongpoints", "", []() {
+		UE_LOG(LogTemp, Warning, TEXT("Your message"));
+	});
+	// TODO: update by server
 }
 
 void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
@@ -51,11 +51,11 @@ ObjectData* WorldGraph::GetObject(int32 objectID)
 
 StrongPointData* WorldGraph::GetNode(int32 nodeID)
 {
-	for (StrongPointData* node : this->strongPointDatas)
+	for (StrongPointData& node : this->strongPointDatas)
 	{
-		if (node->strongPointID == nodeID)
+		if (node.strongPointID == nodeID)
 		{
-			return node;
+			return &node;
 		}
 	}
 
@@ -84,7 +84,7 @@ const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge)
 	return (startNode->location + endNode->location) * 0.5f;
 }
 
-const TArray<StrongPointData*> WorldGraph::GetStrongPointDatas()
+const TArray<StrongPointData>& WorldGraph::GetStrongPointDatas()
 {
 	return this->strongPointDatas;
 }
@@ -99,15 +99,9 @@ const TArray<ObjectData*> WorldGraph::GetObjectDatas()
 	return this->objectDatas;
 }
 
-void WorldGraph::GenerateTestData()
-{
-	this->GenerateTestNodeAndEdges();
-	this->GenerateTestHeroes();
-}
-
 void WorldGraph::AddStrongPointData(int32 id, FVector location)
 {
-	this->strongPointDatas.Add(new StrongPointData(id, location));
+	this->strongPointDatas.Add(StrongPointData(id, location));
 }
 
 void WorldGraph::AddObject(int32 objectID, int32 strongPointID, ObjectDataType type)
@@ -225,9 +219,9 @@ bool WorldGraph::NodeExistOnRange(const FVector& location, float distance)
 {
 	float distanceSquared = distance * distance;
 
-	for (const StrongPointData* node : this->strongPointDatas)
+	for (const StrongPointData node : this->strongPointDatas)
 	{
-		float nodeDistanceSquared = FVector::DistSquared(node->location, location);
+		float nodeDistanceSquared = FVector::DistSquared(node.location, location);
 		if (nodeDistanceSquared < distanceSquared)
 		{
 			return true;
@@ -246,45 +240,8 @@ const int32 WorldGraph::GenerateObjectID() const
 
 const int32 WorldGraph::GetRandomNodeID() const
 {
-	const StrongPointData* randomNode = this->strongPointDatas[FMath::RandRange(0, this->strongPointDatas.Num() - 1)];
-	return randomNode->strongPointID;
-}
-
-void WorldGraph::GenerateTestNodeAndEdges()
-{
-	for (int i = 0; i < 100000; ++i)
-	{
-		auto location = this->GetRandomNodeLocation();
-		if (this->NodeExistOnRange(location, 700.0f) == false)
-		{
-			this->AddStrongPointData(i, location);
-		}
-	}
-
-	for (const StrongPointData* NodeStart : this->strongPointDatas)
-	{
-		for (const StrongPointData* NodeEnd : this->strongPointDatas)
-		{
-			if (NodeStart->strongPointID == NodeEnd->strongPointID)
-			{
-				continue;
-			}
-
-			if (FVector::DistSquared(NodeStart->location, NodeEnd->location) <= (700.0f * 700.0f * 2.0f))
-			{
-				this->AddEdge(NodeStart->strongPointID, NodeEnd->strongPointID);
-			}
-		}
-	}
-}
-
-void WorldGraph::GenerateTestHeroes()
-{
-	for (int i = 0; i < 30; ++i)
-	{
-		const int32 nodeID = this->GetRandomNodeID();
-		this->SpawnHero(nodeID, this->GetRandomMissionValues());
-	}
+	const StrongPointData randomNode = this->strongPointDatas[FMath::RandRange(0, this->strongPointDatas.Num() - 1)];
+	return randomNode.strongPointID;
 }
 
 MissionValues WorldGraph::GetRandomMissionValues()
