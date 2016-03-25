@@ -15,5 +15,5 @@ void GameObjectManager::OnUpdate()
 void GameObjectManager::SpawnNode(int32 nodeID, FVector location)
 {
 	AStrongPoint* strongPoint = this->world->SpawnActor<AStrongPoint>(location, FRotator::ZeroRotator);
-	//strongPoint->Initiaize(nodeID, WorldGraphNodeType::Grass);
+	strongPoint->Initialize(nodeID);
 }

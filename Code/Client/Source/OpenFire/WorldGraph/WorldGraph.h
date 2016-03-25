@@ -55,7 +55,7 @@ public:
 
 	void GenerateTestData();
 
-	void SpawnNode(int32 id, FVector location, WorldGraphNodeType type);
+	void SpawnNode(int32 id, FVector location);
 
 	void SpawnHero(int32 nodeID, const MissionValues& missionValues);
 
@@ -73,7 +73,6 @@ private:
 	const FVector GetRandomNodeLocation();
 	bool NodeExistOnRange(const FVector& location, float distance);
 	const int32 GenerateObjectID() const;
-	WorldGraphNodeType GetRandomNodeType();
 
 	const int32 GetRandomNodeID() const;
 

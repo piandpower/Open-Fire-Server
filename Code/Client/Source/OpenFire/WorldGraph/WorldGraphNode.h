@@ -6,20 +6,11 @@ class ObjectData;
 class BuildingData;
 class ResourceData;
 
-enum class WorldGraphNodeType
-{
-	None,
-	Grass,
-	Stone,
-	Desert
-};
-
 class OPENFIRE_API WorldGraphNode
 {
 public:
 	int32 nodeID;
 	FVector location;
-	WorldGraphNodeType type;
 
 private:
 	BuildingData* buildingData = nullptr;
@@ -27,11 +18,10 @@ private:
 	TArray<ResourceData*> resourceDatas;
 
 public:
-	WorldGraphNode(int32 id, FVector location, WorldGraphNodeType type)
+	WorldGraphNode(int32 id, FVector location)
 	{
 		this->nodeID = id;
 		this->location = location;
-		this->type = type;
 	};
 
 	void SetBuilding(BuildingData* buildingData);

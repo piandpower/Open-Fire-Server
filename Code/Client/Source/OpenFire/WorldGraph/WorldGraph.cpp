@@ -113,11 +113,11 @@ void WorldGraph::GenerateTestData()
 	this->GenerateTestHeroes();
 }
 
-void WorldGraph::SpawnNode(int32 id, FVector location, WorldGraphNodeType type)
+void WorldGraph::SpawnNode(int32 id, FVector location)
 {
-	this->nodes.Add(new WorldGraphNode(id, location, type));
+	this->nodes.Add(new WorldGraphNode(id, location));
 	AStrongPoint* strongPoint = this->world->SpawnActor<AStrongPoint>(location, FRotator::ZeroRotator);
-	strongPoint->Initialize(id, type);
+	strongPoint->Initialize(id);
 }
 
 void WorldGraph::SpawnHero(int32 nodeID, const MissionValues& missionValues)
@@ -247,25 +247,6 @@ const int32 WorldGraph::GenerateObjectID() const
 	return id;
 }
 
-WorldGraphNodeType WorldGraph::GetRandomNodeType()
-{
-	int32 rand = FMath::RandRange(1, 10);
-	if (1 <= rand && rand <= 7)
-	{
-		return WorldGraphNodeType::Grass;
-	}
-	else if (8 <= rand && rand <= 9)
-	{
-		return WorldGraphNodeType::Stone;
-	}
-	else if (rand == 10)
-	{
-		return WorldGraphNodeType::Desert;
-	}
-
-	return WorldGraphNodeType::None;
-}
-
 const int32 WorldGraph::GetRandomNodeID() const
 {
 	const WorldGraphNode* randomNode = this->nodes[FMath::RandRange(0, this->nodes.Num() - 1)];
@@ -279,7 +260,7 @@ void WorldGraph::GenerateTestNodeAndEdges()
 		auto location = this->GetRandomNodeLocation();
 		if (this->NodeExistOnRange(location, 700.0f) == false)
 		{
-			this->SpawnNode(i, location, this->GetRandomNodeType());
+			this->SpawnNode(i, location);
 		}
 	}
 
