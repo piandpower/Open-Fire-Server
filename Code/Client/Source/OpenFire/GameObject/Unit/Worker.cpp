@@ -4,7 +4,6 @@
 #include "Worker.h"
 #include "WorldGraph/WorldGraph.h"
 #include "WorldGraph/StrongPointData.h"
-#include "WorldGraph/ObjectData/Unit/WorkerData.h"
 
 AWorker::AWorker()
 {
@@ -39,7 +38,4 @@ void AWorker::Tick(float deltaSeconds)
 
 void AWorker::CheckObjectData()
 {
-	ObjectData* objectData = WorldGraph::Instance()->GetObject(this->objectID);
-	StrongPointData* node = WorldGraph::Instance()->GetNode(objectData->strongPointID);
-	this->targetLocation = node->GetObjectLocation(objectID);
 }

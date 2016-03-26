@@ -1,20 +1,15 @@
 #include "OpenFire.h"
 #include "WorldGraph.h"
+#include "WorldGraph/ObjectData/ObjectData.h"
 #include "Network/RestClient.h"
 #include "Network/DTO/StrongPointDTO.h"
 #include "Type/MissionType.h"
 #include "GameObject/Building/Mine.h"
-#include "WorldGraph/ObjectData/Building/MineData.h"
 #include "GameObject/Building/Farm.h"
-#include "WorldGraph/ObjectData/Building/FarmData.h"
 #include "GameObject/Building/Castle.h"
-#include "WorldGraph/ObjectData/Building/CastleData.h"
 #include "GameObject/Unit/Worker.h"
-#include "WorldGraph/ObjectData/Unit/WorkerData.h"
 #include "GameObject/Hero/Hero.h"
-#include "WorldGraph/ObjectData/Hero/HeroData.h"
 #include "GameObject/Resource/Gold.h"
-#include "WorldGraph/ObjectData/Resource/GoldData.h"
 
 void WorldGraph::Initialize(UWorld* world)
 {
