@@ -6,9 +6,4 @@
 
 class OPENFIRE_API HeroData : public ObjectData
 {
-public:
-	virtual void OnUpdate() override;
-
-private:
-	void MoveToRandomNode();
 };

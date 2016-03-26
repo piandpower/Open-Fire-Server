@@ -24,11 +24,6 @@ void AOpenFireGameMode::InitGame(const FString& MapName, const FString& Options,
 	GameObjectManager::Instance()->Initialize(this->GetWorld());
 
 	WorldGraph::Instance()->Initialize(this->GetWorld());
-
-	for (const WorldGraph::Edge* edge : WorldGraph::Instance()->GetEdges())
-	{
-		this->SpawnStrongPointEdge(WorldGraph::Instance()->GetEdgeLocation(edge));
-	}
 }
 
 void AOpenFireGameMode::Tick(float DeltaSeconds)
@@ -43,9 +38,4 @@ void AOpenFireGameMode::Tick(float DeltaSeconds)
 		WorldGraph::Instance()->OnUpdate();
 		GameObjectManager::Instance()->OnUpdate();
 	}
-}
-
-void AOpenFireGameMode::SpawnStrongPointEdge(FVector Location)
-{
-	this->GetWorld()->SpawnActor<AStrongPointEdge>(Location, FRotator::ZeroRotator);
 }

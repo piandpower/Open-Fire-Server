@@ -20,13 +20,13 @@ void WorldGraph::Initialize(UWorld* world)
 {
 	this->world = world;
 	this->strongPointDatas.Empty();
-	this->edges.Empty();
 	this->objectDatas.Empty();
 }
 
 void WorldGraph::OnUpdate()
 {
-	URestClient::Instance()->Get("http://localhost:5000/apis/strongpoints", "", [this](const FString& string) {
+	URestClient::Instance()->Get("http://localhost:5000/apis/strongpoints", "", [this](const FString& string)
+	{
 		StrongPointDTO strongPointDTO = StrongPointDTO(string);
 
 		for (const StrongPointDTO::Data& data : strongPointDTO.datas)
@@ -34,11 +34,6 @@ void WorldGraph::OnUpdate()
 			this->InsertUpdateStrongPointData(data.strongPointID, data.location);
 		}
 	});
-}
-
-void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
-{
-	this->edges.Add(new Edge(StartNodeId, EndNodeId));
 }
 
 ObjectData* WorldGraph::GetObject(int32 objectID)
@@ -67,36 +62,9 @@ StrongPointData* WorldGraph::GetNode(int32 nodeID)
 	return nullptr;
 }
 
-TArray<StrongPointData*> WorldGraph::GetNearbyNodes(int32 nodeID)
-{
-	TArray<StrongPointData*> nearbyNodes;
-	for (Edge* edge : this->edges)
-	{
-		if (edge->startNodeId == nodeID)
-		{
-			nearbyNodes.Add(this->GetNode(edge->endNodeId));
-		}
-	}
-
-	return nearbyNodes;
-}
-
-const FVector WorldGraph::GetEdgeLocation(const WorldGraph::Edge* edge)
-{
-	StrongPointData* startNode = this->GetNode(edge->startNodeId);
-	StrongPointData* endNode = this->GetNode(edge->endNodeId);
-
-	return (startNode->location + endNode->location) * 0.5f;
-}
-
 const TArray<StrongPointData>& WorldGraph::GetStrongPointDatas()
 {
 	return this->strongPointDatas;
-}
-
-const TArray<WorldGraph::Edge*> WorldGraph::GetEdges()
-{
-	return this->edges;
 }
 
 const TArray<ObjectData*> WorldGraph::GetObjectDatas()

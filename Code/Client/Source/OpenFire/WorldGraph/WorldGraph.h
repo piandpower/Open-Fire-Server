@@ -26,7 +26,6 @@ private:
 	UWorld* world = nullptr;
 
 	TArray<StrongPointData> strongPointDatas;
-	TArray<Edge*> edges;
 	TArray<ObjectData*> objectDatas;
 
 public:
@@ -34,17 +33,11 @@ public:
 
 	void OnUpdate();
 
-	void AddEdge(int32 StartNodeId, int32 EndNodeId);
-
 	ObjectData* GetObject(int32 objectID);
 
 	StrongPointData* GetNode(int32 nodeID);
-	TArray<StrongPointData*> GetNearbyNodes(int32 nodeID);
-
-	const FVector GetEdgeLocation(const WorldGraph::Edge* edge);
 
 	const TArray<StrongPointData>& GetStrongPointDatas();
-	const TArray<WorldGraph::Edge*> GetEdges();
 	const TArray<ObjectData*> GetObjectDatas();
 
 	void InsertUpdateStrongPointData(int32 id, FVector location);

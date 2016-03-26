@@ -20,7 +20,4 @@ public:
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
 
 	virtual void Tick(float DeltaSeconds) override;
-
-private:
-	void SpawnStrongPointEdge(FVector Location);
 };
