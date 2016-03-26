@@ -6,6 +6,4 @@
 
 class OPENFIRE_API MineData : public BuildingData
 {
-public:
-	virtual void OnUpdate() override;
 };

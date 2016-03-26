@@ -27,5 +27,5 @@ void AStrongPoint::Initialize(int32 nodeID)
 
 void AStrongPoint::OnInputTouchBegin(ETouchIndex::Type fingerIndex, UPrimitiveComponent* touchedComponent)
 {
-	WorldGraph::Instance()->SpawnCastle(this->nodeID);
+	// TODO: Request respawn to server
 }
