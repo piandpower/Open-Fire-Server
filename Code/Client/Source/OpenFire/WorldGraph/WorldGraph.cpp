@@ -26,11 +26,14 @@ void WorldGraph::Initialize(UWorld* world)
 
 void WorldGraph::OnUpdate()
 {
-	URestClient::Instance()->Get("http://localhost:5000/apis/strongpoints", "", [](const FString& string) {
+	URestClient::Instance()->Get("http://localhost:5000/apis/strongpoints", "", [this](const FString& string) {
 		StrongPointDTO strongPointDTO = StrongPointDTO(string);
-		//UE_LOG(LogTemp, Warning, TEXT("Your message %s"), *string);
+
+		for (const StrongPointDTO::Data& data : strongPointDTO.datas)
+		{
+			this->InsertUpdateStrongPointData(data.strongPointID, data.location);
+		}
 	});
-	// TODO: update by server
 }
 
 void WorldGraph::AddEdge(int32 StartNodeId, int32 EndNodeId)
@@ -101,8 +104,17 @@ const TArray<ObjectData*> WorldGraph::GetObjectDatas()
 	return this->objectDatas;
 }
 
-void WorldGraph::AddStrongPointData(int32 id, FVector location)
+void WorldGraph::InsertUpdateStrongPointData(int32 id, FVector location)
 {
+	for (StrongPointData& strongpoint : this->strongPointDatas)
+	{
+		if (strongpoint.strongPointID == id)
+		{
+			strongpoint.location = location;
+			return;
+		}
+	}
+
 	this->strongPointDatas.Add(StrongPointData(id, location));
 }
 

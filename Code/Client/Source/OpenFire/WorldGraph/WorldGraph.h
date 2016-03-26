@@ -47,7 +47,7 @@ public:
 	const TArray<WorldGraph::Edge*> GetEdges();
 	const TArray<ObjectData*> GetObjectDatas();
 
-	void AddStrongPointData(int32 id, FVector location);
+	void InsertUpdateStrongPointData(int32 id, FVector location);
 
 	void AddObject(int32 objectID, int32 strongPointID, ObjectDataType type);
 

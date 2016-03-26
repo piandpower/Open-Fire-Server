@@ -7,12 +7,12 @@ class StrongPointDTO
 public:
 	struct Data
 	{
-		int32 strongPointID;
-		FString name;
-		float positionX;
-		float positionY;
+		int32 strongPointID = -1;
+		FString name = "";
+		FVector location = FVector::ZeroVector;
 	};
 
+public:
 	TArray<Data> datas;
 
 public:
