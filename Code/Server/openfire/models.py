@@ -9,13 +9,11 @@ class StrongPoint(Base):
     __tablename__ = 'strongpoint'
 
     strongpoint_id = Column(Integer, primary_key=True)
-    name = Column(String)
     position_x = Column(Float)
     position_y = Column(Float)
 
-    def __init__(self, strongpoint_id, name, position_x, position_y):
+    def __init__(self, strongpoint_id, position_x, position_y):
         self.strongpoint_id = strongpoint_id
-        self.name = name
         self.position_x = position_x
         self.position_y = position_y
 

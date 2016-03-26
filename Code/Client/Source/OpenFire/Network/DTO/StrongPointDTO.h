@@ -8,7 +8,6 @@ public:
 	struct Data
 	{
 		int32 strongPointID = -1;
-		FString name = "";
 		FVector location = FVector::ZeroVector;
 	};
 

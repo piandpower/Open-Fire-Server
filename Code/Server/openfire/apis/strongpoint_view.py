@@ -11,7 +11,6 @@ class StrongPointView(MethodView):
         for strongpoint in session.query(StrongPoint).all():
             strongpoints.append({
                 'strongpoint_id': strongpoint.strongpoint_id,
-                'name': strongpoint.name,
                 'position_x': strongpoint.position_x,
                 'position_y': strongpoint.position_y
             })
