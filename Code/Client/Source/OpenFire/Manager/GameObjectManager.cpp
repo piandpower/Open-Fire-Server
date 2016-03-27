@@ -8,6 +8,8 @@
 void GameObjectManager::Initialize(UWorld* world)
 {
 	this->world = world;
+	this->strongPointMap.Empty();
+	this->gameObjectMap.Empty();
 }
 
 void GameObjectManager::OnUpdate()

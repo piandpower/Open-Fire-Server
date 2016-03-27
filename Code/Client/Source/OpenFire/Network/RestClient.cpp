@@ -47,6 +47,9 @@ void URestClient::Request(const FString& url, const FString& verb, const FString
 
 void URestClient::OnResponseReceived(FHttpRequestPtr request, FHttpResponsePtr response, bool bWasSuccessful)
 {
-	this->endFunction(response->GetContentAsString());
-	this->endFunction = nullptr;
+	if (bWasSuccessful == true)
+	{
+		this->endFunction(response->GetContentAsString());
+		this->endFunction = nullptr;
+	}
 }

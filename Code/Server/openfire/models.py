@@ -12,8 +12,7 @@ class StrongPoint(Base):
     position_x = Column(Float)
     position_y = Column(Float)
 
-    def __init__(self, strongpoint_id, position_x, position_y):
-        self.strongpoint_id = strongpoint_id
+    def __init__(self, position_x, position_y):
         self.position_x = position_x
         self.position_y = position_y
 

@@ -1,7 +1,7 @@
 #include "OpenFire.h"
 #include "TimeManager.h"
 
-const float updateSeconds = 5.0f;
+const float updateSeconds = 0.3f;
 
 float TimeManager::GetRemainingSeconds()
 {

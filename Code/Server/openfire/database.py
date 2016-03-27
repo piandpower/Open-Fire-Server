@@ -14,7 +14,7 @@ def __add_test_data():
     strongpoints = generate_random_strongpoints()
 
     for strongpoint in strongpoints:
-        node = StrongPoint(strongpoint.strongpoint_id, strongpoint.position_x, strongpoint.position_y)
+        node = StrongPoint(strongpoint.location.x, strongpoint.location.y)
         session.add(node)
 
     session.add_all(
