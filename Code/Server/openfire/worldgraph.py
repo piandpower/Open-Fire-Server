@@ -2,12 +2,7 @@ import random
 from .framework.vector import get_random_vector, zero_vector
 
 
-class StrongPoint:
-    def __init__(self, location):
-        self.location = location
-
-
-def generate_random_strongpoints():
+def generate_random_strongpoint_locations():
     locations = [zero_vector()]
     added_locations = [zero_vector()]
     for i in range(15):
@@ -16,7 +11,7 @@ def generate_random_strongpoints():
 
     strongpoints = []
     for location in locations:
-        strongpoints.append(StrongPoint(location))
+        strongpoints.append(location)
 
     return strongpoints
 

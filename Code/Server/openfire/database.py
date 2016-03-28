@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from .models import Base, StrongPoint, Edge
-from .worldgraph import generate_random_strongpoints
+from .worldgraph import generate_random_strongpoint_locations
 
 engine = create_engine('sqlite:///:memory:', echo=True)
 session_factory = sessionmaker(bind=engine)
@@ -11,10 +11,10 @@ Base.metadata.create_all(bind=engine)
 
 
 def __add_test_data():
-    strongpoints = generate_random_strongpoints()
+    locations = generate_random_strongpoint_locations()
 
-    for strongpoint in strongpoints:
-        node = StrongPoint(strongpoint.location.x, strongpoint.location.y)
+    for location in locations:
+        node = StrongPoint(location.x, location.y)
         session.add(node)
 
     session.add_all(
