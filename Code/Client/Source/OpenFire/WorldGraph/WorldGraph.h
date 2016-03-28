@@ -2,8 +2,8 @@
 
 #include "Framework/Singleton.h"
 #include "WorldGraph/StrongPointData.h"
+#include "WorldGraph/ObjectData/BuildingData.h"
 
-class ObjectData;
 class MissionValues;
 enum class ObjectDataType;
 
@@ -13,21 +13,18 @@ private:
 	UWorld* world = nullptr;
 
 	TArray<StrongPointData> strongPointDatas;
-	TArray<ObjectData*> objectDatas;
+	TArray<BuildingData> buildingDatas;
 
 public:
 	void Initialize(UWorld* world);
 
 	void OnUpdate();
 
-	ObjectData* GetObject(int32 objectID);
-
 	StrongPointData* GetNode(int32 nodeID);
 
 	const TArray<StrongPointData>& GetStrongPointDatas();
-	const TArray<ObjectData*> GetObjectDatas();
+	const TArray<BuildingData>& GetBuildingDatas();
 
 	void InsertUpdateStrongPointData(int32 id, FVector location);
-
-	void AddObject(int32 objectID, int32 strongPointID, ObjectDataType type);
+	void InsertUpdateBuildingData(int32 buildingID, int32 strongpointID);
 };

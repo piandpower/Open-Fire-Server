@@ -43,9 +43,6 @@ void AHero::Tick(float deltaSeconds)
 
 void AHero::CheckObjectData()
 {
-	ObjectData* objectData = WorldGraph::Instance()->GetObject(this->objectID);
-	StrongPointData* node = WorldGraph::Instance()->GetNode(objectData->strongPointID);
-	this->targetLocation = node->GetObjectLocation(this->objectID);
 }
 
 void AHero::SetColor(FLinearColor color)

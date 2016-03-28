@@ -25,13 +25,11 @@ private:
 	MissionValues missionValues;
 
 public:
-	int32 objectID = -1;
 	int32 strongPointID = -1;
 
 	ObjectDataType type = ObjectDataType::None;
 
 public:
-	void Initialize(int32 objectID, int32 strongPointID, ObjectDataType type);
 	void SetNodeID(int32 strongPointID);
 
 	void SetMissionValues(const MissionValues& missionValues);

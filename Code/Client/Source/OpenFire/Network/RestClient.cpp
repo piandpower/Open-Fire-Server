@@ -49,7 +49,10 @@ void URestClient::OnResponseReceived(FHttpRequestPtr request, FHttpResponsePtr r
 {
 	if (bWasSuccessful == true)
 	{
-		this->endFunction(response->GetContentAsString());
-		this->endFunction = nullptr;
+		if (this->endFunction != nullptr)
+		{
+			this->endFunction(response->GetContentAsString());
+			this->endFunction = nullptr;
+		}
 	}
 }

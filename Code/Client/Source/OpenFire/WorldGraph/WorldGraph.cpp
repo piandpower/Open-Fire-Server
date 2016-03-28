@@ -3,6 +3,7 @@
 #include "WorldGraph/ObjectData/ObjectData.h"
 #include "Network/RestClient.h"
 #include "Network/DTO/StrongPointDTO.h"
+#include "Network/DTO/BuildingDTO.h"
 #include "Type/MissionType.h"
 #include "GameObject/Building/Mine.h"
 #include "GameObject/Building/Farm.h"
@@ -15,7 +16,7 @@ void WorldGraph::Initialize(UWorld* world)
 {
 	this->world = world;
 	this->strongPointDatas.Empty();
-	this->objectDatas.Empty();
+	this->buildingDatas.Empty();
 }
 
 void WorldGraph::OnUpdate()
@@ -29,19 +30,16 @@ void WorldGraph::OnUpdate()
 			this->InsertUpdateStrongPointData(data.strongPointID, data.location);
 		}
 	});
-}
 
-ObjectData* WorldGraph::GetObject(int32 objectID)
-{
-	for (ObjectData* object : this->objectDatas)
+	URestClient::Instance()->Get("http://localhost:5000/apis/buildings", "", [this](const FString& string)
 	{
-		if (object->objectID == objectID)
-		{
-			return object;
-		}
-	}
+		BuildingDTO buildingDTO = BuildingDTO(string);
 
-	return nullptr;
+		for (const BuildingDTO::Data& data : buildingDTO.datas)
+		{
+			this->InsertUpdateBuildingData(data.buildingID, data.strongPointID);
+		}
+	});
 }
 
 StrongPointData* WorldGraph::GetNode(int32 nodeID)
@@ -62,9 +60,9 @@ const TArray<StrongPointData>& WorldGraph::GetStrongPointDatas()
 	return this->strongPointDatas;
 }
 
-const TArray<ObjectData*> WorldGraph::GetObjectDatas()
+const TArray<BuildingData>& WorldGraph::GetBuildingDatas()
 {
-	return this->objectDatas;
+	return this->buildingDatas;
 }
 
 void WorldGraph::InsertUpdateStrongPointData(int32 id, FVector location)
@@ -81,9 +79,15 @@ void WorldGraph::InsertUpdateStrongPointData(int32 id, FVector location)
 	this->strongPointDatas.Add(StrongPointData(id, location));
 }
 
-void WorldGraph::AddObject(int32 objectID, int32 strongPointID, ObjectDataType type)
+void WorldGraph::InsertUpdateBuildingData(int32 buildingID, int32 strongpointID)
 {
-	ObjectData* objectData = new ObjectData();
-	objectData->Initialize(objectID, strongPointID, type);
-	this->objectDatas.Add(objectData);
+	for (BuildingData& buildingData : this->buildingDatas)
+	{
+		if (buildingData.buildingID == buildingID)
+		{
+			return;
+		}
+	}
+
+	this->buildingDatas.Add(BuildingData(buildingID, strongpointID));
 }

@@ -43,11 +43,11 @@ void GameObjectManager::UpdateStrongPoints()
 
 void GameObjectManager::UpdateGameObjects()
 {
-	for (const ObjectData* objectData : WorldGraph::Instance()->GetObjectDatas())
-	{
-		if (this->gameObjectMap.Find(objectData->objectID) == nullptr)
-		{
-			this->SpawnObject(objectData->objectID, objectData->strongPointID, objectData->type);
-		}
-	}
+	//for (const ObjectData& objectData : WorldGraph::Instance()->GetObjectDatas())
+	//{
+	//	if (this->gameObjectMap.Find(objectData.objectID) == nullptr)
+	//	{
+	//		this->SpawnObject(objectData.objectID, objectData.strongPointID, objectData.type);
+	//	}
+	//}
 }
