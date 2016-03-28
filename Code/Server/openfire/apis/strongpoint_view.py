@@ -1,7 +1,7 @@
 from flask import jsonify
 from flask.views import MethodView
 from ..database import session
-from ..models import StrongPoint
+from ..models import StrongPoint, Edge
 
 
 class StrongPointView(MethodView):
@@ -15,7 +15,15 @@ class StrongPointView(MethodView):
                 'position_y': strongpoint.position_y
             })
 
+        edges = []
+        for edge in session.query(Edge).all():
+            edges.append({
+                'start_strongpoint_id': edge.start_strongpoint_id,
+                'end_strongpoint_id': edge.end_strongpoint_id
+            })
+
         response = jsonify({
-            'strongpoints': strongpoints
+            'strongpoints': strongpoints,
+            'edges': edges
         })
         return response
