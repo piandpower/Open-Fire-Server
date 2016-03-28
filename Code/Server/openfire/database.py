@@ -10,23 +10,31 @@ session = scoped_session(session_factory)
 Base.metadata.create_all(bind=engine)
 
 
+def __generate_edges(strongpoints):
+    edges = []
+    for strongpoint_start in strongpoints:
+        for strongpoint_end in strongpoints:
+            if strongpoint_start != strongpoint_end:
+                dx = strongpoint_start.position_x - strongpoint_end.position_x
+                dy = strongpoint_start.position_y - strongpoint_end.position_y
+                dist_squared = (dx * dx) + (dy * dy)
+                if dist_squared < (700 * 700):
+                    edges.append(Edge(strongpoint_start.strongpoint_id, strongpoint_end.strongpoint_id))
+
+    return edges
+
+
 def __add_test_data():
-    locations = generate_random_strongpoint_locations()
+    strongpoint_locations = generate_random_strongpoint_locations()
+    strongpoints = []
+    for location in strongpoint_locations:
+        strongpoints.append(StrongPoint(location.x, location.y))
 
-    for location in locations:
-        node = StrongPoint(location.x, location.y)
-        session.add(node)
+    session.add_all(strongpoints)
+    session.commit()
 
-    session.add_all(
-        [
-            Edge(0, 1),
-            Edge(0, 3),
-            Edge(0, 4),
-            Edge(1, 2),
-            Edge(2, 3),
-            Edge(3, 4)
-        ])
-
+    strongpoints = session.query(StrongPoint).all()
+    session.add_all(__generate_edges(strongpoints))
     session.commit()
 
 __add_test_data()
