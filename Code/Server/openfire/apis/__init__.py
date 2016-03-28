@@ -1,8 +1,10 @@
 from flask import Blueprint
 from .strongpoint_view import StrongPointView
+from .update_view import UpdateView
 from ..database import session
 
 apis = Blueprint('apis', __name__)
+apis.add_url_rule('/update', view_func=UpdateView.as_view('update'))
 apis.add_url_rule('/strongpoints', view_func=StrongPointView.as_view('strongpoints'))
 
 
