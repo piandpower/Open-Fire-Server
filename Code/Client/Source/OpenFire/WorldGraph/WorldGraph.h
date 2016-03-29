@@ -20,7 +20,7 @@ public:
 
 	void OnUpdate();
 
-	StrongPointData* GetNode(int32 nodeID);
+	const StrongPointData* GetStrongPointData(int32 nodeID);
 
 	const TArray<StrongPointData>& GetStrongPointDatas();
 	const TArray<BuildingData>& GetBuildingDatas();

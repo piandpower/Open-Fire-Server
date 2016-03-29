@@ -4,6 +4,7 @@
 
 class AStrongPoint;
 class AGameObject;
+class ABuilding;
 enum class ObjectDataType;
 
 class OPENFIRE_API GameObjectManager : public Singleton<GameObjectManager>
@@ -12,7 +13,7 @@ private:
 	UWorld* world = nullptr;
 
 	TMap<int32, AStrongPoint*> strongPointMap;
-	TMap<int32, AGameObject*> gameObjectMap;
+	TMap<int32, ABuilding*> buildingMap;
 
 public:
 	void Initialize(UWorld* world);
@@ -21,8 +22,8 @@ public:
 
 private:
 	void SpawnStrongPoint(int32 nodeID, FVector location);
-	void SpawnObject(int32 objectID, int32 strongPointID, ObjectDataType type);
+	void SpawnBuilding(int32 buildingID, int32 strongPointID, ObjectDataType type);
 
 	void UpdateStrongPoints();
-	void UpdateGameObjects();
+	void UpdateBuildings();
 };

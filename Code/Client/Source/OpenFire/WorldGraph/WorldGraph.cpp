@@ -42,7 +42,7 @@ void WorldGraph::OnUpdate()
 	});
 }
 
-StrongPointData* WorldGraph::GetNode(int32 nodeID)
+const StrongPointData* WorldGraph::GetStrongPointData(int32 nodeID)
 {
 	for (StrongPointData& node : this->strongPointDatas)
 	{

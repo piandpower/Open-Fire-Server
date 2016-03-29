@@ -2,6 +2,7 @@
 #include "StrongPoint.h"
 #include "WorldGraph/WorldGraph.h"
 #include "WorldGraph/StrongPointData.h"
+#include "Network/RestClient.h"
 
 AStrongPoint::AStrongPoint()
 {
@@ -20,12 +21,13 @@ AStrongPoint::AStrongPoint()
 	}
 }
 
-void AStrongPoint::Initialize(int32 nodeID)
+void AStrongPoint::Initialize(int32 strongPointID)
 {
-	this->nodeID = nodeID;
+	this->strongPointID = strongPointID;
 }
 
 void AStrongPoint::OnInputTouchBegin(ETouchIndex::Type fingerIndex, UPrimitiveComponent* touchedComponent)
 {
-	// TODO: Request respawn to server
+	FString data = "{\"strongpoint_id\":\"" + FString::FromInt(this->strongPointID) + "\"}";
+	URestClient::Instance()->Post("http://localhost:5000/apis/buildings", data);
 }

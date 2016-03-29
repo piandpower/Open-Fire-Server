@@ -3,18 +3,21 @@
 #include "WorldGraph/WorldGraph.h"
 #include "WorldGraph/StrongPointData.h"
 #include "GameObject/StrongPoint/StrongPoint.h"
+#include "GameObject/Building/Building.h"
+#include "GameObject/Building/Castle.h"
 #include "WorldGraph/ObjectData/ObjectData.h"
 
 void GameObjectManager::Initialize(UWorld* world)
 {
 	this->world = world;
 	this->strongPointMap.Empty();
-	this->gameObjectMap.Empty();
+	this->buildingMap.Empty();
 }
 
 void GameObjectManager::OnUpdate()
 {
 	this->UpdateStrongPoints();
+	this->UpdateBuildings();
 }
 
 void GameObjectManager::SpawnStrongPoint(int32 nodeID, FVector location)
@@ -25,9 +28,18 @@ void GameObjectManager::SpawnStrongPoint(int32 nodeID, FVector location)
 	this->strongPointMap.Add(nodeID, strongPoint);
 }
 
-void GameObjectManager::SpawnObject(int32 objectID, int32 strongPointID, ObjectDataType type)
+void GameObjectManager::SpawnBuilding(int32 buildingID, int32 strongPointID, ObjectDataType type)
 {
+	const StrongPointData* strongPointData = WorldGraph::Instance()->GetStrongPointData(strongPointID);
+	if (strongPointData == nullptr)
+	{
+		return;
+	}
 
+	ACastle* building = this->world->SpawnActor<ACastle>(strongPointData->location, FRotator::ZeroRotator);
+	building->Initialize(buildingID);
+
+	this->buildingMap.Add(buildingID, building);
 }
 
 void GameObjectManager::UpdateStrongPoints()
@@ -41,13 +53,13 @@ void GameObjectManager::UpdateStrongPoints()
 	}
 }
 
-void GameObjectManager::UpdateGameObjects()
+void GameObjectManager::UpdateBuildings()
 {
-	//for (const ObjectData& objectData : WorldGraph::Instance()->GetObjectDatas())
-	//{
-	//	if (this->gameObjectMap.Find(objectData.objectID) == nullptr)
-	//	{
-	//		this->SpawnObject(objectData.objectID, objectData.strongPointID, objectData.type);
-	//	}
-	//}
+	for (const BuildingData& buildingData : WorldGraph::Instance()->GetBuildingDatas())
+	{
+		if (this->buildingMap.Find(buildingData.buildingID) == nullptr)
+		{
+			this->SpawnBuilding(buildingData.buildingID, buildingData.strongPointID, ObjectDataType::Building);
+		}
+	}
 }

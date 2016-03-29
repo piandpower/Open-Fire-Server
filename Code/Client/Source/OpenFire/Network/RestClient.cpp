@@ -39,6 +39,7 @@ void URestClient::Request(const FString& url, const FString& verb, const FString
 	httpRequest->SetURL(url);
 	httpRequest->SetVerb(verb);
 	httpRequest->SetHeader("Content-Type", TEXT("application/json"));
+	httpRequest->SetContentAsString(data);
 
 	httpRequest->ProcessRequest();
 
