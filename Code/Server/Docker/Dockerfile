@@ -2,15 +2,20 @@ FROM ubuntu:14.04
 
 MAINTAINER hueypark <jaewan.huey.park@gmail.com>
 
-RUN sudo apt-get install language-pack-en-base
-RUN sudo add-apt-repository ppa:ondrej/php
+RUN apt-get install -y language-pack-en-base
 
-RUN sudo apt-get update
+RUN apt-get install -y software-properties-common
 
-RUN sudo apt-get install nginx
-RUN sudo apt-get install php7.0-fpm
+RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
+
+RUN apt-get update
+
+RUN apt-get install -y nginx
+RUN apt-get install -y php7.0-fpm
 
 ADD conf/php/php.ini /etc/php/7.0/php.ini
 ADD conf/nginx/default /etc/nginx/sites-available/default
 
 EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
