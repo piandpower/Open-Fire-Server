@@ -42,6 +42,7 @@
     <Compile Include="app\Providers\AuthServiceProvider.php" />
     <Compile Include="app\Providers\EventServiceProvider.php" />
     <Compile Include="app\Providers\RouteServiceProvider.php" />
+    <Compile Include="app\StrongPoint.php" />
     <Compile Include="app\User.php" />
     <Compile Include="bootstrap\cache\.gitignore" />
     <Compile Include="bootstrap\cache\services.php" />
@@ -63,6 +64,7 @@
     <Compile Include="database\migrations\.gitkeep" />
     <Compile Include="database\migrations\2014_10_12_000000_create_users_table.php" />
     <Compile Include="database\migrations\2014_10_12_100000_create_password_resets_table.php" />
+    <Compile Include="database\migrations\2016_04_10_230241_create_strongpoints_table.php" />
     <Compile Include="database\seeds\.gitkeep" />
     <Compile Include="database\seeds\DatabaseSeeder.php" />
     <Compile Include="database\.gitignore" />
