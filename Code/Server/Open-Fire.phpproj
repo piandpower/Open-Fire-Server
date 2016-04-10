@@ -27,6 +27,7 @@
     <Compile Include="app\Http\Controllers\Auth\AuthController.php" />
     <Compile Include="app\Http\Controllers\Auth\PasswordController.php" />
     <Compile Include="app\Http\Controllers\Controller.php" />
+    <Compile Include="app\Http\Controllers\StrongPointController.php" />
     <Compile Include="app\Http\Middleware\Authenticate.php" />
     <Compile Include="app\Http\Middleware\EncryptCookies.php" />
     <Compile Include="app\Http\Middleware\RedirectIfAuthenticated.php" />
