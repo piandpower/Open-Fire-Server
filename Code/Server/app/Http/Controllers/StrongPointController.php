@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\StrongPoint;
+
 class StrongPointController extends Controller
 {
     /**
@@ -15,8 +17,9 @@ class StrongPointController extends Controller
      */
     public function index()
     {
-        $data = ['strongpoints' => []];
+        $strongPoints = StrongPoint::select('id', 'location_x', 'location_y')->get();
 
+        $data = ['strongpoints' => $strongPoints];
         return response()->json($data);
     }
 }
