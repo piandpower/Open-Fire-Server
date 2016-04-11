@@ -11,6 +11,7 @@
 #include "GameObject/Unit/Worker.h"
 #include "GameObject/Hero/Hero.h"
 #include "GameObject/Resource/Gold.h"
+#include "Config/Config.h"
 
 void WorldGraph::Initialize(UWorld* world)
 {
@@ -21,7 +22,7 @@ void WorldGraph::Initialize(UWorld* world)
 
 void WorldGraph::OnUpdate()
 {
-	URestClient::Instance()->Get("http://localhost:5000/apis/strongpoints", "", [this](const FString& string)
+	URestClient::Instance()->Get(Config::GAME_SERVER_URL + "/strongpoints", "", [this](const FString& string)
 	{
 		StrongPointDTO strongPointDTO = StrongPointDTO(string);
 
@@ -31,7 +32,7 @@ void WorldGraph::OnUpdate()
 		}
 	});
 
-	URestClient::Instance()->Get("http://localhost:5000/apis/buildings", "", [this](const FString& string)
+	URestClient::Instance()->Get(Config::GAME_SERVER_URL + "/buildings", "", [this](const FString& string)
 	{
 		BuildingDTO buildingDTO = BuildingDTO(string);
 
