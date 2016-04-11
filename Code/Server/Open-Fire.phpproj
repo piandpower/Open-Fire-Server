@@ -65,6 +65,7 @@
     <Compile Include="database\migrations\2014_10_12_000000_create_users_table.php" />
     <Compile Include="database\migrations\2014_10_12_100000_create_password_resets_table.php" />
     <Compile Include="database\migrations\2016_04_10_230241_create_strongpoints_table.php" />
+    <Compile Include="database\migrations\2016_04_11_135954_create_strongpoint_edges_table.php" />
     <Compile Include="database\seeds\.gitkeep" />
     <Compile Include="database\seeds\DatabaseSeeder.php" />
     <Compile Include="database\.gitignore" />
