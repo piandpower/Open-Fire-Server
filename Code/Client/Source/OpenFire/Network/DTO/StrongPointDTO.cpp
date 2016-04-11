@@ -17,9 +17,9 @@ StrongPointDTO::StrongPointDTO(const FString& string)
 			Data data;
 
 			const TSharedPtr<FJsonObject>& jsonObject = strongPoint->AsObject();
-			data.strongPointID = jsonObject->GetIntegerField("strongpoint_id");
-			data.location.X = jsonObject->GetNumberField("position_x");
-			data.location.Y = jsonObject->GetNumberField("position_y");
+			data.strongPointID = jsonObject->GetIntegerField("id");
+			data.location.X = jsonObject->GetNumberField("location_x");
+			data.location.Y = jsonObject->GetNumberField("location_y");
 
 			datas.Add(data);
 		}
