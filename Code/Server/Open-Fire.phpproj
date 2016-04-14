@@ -43,6 +43,7 @@
     <Compile Include="app\Providers\EventServiceProvider.php" />
     <Compile Include="app\Providers\RouteServiceProvider.php" />
     <Compile Include="app\StrongPoint.php" />
+    <Compile Include="app\StrongPointEdge.php" />
     <Compile Include="app\User.php" />
     <Compile Include="bootstrap\cache\.gitignore" />
     <Compile Include="bootstrap\cache\services.php" />
@@ -69,6 +70,7 @@
     <Compile Include="database\seeds\.gitkeep" />
     <Compile Include="database\seeds\DatabaseSeeder.php" />
     <Compile Include="database\.gitignore" />
+    <Compile Include="database\seeds\StrongPointSeeder.php" />
     <Compile Include="public\.htaccess" />
     <Compile Include="public\favicon.ico" />
     <Compile Include="public\index.php" />
