@@ -16,6 +16,7 @@ RUN apt-get install -y php7.0-fpm
 ADD config/php/php.ini /etc/php/7.0/php.ini
 ADD config/nginx/default /etc/nginx/sites-available/default
 
-VOLUME ["/html"]
-
 EXPOSE 80
+
+ADD scripts/start.sh /start.sh
+CMD /start.sh
