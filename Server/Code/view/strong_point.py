@@ -1,9 +1,14 @@
+from flask import jsonify
+
+from model.strong_point import StrongPointModel
+
+
 class StrongPoint:
     @staticmethod
-    def read_by_user(user_id):
-        return 'read_by_user' + str(user_id)
+    def read():
+        strong_points = StrongPointModel.read()
+        return jsonify(strong_points=strong_points)
 
     @staticmethod
-    def read(strongpoint_id):
-        return 'id: ' + str(strongpoint_id)
-
+    def read_by_user(user_id):
+        return 'id: ' + str(user_id)
