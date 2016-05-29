@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from model.strong_point import StrongPointModel
+from model import StrongPointModel
 
 
 class StrongPoint:
