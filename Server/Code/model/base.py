@@ -28,6 +28,10 @@ class StrongPoint(Base):
 class StrongPointEdge(Base):
     __tablename__ = 'strong_point_edges'
 
+    def __init__(self, start_strong_point_id, end_strong_point_id):
+        self.start_strong_point_id = start_strong_point_id
+        self.end_strong_point_id = end_strong_point_id
+
     start_strong_point_id = Column(Integer,
                                    ForeignKey('strong_points.id'),
                                    primary_key=True, autoincrement=False,

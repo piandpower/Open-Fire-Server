@@ -1,19 +1,7 @@
 from typing import Iterable
+from .static_actor import Node, Edge
 
 NODE_SPACING = 10.0
-
-
-class Node:
-    def __init__(self, node_id, x, y):
-        self.node_id = node_id
-        self.x = x
-        self.y = y
-
-
-class Edge:
-    def __init__(self, start_node_id, end_node_id):
-        self.start_node_id = start_node_id
-        self.end_node_id = end_node_id
 
 
 class World:
