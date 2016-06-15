@@ -1,8 +1,15 @@
-from model import StrongPointModel
-from world import WorldGenerator
+from model import StrongPointModel, StrongPointEdgeModel
+from world import WorldGenerator, Node
 
 wg = WorldGenerator()
-wg.generate()
 
-for node in wg.nodes:
-    StrongPointModel.create(node.x, node.y)
+for node in wg.generate_nodes():
+    StrongPointModel.create(node.location_x, node.location_y)
+
+created_nodes = StrongPointModel.read()
+nodes = []
+for node in created_nodes:
+    nodes.append(Node(node.id, node.location_x, node.location_y))
+
+for edge in wg.generate_edges(nodes):
+    StrongPointEdgeModel.create(edge.start_node_id, edge.end_node_id)

@@ -1,3 +1,4 @@
+from typing import Iterable
 from .session import Session
 from .base import StrongPoint
 
@@ -11,10 +12,6 @@ class StrongPointModel:
         session.commit()
 
     @staticmethod
-    def read():
+    def read() -> Iterable[StrongPoint]:
         session = Session()
-        strong_points = []
-        for row in session.query(StrongPoint).all():
-            strong_points.append(row.to_dict())
-
-        return strong_points
+        return session.query(StrongPoint).all()

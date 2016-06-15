@@ -1,2 +1,3 @@
-from world.world import World
-from world.world_generator import WorldGenerator
+from .world import World
+from .world_generator import WorldGenerator
+from .static_actor.node import Node
