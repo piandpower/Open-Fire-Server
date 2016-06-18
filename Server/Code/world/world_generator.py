@@ -4,7 +4,7 @@ from .static_actor import Node, Edge
 
 MIN_NODE_RANGE = 100.0
 SQ_MIN_NODE_RANGE = MIN_NODE_RANGE * MIN_NODE_RANGE
-MAX_EDGE_RANGE = 200.0
+MAX_EDGE_RANGE = 150.0
 SQ_MAX_EDGE_RANGE = MAX_EDGE_RANGE * MAX_EDGE_RANGE
 
 
@@ -50,7 +50,7 @@ class WorldGenerator:
     def __has_edge(start_node: Node, end_node: Node):
         dist_x = start_node.location_x - end_node.location_x
         dist_y = start_node.location_y - end_node.location_y
-        if MAX_EDGE_RANGE * MAX_EDGE_RANGE > ((dist_x * dist_x) + (dist_y * dist_y)):
+        if SQ_MAX_EDGE_RANGE < ((dist_x * dist_x) + (dist_y * dist_y)):
             return False
 
         return True
