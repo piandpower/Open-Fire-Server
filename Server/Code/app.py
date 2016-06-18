@@ -1,5 +1,5 @@
 from flask import Flask
-from view import StrongPoint, BattleField
+from view import StrongPoint, BattleField, Island
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -7,6 +7,11 @@ app = Flask(__name__, static_url_path='/static')
 @app.route('/')
 def index():
     return BattleField.index()
+
+
+@app.route('/islands')
+def islands():
+    return Island.read()
 
 app.add_url_rule('/strong-points', view_func=StrongPoint.read, methods=['GET'])
 app.add_url_rule('/strong-points/user=<int:user_id>', view_func=StrongPoint.read_by_user, methods=['GET'])
