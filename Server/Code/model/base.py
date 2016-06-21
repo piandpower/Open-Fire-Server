@@ -10,10 +10,12 @@ class StrongPoint(Base):
     id = Column(Integer, primary_key=True)
     location_x = Column(Float, nullable=False)
     location_y = Column(Float, nullable=False)
+    level = Column(Integer, nullable=False)
 
-    def __init__(self, x: float, y: float):
+    def __init__(self, x: float, y: float, level: int):
         self.location_x = x
         self.location_y = y
+        self.level = level
 
     def to_dict(self):
         return {
@@ -21,7 +23,8 @@ class StrongPoint(Base):
             'location': {
                 'x': self.location_x,
                 'y': self.location_y
-            }
+            },
+            'level': self.level
         }
 
 

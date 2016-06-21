@@ -10,7 +10,8 @@ class Island:
             nodes.append({
                 'id': model.id,
                 'x': model.location_x,
-                'y': model.location_y
+                'y': model.location_y,
+                'level': model.level
             })
 
         edges = []

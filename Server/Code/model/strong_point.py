@@ -5,9 +5,9 @@ from .base import StrongPoint
 
 class StrongPointModel:
     @staticmethod
-    def create(x: float, y: float):
+    def create(x: float, y: float, level: int):
         session = Session()
-        strongpoint = StrongPoint(x, y)
+        strongpoint = StrongPoint(x, y, level)
         session.add(strongpoint)
         session.commit()
 

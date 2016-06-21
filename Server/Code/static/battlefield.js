@@ -7,7 +7,7 @@ RestClient.Get('/islands', function(data)
     for (let i in data.nodes)
     {
         let node = data.nodes[i];
-        world.AddNode(node.id, node.x, node.y);
+        world.AddNode(node.id, node.x, node.y, node.level);
     }
 
     for (let i in data.edges)
