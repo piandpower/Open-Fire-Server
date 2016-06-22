@@ -49,5 +49,7 @@ class StrongPointEdge(Base):
 class Actor(Base):
     __tablename__ = 'actors'
 
-    id = Column(Integer, primary_key=True)
-    strong_point_id = Column(Integer, ForeignKey('strong_points.id'), autoincrement=False, nullable=False)
+    node_id = Column(Integer, ForeignKey('strong_points.id'), primary_key=True, autoincrement=False)
+    id = Column(Integer, primary_key=True, autoincrement=False)
+    actor_type = Column(Integer, nullable=False)
+
