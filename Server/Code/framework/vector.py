@@ -4,11 +4,7 @@ class Vector:
         self.y = y
 
     def __mul__(self, other):
-        self.x *= other
-        self.y *= other
-        return self
+        return Vector(self.x * other, self.y * other)
 
     def __add__(self, other):
-        self.x += other.x
-        self.y += other.y
-        return self
+        return Vector(self.x + other.x, self.y + other.y)
