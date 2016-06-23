@@ -1,17 +1,17 @@
 from typing import Iterable
 from .session import Session
-from .base import StrongPoint
+from .base import Node
 
 
-class StrongPointModel:
+class NodeModel:
     @staticmethod
     def create(x: float, y: float, level: int):
         session = Session()
-        strongpoint = StrongPoint(x, y, level)
+        strongpoint = Node(x, y, level)
         session.add(strongpoint)
         session.commit()
 
     @staticmethod
-    def read() -> Iterable[StrongPoint]:
+    def read() -> Iterable[Node]:
         session = Session()
-        return session.query(StrongPoint).all()
+        return session.query(Node).all()

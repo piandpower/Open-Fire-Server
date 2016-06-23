@@ -1,12 +1,12 @@
 from flask import jsonify
-from model import StrongPointModel
+from model import NodeModel
 
 
 class StrongPoint:
     @staticmethod
     def read():
         strong_points = []
-        for model in StrongPointModel.read():
+        for model in NodeModel.read():
             strong_points.append({
                 'id': model.id,
                 'location': {

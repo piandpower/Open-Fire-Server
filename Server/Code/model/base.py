@@ -4,8 +4,8 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
-class StrongPoint(Base):
-    __tablename__ = 'strong_points'
+class Node(Base):
+    __tablename__ = 'nodes'
 
     id = Column(Integer, primary_key=True)
     location_x = Column(Float, nullable=False)
@@ -28,19 +28,19 @@ class StrongPoint(Base):
         }
 
 
-class StrongPointEdge(Base):
-    __tablename__ = 'strong_point_edges'
+class Edge(Base):
+    __tablename__ = 'edges'
 
     def __init__(self, start_strong_point_id, end_strong_point_id):
         self.start_strong_point_id = start_strong_point_id
         self.end_strong_point_id = end_strong_point_id
 
     start_strong_point_id = Column(Integer,
-                                   ForeignKey('strong_points.id'),
+                                   ForeignKey('nodes.id'),
                                    primary_key=True, autoincrement=False,
                                    nullable=False)
     end_strong_point_id = Column(Integer,
-                                 ForeignKey('strong_points.id'),
+                                 ForeignKey('nodes.id'),
                                  primary_key=True,
                                  autoincrement=False,
                                  nullable=False)
@@ -49,7 +49,7 @@ class StrongPointEdge(Base):
 class Actor(Base):
     __tablename__ = 'actors'
 
-    node_id = Column(Integer, ForeignKey('strong_points.id'), primary_key=True, autoincrement=False)
+    node_id = Column(Integer, ForeignKey('nodes.id'), primary_key=True, autoincrement=False)
     id = Column(Integer, primary_key=True, autoincrement=False)
     actor_type = Column(Integer, nullable=False)
 
