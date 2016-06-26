@@ -14,6 +14,10 @@ class World:
             dest_node_id = actor.get_update_move_dest_node_id(self.nodes[actor.node_id])
             self.__move_actor(actor.node_id, dest_node_id, actor.actor_id)
 
+    def update_act(self):
+        for node in self.nodes.values():
+            node.update()
+
     def __add_nodes(self, nodes: List[Node]):
         self.nodes = dict()
         for node in nodes:
