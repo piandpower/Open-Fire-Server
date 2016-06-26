@@ -6,7 +6,8 @@ class ActorType(Enum):
     unknown = 0
 
     # unit
-    worker = 1
+    unit = 1
+    worker = 2
 
     # building
     building = 100000
