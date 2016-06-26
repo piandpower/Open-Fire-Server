@@ -24,7 +24,7 @@ def test_worker_build_farm():
     world = World(__generate_mock_nodes(), __generate_mock_edges(), [worker])
     world.update_act()
 
-    assert world.get_node(worker_node_id).get_building_by_type(ActorType.farm) == None
+    assert world.get_node(worker_node_id).get_building_by_type(ActorType.farm) is not None
 
 
 def __generate_mock_nodes():
