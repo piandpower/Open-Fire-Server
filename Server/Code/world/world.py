@@ -1,6 +1,6 @@
 from typing import List
 from .static_actor import Node, Edge
-from .actor import Unit
+from .actor import Unit, Building
 
 
 class World:
@@ -16,7 +16,10 @@ class World:
 
     def update_act(self):
         for node in self.nodes.values():
-            node.update()
+            node.update_act()
+
+    def get_node(self, node_id):
+        return self.nodes[node_id]
 
     def __add_nodes(self, nodes: List[Node]):
         self.nodes = dict()
@@ -36,6 +39,14 @@ class World:
             for unit in units:
                 if node.node_id == unit.node_id:
                     node.add_unit(unit)
+
+    def __add_buildings(self, buildings: List[Building]):
+        self.buildings = buildings
+
+        for node in self.nodes.values():
+            for building in buildings:
+                if node.node_id == building.node_id:
+                    node.add_building(building)
 
     def __move_actor(self, current_node_id: int, dest_node_id: int, actor_id: int):
         actor = self.nodes[current_node_id].pop_unit(actor_id)

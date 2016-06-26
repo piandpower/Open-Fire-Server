@@ -1,6 +1,6 @@
 from framework import Vector
 from random import choice
-from world.actor import Unit
+from world.actor import ActorType, Unit
 from world.actor.building.base import Building
 
 
@@ -13,8 +13,12 @@ class Node:
         self.location = location
         self.level = level
 
-    def update(self):
-        pass
+    def update_act(self):
+        for building in self.buildings.values():
+            pass
+
+        for unit in self.units.values():
+            unit.update_act(self.buildings, self.units)
 
     def add_nearby_node(self, node: 'Node'):
         self.nearby_nodes.append(node)
@@ -30,6 +34,13 @@ class Node:
 
     def pop_building(self, actor_id):
         return self.buildings.pop(actor_id)
+
+    def get_building_by_type(self, building_type: ActorType):
+        for building in self.buildings.values():
+            if building.type == building_type:
+                return building
+
+        return None
 
     def get_random_nearby_node(self) -> 'Node':
         return choice(self.nearby_nodes)

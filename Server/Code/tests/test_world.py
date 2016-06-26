@@ -53,5 +53,3 @@ def __generate_mock_edges():
         Edge(4, 3)
     ]
     return edges
-
-test_worker_move()
