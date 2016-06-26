@@ -1,4 +1,4 @@
-from .actor_type import ActorType
+from world.actor.base.actor_type import ActorType
 
 
 class Actor:
