@@ -1,7 +1,9 @@
 from flask import render_template
+from flask.views import MethodView
 
 
-class BattleField:
+class BattleField(MethodView):
     @staticmethod
-    def index():
+    def get():
         return render_template('battlefield.html')
+

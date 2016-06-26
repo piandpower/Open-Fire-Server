@@ -1,10 +1,11 @@
 from flask import jsonify
+from flask.views import MethodView
 from model import NodeModel, EdgeModel
 
 
-class Island:
+class Island(MethodView):
     @staticmethod
-    def read():
+    def get():
         nodes = []
         for model in NodeModel.read():
             nodes.append({
