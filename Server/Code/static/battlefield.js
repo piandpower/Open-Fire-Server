@@ -1,5 +1,9 @@
 let container = $('#battlefield')[0];
-let world = new World(container);
+let world = new World(container, function(params)
+{
+    $('#menu').modal('show');
+    console.log(params);
+});
 
 RestClient.Get('/islands', function(data)
 {

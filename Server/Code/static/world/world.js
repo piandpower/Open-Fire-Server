@@ -6,7 +6,7 @@ const NODE_LEVEL_4_COLOR = '#ffffaa';
 
 class World
 {
-    constructor(container)
+    constructor(container, selectNodeFunction)
     {
         this.nodes = new vis.DataSet();
         this.edges = new vis.DataSet();
@@ -22,6 +22,10 @@ class World
         };
 
         this.network = new vis.Network(container, data, options);
+
+        this.network.on("selectNode", function (params) {
+            selectNodeFunction(params);
+        });
     }
 
     AddNode(nodeId, x, y, level)
