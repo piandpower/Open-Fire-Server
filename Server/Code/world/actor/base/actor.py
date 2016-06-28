@@ -7,3 +7,6 @@ class Actor:
     def __init__(self, node_id: int, actor_id: int):
         self.node_id = node_id
         self.actor_id = actor_id
+
+    def update_act(self, buildings, units):
+        pass

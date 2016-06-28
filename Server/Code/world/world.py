@@ -4,10 +4,11 @@ from .actor import Unit, Building
 
 
 class World:
-    def __init__(self, nodes: List[Node], edges: List[Edge], units: List[Unit]):
+    def __init__(self, nodes: List[Node], edges: List[Edge], units: List[Unit], buildings: List[Building]):
         self.__add_nodes(nodes)
         self.__add_edges(edges)
         self.__add_units(units)
+        self.__add_buildings(buildings)
 
     def update(self):
         self.__update_move()

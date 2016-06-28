@@ -13,6 +13,7 @@ def test_castle_spawn_worker():
     castle = Castle(TEST_START_NODE_ID, TEST_ACTOR_ID)
 
     world = World(__generate_mock_nodes(), __generate_mock_edges(), [], [castle])
+    world.update()
 
     assert world.get_node(castle.node_id).get_unit_by_type(ActorType.worker) is not None
 
@@ -22,7 +23,7 @@ def test_worker_move():
 
     worker = Worker(worker_start_node_id, 1)
 
-    world = World(__generate_mock_nodes(), __generate_mock_edges(), [worker])
+    world = World(__generate_mock_nodes(), __generate_mock_edges(), [worker], [])
     world.update()
 
     assert worker.node_id != worker_start_node_id
@@ -33,7 +34,7 @@ def test_worker_build_farm():
 
     worker = Worker(worker_node_id, 1)
 
-    world = World(__generate_mock_nodes(), __generate_mock_edges(), [worker])
+    world = World(__generate_mock_nodes(), __generate_mock_edges(), [worker], [])
     world.update()
 
     assert world.get_node(worker.node_id).get_building_by_type(ActorType.farm) is not None

@@ -15,7 +15,7 @@ class Node:
 
     def update_act(self):
         for building in self.buildings.values():
-            pass
+            building.update_act(self.buildings, self.units)
 
         for unit in self.units.values():
             unit.update_act(self.buildings, self.units)

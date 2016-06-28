@@ -9,6 +9,3 @@ class Unit(Actor):
 
     def get_update_move_dest_node_id(self, node):
         pass
-
-    def update_act(self, buildings, units):
-        pass
