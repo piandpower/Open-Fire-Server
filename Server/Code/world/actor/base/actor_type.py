@@ -11,4 +11,5 @@ class ActorType(Enum):
 
     # building
     building = 100000
-    farm = 100001
+    castle = 100001
+    farm = 100002

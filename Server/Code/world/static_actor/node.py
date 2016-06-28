@@ -35,6 +35,13 @@ class Node:
     def pop_building(self, actor_id):
         return self.buildings.pop(actor_id)
 
+    def get_unit_by_type(self, unit_type: ActorType):
+        for unit in self.units.values():
+            if unit.type == unit_type:
+                return unit
+
+        return None
+
     def get_building_by_type(self, building_type: ActorType):
         for building in self.buildings.values():
             if building.type == building_type:

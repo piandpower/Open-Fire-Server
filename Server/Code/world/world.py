@@ -9,17 +9,21 @@ class World:
         self.__add_edges(edges)
         self.__add_units(units)
 
-    def update_move(self):
+    def update(self):
+        self.__update_move()
+        self.__update_act()
+
+    def get_node(self, node_id) -> Node:
+        return self.nodes[node_id]
+
+    def __update_move(self):
         for unit in self.units:
             dest_node_id = unit.get_update_move_dest_node_id(self.nodes[unit.node_id])
             self.__move_actor(unit.node_id, dest_node_id, unit.actor_id)
 
-    def update_act(self):
+    def __update_act(self):
         for node in self.nodes.values():
             node.update_act()
-
-    def get_node(self, node_id):
-        return self.nodes[node_id]
 
     def __add_nodes(self, nodes: List[Node]):
         self.nodes = dict()
