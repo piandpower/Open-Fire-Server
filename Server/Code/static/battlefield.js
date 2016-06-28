@@ -1,5 +1,7 @@
 let container = $('#battlefield')[0];
-let world = new World(container, function(params)
+let world = new World(container);
+
+world.RegistSeletNodeFunction( function(params)
 {
     $('#menu').modal('show');
     console.log(params);
