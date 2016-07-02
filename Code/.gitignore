@@ -156,7 +156,6 @@ artifacts/
 *.tlh
 *.tmp
 *.tmp_proj
-*.log
 *.vspscc
 *.vssscc
 .builds
@@ -344,3 +343,6 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+/Code.pyproj
+/Code.sln
