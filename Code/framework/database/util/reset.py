@@ -1,7 +1,5 @@
 import pyorient
-
-client = pyorient.OrientDB('localhost', 2424)
-client.connect('root', 'secret')
+from framework.database.client import client
 
 db_name = 'OpenFire'
 storage_type = pyorient.STORAGE_TYPE_MEMORY
