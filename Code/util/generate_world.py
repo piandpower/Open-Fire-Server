@@ -15,7 +15,7 @@ for node in wg.generate_nodes():
 created_nodes = StrongPoint.read()
 nodes = []
 for node in created_nodes:
-    nodes.append(Node(node._rid, Vector(node.oRecordData['location_x'], node.oRecordData['location_y']), node.oRecordData['level']))
+    nodes.append(Node(node.rid, Vector(node.location.x, node.location.y), node.level))
 
 for edge in wg.generate_edges(nodes):
     road = Road(edge.start_node_id, edge.end_node_id)
