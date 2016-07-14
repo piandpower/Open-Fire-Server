@@ -5,8 +5,8 @@ from framework.database.model.base import Base
 from typing import List
 
 
-class StrongPoint(Base):
-    __name = 'StrongPoint'
+class Strongpoint(Base):
+    __name = 'Strongpoint'
 
     def __init__(self, location: Vector, level: int):
         self.rid = None
@@ -27,7 +27,7 @@ class StrongPoint(Base):
         client.command(sql)
 
     @classmethod
-    def read(cls) -> List['StrongPoint']:
+    def read(cls) -> List['Strongpoint']:
         client.db_open(DB_NAME, DB_ID, DB_PASSWORD)
         sql = 'SELECT * FROM ' + cls.__name
         strongpoints = []
@@ -36,7 +36,7 @@ class StrongPoint(Base):
         return strongpoints
 
     @staticmethod
-    def __to_model(raw_data) -> 'StrongPoint':
-        strong_point = StrongPoint(Vector(raw_data.oRecordData['x'], raw_data.oRecordData['y']), raw_data.oRecordData['level'])
+    def __to_model(raw_data) -> 'Strongpoint':
+        strong_point = Strongpoint(Vector(raw_data.oRecordData['x'], raw_data.oRecordData['y']), raw_data.oRecordData['level'])
         strong_point.rid = raw_data._rid
         return strong_point

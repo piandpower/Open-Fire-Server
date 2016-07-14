@@ -1,7 +1,7 @@
 import pyorient
 from framework.database.client import client
 from framework.database.config import DB_NAME
-from framework.database.model.static_actor import Road, StrongPoint
+from framework.database.model.static_actor import Road, Strongpoint
 
 STORAGE_TYPE = pyorient.STORAGE_TYPE_PLOCAL
 
@@ -12,7 +12,7 @@ def reset():
 
     client.db_create(DB_NAME, pyorient.DB_TYPE_GRAPH, STORAGE_TYPE)
     Road.create_class()
-    StrongPoint.create_class()
+    Strongpoint.create_class()
 
 if __name__ == "__main__":
     reset()
