@@ -1,16 +1,22 @@
 from framework import Vector
-from model import NodeModel, EdgeModel
+from framework.database.model.static_actor import Road, StrongPoint
+from framework.database.util.reset import reset
 from world import WorldGenerator, Node
+
+reset()
 
 wg = WorldGenerator()
 
 for node in wg.generate_nodes():
-    NodeModel.create(node.location.x, node.location.y, node.level)
+    strong_point = StrongPoint(node.location, node.level)
+    strong_point.save()
 
-created_nodes = NodeModel.read()
+
+created_nodes = StrongPoint.read()
 nodes = []
 for node in created_nodes:
-    nodes.append(Node(node.id, Vector(node.location_x, node.location_y), node.level))
+    nodes.append(Node(node._rid, Vector(node.oRecordData['location_x'], node.oRecordData['location_y']), node.oRecordData['level']))
 
 for edge in wg.generate_edges(nodes):
-    EdgeModel.create(edge.start_node_id, edge.end_node_id)
+    road = Road(edge.start_node_id, edge.end_node_id)
+    road.save()

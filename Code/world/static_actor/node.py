@@ -5,7 +5,7 @@ from world.actor.building.base import Building
 
 
 class Node:
-    def __init__(self, node_id: int, location: Vector, level: int):
+    def __init__(self, node_id: str, location: Vector, level: int):
         self.node_id = node_id
         self.nearby_nodes = []
         self.units = dict()
