@@ -1,3 +1,4 @@
+'''
 from flask import jsonify
 from model import NodeModel
 
@@ -20,3 +21,4 @@ class StrongPoint:
     @staticmethod
     def read_by_user(user_id):
         return 'id: ' + str(user_id)
+'''
