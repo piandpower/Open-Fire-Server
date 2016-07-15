@@ -1,25 +1,25 @@
 from flask import jsonify
 from flask.views import MethodView
-from model import NodeModel, EdgeModel
+from framework.database.model.static_actor import Road, Strongpoint
 
 
 class Island(MethodView):
     @staticmethod
     def get():
         nodes = []
-        for model in NodeModel.read():
+        for strongpoint in Strongpoint.read():
             nodes.append({
-                'id': model.id,
-                'x': model.location_x,
-                'y': model.location_y,
-                'level': model.level
+                'id': strongpoint.rid,
+                'x': strongpoint.location.x,
+                'y': strongpoint.location.y,
+                'level': strongpoint.level
             })
 
         edges = []
-        for model in EdgeModel.read():
+        for road in Road.read():
             edges.append({
-                'start_node_id': model.start_strong_point_id,
-                'end_node_id': model.end_strong_point_id
+                'start_node_id': road.start_id,
+                'end_node_id': road.end_id
             })
 
         return jsonify(nodes=nodes, edges=edges)
