@@ -1,8 +1,8 @@
 from . import Unit
 from framework import guid
 from typing import Dict
-from world.actor import ActorType, Building
-from world.actor.building import Farm
+from framework.world.actor.building import Building, Farm
+from framework.world.actor.base.actor_type import ActorType
 
 
 class Worker(Unit):

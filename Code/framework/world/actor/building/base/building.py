@@ -1,5 +1,5 @@
-from world.actor.base.actor import Actor
-from world.actor import ActorType
+from framework.world.actor.base.actor import Actor
+from framework.world.actor.base.actor_type import ActorType
 
 
 class Building(Actor):

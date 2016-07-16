@@ -1,5 +1,5 @@
-from world.actor.base import Actor
-from world.actor.base import ActorType
+from framework.world.actor.base import Actor
+from framework.world.actor.base.actor_type import ActorType
 
 
 class Unit(Actor):

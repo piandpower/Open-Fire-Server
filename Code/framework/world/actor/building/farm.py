@@ -1,5 +1,5 @@
-from world.actor.building.base import Building
-from world.actor.base.actor_type import ActorType
+from framework.world.actor.building.base import Building
+from framework.world.actor.base.actor_type import ActorType
 
 
 class Farm(Building):

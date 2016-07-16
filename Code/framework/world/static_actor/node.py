@@ -1,7 +1,7 @@
 from framework import Vector
 from random import choice
-from world.actor import ActorType, Unit
-from world.actor.building.base import Building
+from framework.world.actor import ActorType, Unit
+from framework.world.actor.building.base import Building
 
 
 class Node:

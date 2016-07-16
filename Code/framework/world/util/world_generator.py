@@ -1,7 +1,7 @@
 from typing import Iterable
 from random import uniform
 from math import pi, cos, sin
-from .static_actor import Node, Edge
+from framework.world.static_actor import Node, Edge
 from framework import Vector
 
 NODE_ID_UNKNOWN = 0

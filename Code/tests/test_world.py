@@ -1,9 +1,10 @@
-from framework import Vector
 from world import World
 from world.actor import ActorType
-from world.static_actor import Node, Edge
 from world.actor.unit.worker import Worker
-from world.actor.building.castle import Castle
+from world.static_actor import Node, Edge
+
+from framework import Vector
+from framework.world.actor.building.castle import Castle
 
 TEST_START_NODE_ID = 1
 TEST_ACTOR_ID = 1
