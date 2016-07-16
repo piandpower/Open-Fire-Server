@@ -6,20 +6,20 @@ from framework.database.model.static_actor import Road, Strongpoint
 class Island(MethodView):
     @staticmethod
     def get():
-        nodes = []
+        strongpoints = []
         for strongpoint in Strongpoint.read():
-            nodes.append({
+            strongpoints.append({
                 'id': strongpoint.rid,
                 'x': strongpoint.location.x,
                 'y': strongpoint.location.y,
                 'level': strongpoint.level
             })
 
-        edges = []
+        roads = []
         for road in Road.read():
-            edges.append({
+            roads.append({
                 'start_node_id': road.start_id,
                 'end_node_id': road.end_id
             })
 
-        return jsonify(nodes=nodes, edges=edges)
+        return jsonify(strongpoints=strongpoints, roads=roads)
