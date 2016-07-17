@@ -14,7 +14,7 @@ def generate_cpp_header(python_enum: Enum):
         for element in python_enum:
             enum_strings.append('\n	' + pascalcase(element.name) + ' = ' + str(element.value))
         f.write(','.join(enum_strings))
-        f.write('\n}\n')
+        f.write('\n};\n')
 
 if __name__ == "__main__":
     generate_cpp_header(Request)
