@@ -4,3 +4,4 @@ Jinja2==2.8
 MarkupSafe==0.23
 Werkzeug==0.11.10
 pyorient==1.5.4
+stringcase==1.0.6

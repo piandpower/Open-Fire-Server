@@ -1,5 +1,6 @@
 from enum import Enum
 from framework.type import Request
+from stringcase import pascalcase
 
 
 def generate_cpp_header(python_enum: Enum):
@@ -11,7 +12,7 @@ def generate_cpp_header(python_enum: Enum):
         f.write('{')
         enum_strings = []
         for element in python_enum:
-            enum_strings.append('\n	' + element.name + ' = ' + str(element.value))
+            enum_strings.append('\n	' + pascalcase(element.name) + ' = ' + str(element.value))
         f.write(','.join(enum_strings))
         f.write('\n}\n')
 
