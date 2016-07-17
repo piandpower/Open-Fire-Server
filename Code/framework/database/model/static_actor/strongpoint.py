@@ -10,7 +10,7 @@ class Strongpoint(Base):
     __name = 'Strongpoint'
 
     def __init__(self, location: Vector, level: int, request: Request = Request.none):
-        self.rid = None
+        super().__init__()
         self.x = location.x
         self.y = location.y
         self.level = level
@@ -26,9 +26,9 @@ class Strongpoint(Base):
 
     def save(self):
         client.db_open(DB_NAME, DB_ID, DB_PASSWORD)
-        sql = 'INSERT INTO ' + self.__name + ' (x, y, level, request) VALUES ('\
-              + str(self.x) + ', ' + str(self.y) + ', ' + str(self.level) + ', ' + str(self.request) + ')'
-        client.command(sql)
+        sql = 'INSERT INTO ' + self.__name + ' (' + self._generate_proerty_keys_string() + ') VALUES ('\
+              + self._generate_property_values_string() + ')'
+        return client.command(sql)
 
     @classmethod
     def read(cls, rid: str = None) -> List['Strongpoint']:
@@ -45,8 +45,9 @@ class Strongpoint(Base):
         return cls.__to_model(data)
 
     def update(self):
-        sql = 'UPDATE ' + self.__name + ' SET x = ' + self.location.x + ' WHERE rid IS ' + self.rid
-        raise NotImplementedError
+        client.db_open(DB_NAME, DB_ID, DB_PASSWORD)
+        sql = 'UPDATE ' + self.__name + ' ' + self._generate_update_string() + ' WHERE rid IS ' + self.rid
+        return client.command(sql)
 
     @staticmethod
     def __to_model(data) -> 'Strongpoint':
@@ -55,5 +56,4 @@ class Strongpoint(Base):
             data.oRecordData['level'],
             Request(data.oRecordData['request']))
         strong_point.rid = data._rid
-        temp = strong_point.__dict__
         return strong_point
