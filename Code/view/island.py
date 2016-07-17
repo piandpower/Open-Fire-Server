@@ -10,8 +10,8 @@ class Island(MethodView):
         for strongpoint in Strongpoint.read():
             strongpoints.append({
                 'id': strongpoint.rid,
-                'x': strongpoint.location.x,
-                'y': strongpoint.location.y,
+                'x': strongpoint.x,
+                'y': strongpoint.y,
                 'level': strongpoint.level,
                 'request': strongpoint.request
             })
