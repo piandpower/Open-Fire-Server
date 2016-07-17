@@ -12,7 +12,8 @@ class Island(MethodView):
                 'id': strongpoint.rid,
                 'x': strongpoint.location.x,
                 'y': strongpoint.location.y,
-                'level': strongpoint.level
+                'level': strongpoint.level,
+                'request': strongpoint.request
             })
 
         roads = []
