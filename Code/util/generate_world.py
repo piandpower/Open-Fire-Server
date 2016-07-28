@@ -1,5 +1,5 @@
 from framework import Vector
-from framework.database.model.static_actor import Road, Strongpoint
+from framework.database.model import Road, Strongpoint
 from framework.database.util.reset import reset
 from framework.world import WorldGenerator, Node
 

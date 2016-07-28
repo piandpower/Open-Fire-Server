@@ -1,2 +1,2 @@
 from .model import Base
-from .model import Strongpoint
+from .model import Road, Strongpoint

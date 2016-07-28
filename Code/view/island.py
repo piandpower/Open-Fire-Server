@@ -1,6 +1,6 @@
 from flask import jsonify
 from flask.views import MethodView
-from framework.database.model.static_actor import Road, Strongpoint
+from framework.database.model import Road, Strongpoint
 
 
 class Island(MethodView):
