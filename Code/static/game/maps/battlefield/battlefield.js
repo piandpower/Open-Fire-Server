@@ -9,16 +9,15 @@ world.RegistSeletNodeFunction( function(params)
 
 RestClient.Get('/islands', function(data)
 {
-    let nodes = data.nodes;
-    for (let i in data.nodes)
+    for (let i in data.strongpoints)
     {
-        let node = data.nodes[i];
-        world.AddNode(node.id, node.x, node.y, node.level);
+        let strongpoint = data.strongpoints[i];
+        world.AddNode(strongpoint.id, strongpoint.x, strongpoint.y, strongpoint.level);
     }
 
-    for (let i in data.edges)
+    for (let i in data.roads)
     {
-        let edge = data.edges[i];
-        world.AddEdge(edge.start_node_id, edge.end_node_id);
+        let road = data.roads[i];
+        world.AddEdge(road.start_strongpoint_id, road.end_strongpoint_id);
     }
 });
