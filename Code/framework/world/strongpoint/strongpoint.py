@@ -4,7 +4,7 @@ from framework.world.actor import ActorType, Unit
 from framework.world.actor.building.base import Building
 
 
-class Node:
+class Strongpoint:
     def __init__(self, node_id: str, location: Vector, level: int):
         self.node_id = node_id
         self.nearby_nodes = []
@@ -20,7 +20,7 @@ class Node:
         for unit in self.units.values():
             unit.update_act(self.buildings, self.units)
 
-    def add_nearby_node(self, node: 'Node'):
+    def add_nearby_node(self, node: 'Strongpoint'):
         self.nearby_nodes.append(node)
 
     def add_unit(self, unit: Unit):
@@ -49,5 +49,5 @@ class Node:
 
         return None
 
-    def get_random_nearby_node(self) -> 'Node':
+    def get_random_nearby_node(self) -> 'Strongpoint':
         return choice(self.nearby_nodes)

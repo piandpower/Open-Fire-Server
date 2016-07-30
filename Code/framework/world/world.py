@@ -1,10 +1,10 @@
 from typing import List
-from .static_actor import Node, Edge
+from .strongpoint import Strongpoint, Road
 from .actor import Unit, Building
 
 
 class World:
-    def __init__(self, nodes: List[Node], edges: List[Edge], units: List[Unit], buildings: List[Building]):
+    def __init__(self, nodes: List[Strongpoint], edges: List[Road], units: List[Unit], buildings: List[Building]):
         self.__add_nodes(nodes)
         self.__add_edges(edges)
         self.__add_units(units)
@@ -14,7 +14,7 @@ class World:
         self.__update_move()
         self.__update_act()
 
-    def get_node(self, node_id) -> Node:
+    def get_node(self, node_id) -> Strongpoint:
         return self.nodes[node_id]
 
     def __update_move(self):
@@ -26,12 +26,12 @@ class World:
         for node in self.nodes.values():
             node.update_act()
 
-    def __add_nodes(self, nodes: List[Node]):
+    def __add_nodes(self, nodes: List[Strongpoint]):
         self.nodes = dict()
         for node in nodes:
             self.nodes[node.node_id] = node
 
-    def __add_edges(self, edges: List[Edge]):
+    def __add_edges(self, edges: List[Road]):
         for node in self.nodes.values():
             for edge in edges:
                 if node.node_id == edge.start_node_id:

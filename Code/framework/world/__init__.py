@@ -1,4 +1,4 @@
 from .util.world_generator import WorldGenerator
-from .static_actor.node import Node
+from .strongpoint.strongpoint import Strongpoint
 from .world import World
 

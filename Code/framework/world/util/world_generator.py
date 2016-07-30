@@ -1,7 +1,7 @@
 from typing import Iterable
 from random import uniform
 from math import pi, cos, sin
-from framework.world.static_actor import Node, Edge
+from framework.world.strongpoint import Strongpoint, Road
 from framework import Vector
 
 NODE_ID_UNKNOWN = 0
@@ -16,7 +16,7 @@ SQ_MAX_NODE_RANGE = MAX_NODE_RANGE * MAX_NODE_RANGE
 class WorldGenerator:
     @classmethod
     def generate_nodes(cls):
-        level_0_nodes = [Node(NODE_ID_UNKNOWN, Vector(0.0, 0.0), 0)]
+        level_0_nodes = [Strongpoint(NODE_ID_UNKNOWN, Vector(0.0, 0.0), 0)]
 
         nodes = level_0_nodes
         level_1_nodes = []
@@ -25,7 +25,7 @@ class WorldGenerator:
             direction = cls.__generate_random_vector()
             direction *= node_range
             if not cls.__is_overlap(direction, nodes + level_1_nodes):
-                level_1_nodes.append(Node(NODE_ID_UNKNOWN, direction, 1))
+                level_1_nodes.append(Strongpoint(NODE_ID_UNKNOWN, direction, 1))
         nodes += level_1_nodes
 
         level_2_nodes = []
@@ -36,7 +36,7 @@ class WorldGenerator:
                 direction *= node_range
                 location = node.location + direction
                 if not cls.__is_overlap(location, nodes + level_2_nodes):
-                    level_2_nodes.append(Node(NODE_ID_UNKNOWN, location, 2))
+                    level_2_nodes.append(Strongpoint(NODE_ID_UNKNOWN, location, 2))
         nodes += level_2_nodes
 
         level_3_nodes = []
@@ -47,7 +47,7 @@ class WorldGenerator:
                 direction *= node_range
                 location = node.location + direction
                 if not cls.__is_overlap(location, nodes + level_3_nodes):
-                    level_3_nodes.append(Node(NODE_ID_UNKNOWN, location, 3))
+                    level_3_nodes.append(Strongpoint(NODE_ID_UNKNOWN, location, 3))
         nodes += level_3_nodes
 
         level_4_nodes = []
@@ -58,18 +58,18 @@ class WorldGenerator:
                 direction *= node_range
                 location = node.location + direction
                 if not cls.__is_overlap(location, nodes + level_4_nodes):
-                    level_4_nodes.append(Node(NODE_ID_UNKNOWN, location, 4))
+                    level_4_nodes.append(Strongpoint(NODE_ID_UNKNOWN, location, 4))
         nodes += level_4_nodes
 
         return nodes
 
     @classmethod
-    def generate_edges(cls, nodes: Iterable[Node]):
+    def generate_edges(cls, nodes: Iterable[Strongpoint]):
         edges = []
         for start_node in nodes:
             for end_node in nodes:
                 if start_node.node_id != end_node.node_id and cls.__has_edge(start_node, end_node):
-                    edges.append(Edge(start_node.node_id, end_node.node_id))
+                    edges.append(Road(start_node.node_id, end_node.node_id))
 
         return edges
 
@@ -81,7 +81,7 @@ class WorldGenerator:
         return Vector(x, y)
 
     @staticmethod
-    def __is_overlap(location: Vector, nodes: Iterable[Node]):
+    def __is_overlap(location: Vector, nodes: Iterable[Strongpoint]):
         for node in nodes:
             dist_x = location.x - node.location.x
             dist_y = location.y - node.location.y
@@ -92,7 +92,7 @@ class WorldGenerator:
         return False
 
     @staticmethod
-    def __has_edge(start_node: Node, end_node: Node):
+    def __has_edge(start_node: Strongpoint, end_node: Strongpoint):
         dist_x = start_node.location.x - end_node.location.x
         dist_y = start_node.location.y - end_node.location.y
         if SQ_MAX_NODE_RANGE < ((dist_x * dist_x) + (dist_y * dist_y)):
