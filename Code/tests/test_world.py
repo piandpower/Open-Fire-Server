@@ -1,10 +1,8 @@
-from world import World
-from world.actor import ActorType
-from world.actor.unit.worker import Worker
-from world.static_actor import Node, Edge
-
 from framework import Vector
-from framework.world.actor.building.castle import Castle
+from framework.world import World
+from fraamewok.world.strongpoint import Strongpoint, Road
+from framework.world.actor.building import Castle
+from framework.world.actor.unit import Worker
 
 TEST_START_NODE_ID = 1
 TEST_ACTOR_ID = 1
