@@ -1,9 +1,8 @@
 from framework import guid
 from typing import Dict
-from world.actor.base.actor_type import ActorType
-from world.actor.building.base import Building
-from world.actor.unit.base import Unit
-from world.actor.unit.worker import Worker
+from framework.world.actor.base import ActorType
+from framework.world.actor.building.base import Building
+from framework.world.actor.unit.base import Unit
 
 
 class Castle(Building):
@@ -12,5 +11,6 @@ class Castle(Building):
         self.type = ActorType.castle
 
     def update_act(self, buildings: Dict[int, Building], units: Dict[int, Unit]):
+        from framework.world.actor.unit.worker import Worker
         worker_id = guid()
         units[worker_id] = Worker(self.node_id, worker_id)
